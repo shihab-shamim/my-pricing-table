@@ -1,20 +1,235 @@
 import { __ } from '@wordpress/i18n';
-import { PanelBody } from '@wordpress/components';
+import {
+	PanelBody,
+	PanelRow,
+	__experimentalUnitControl as UnitControl
+} from '@wordpress/components';
+import {
+	Background,
+	BoxControl,
+	ColorControl,
+	ColorsControl,
+	Typography,
+	ShadowControl
+} from '../../../../../bpl-tools/Components';
 import { THEME_OPTIONS } from './General';
+import { DEFAULT_THEME_STYLES, getMergedThemeStyle } from '../../../utils/themeStyles';
 
-const Style = ({ attributes }) => {
-	const { theme = 'demo-1' } = attributes;
+const Style = ({ attributes, setAttributes }) => {
+	const { theme = 'demo-1', styles = {} } = attributes;
+
+	const currentThemeName = THEME_OPTIONS.find(o => o.value === theme)?.label || theme;
+	const currentStyle = getMergedThemeStyle(theme, styles);
+	const currentDefault = DEFAULT_THEME_STYLES[theme] || DEFAULT_THEME_STYLES['demo-1'];
+
+	const updateStyle = (key, value) => {
+		const themeStyles = styles?.[theme] || {};
+		const nextStyles = {
+			...styles,
+			[theme]: {
+				...themeStyles,
+				[key]: value
+			}
+		};
+		setAttributes({ styles: nextStyles });
+	};
 
 	return (
-		<PanelBody title={__('Theme & Layout Style', 'bpricing')} initialOpen={true}>
-			<p style={{ fontSize: '13px', color: '#646970', lineHeight: '1.5' }}>
-				{__('Each theme has its own responsive styling (CSS). You can adjust individual plan colors using the "Color Scheme" setting under the General tab.', 'bpricing')}
-			</p>
-			<div style={{ marginTop: '14px', padding: '10px', background: '#f0f6fc', borderRadius: '4px', fontSize: '12px' }}>
-				<strong>{__('Active Theme:', 'bpricing')}</strong>{' '}
-				{THEME_OPTIONS.find(o => o.value === theme)?.label}
+		<>
+			<div style={{ margin: '10px 16px', padding: '10px', background: '#f0f6fc', border: '1px solid #c8d7e1', borderRadius: '4px', fontSize: '12px' }}>
+				<strong>{__('Current Theme Styling:', 'bpricing')}</strong>{' '}
+				<span style={{ color: '#007cba' }}>{currentThemeName}</span>
 			</div>
-		</PanelBody>
+
+			{/* Card / Table Container */}
+			<PanelBody className="bPlPanelBody" title={__('Card / Container', 'bpricing')} initialOpen={true}>
+				<Background
+					label={__('Card Background:', 'bpricing')}
+					value={currentStyle.cardBg}
+					onChange={val => updateStyle('cardBg', val)}
+					defaults={currentDefault.cardBg}
+				/>
+
+				<div style={{ marginTop: '16px' }}>
+					<BoxControl
+						label={__('Card Padding:', 'bpricing')}
+						values={currentStyle.cardPadding}
+						onChange={val => updateStyle('cardPadding', val)}
+						resetValues={currentDefault.cardPadding}
+					/>
+				</div>
+
+				<div style={{ marginTop: '16px' }}>
+					<BoxControl
+						label={__('Card Margin:', 'bpricing')}
+						values={currentStyle.cardMargin}
+						onChange={val => updateStyle('cardMargin', val)}
+						resetValues={currentDefault.cardMargin}
+					/>
+				</div>
+
+				<PanelRow style={{ marginTop: '16px' }}>
+					<UnitControl
+						label={__('Border Radius:', 'bpricing')}
+						labelPosition="left"
+						value={currentStyle.cardRadius}
+						onChange={val => updateStyle('cardRadius', val)}
+					/>
+				</PanelRow>
+
+				<div style={{ marginTop: '16px' }}>
+					<ShadowControl
+						label={__('Card Shadow:', 'bpricing')}
+						value={currentStyle.cardShadow}
+						onChange={val => updateStyle('cardShadow', val)}
+						defaults={currentDefault.cardShadow}
+					/>
+				</div>
+			</PanelBody>
+
+			{/* Header & Title */}
+			<PanelBody className="bPlPanelBody" title={__('Header & Title', 'bpricing')} initialOpen={false}>
+				<ColorControl
+					label={__('Title Color:', 'bpricing')}
+					value={currentStyle.titleColor}
+					onChange={val => updateStyle('titleColor', val)}
+					defaultColor={currentDefault.titleColor}
+				/>
+
+				{theme !== 'demo-4' && theme !== 'demo-5' && (
+					<div style={{ marginTop: '14px' }}>
+						<ColorControl
+							label={__('Header Background:', 'bpricing')}
+							value={currentStyle.headerBg}
+							onChange={val => updateStyle('headerBg', val)}
+							defaultColor={currentDefault.headerBg}
+						/>
+					</div>
+				)}
+
+				<div style={{ marginTop: '14px' }}>
+					<Typography
+						label={__('Title Typography:', 'bpricing')}
+						value={currentStyle.titleTypo}
+						onChange={val => updateStyle('titleTypo', val)}
+						defaults={currentDefault.titleTypo}
+					/>
+				</div>
+			</PanelBody>
+
+			{/* Price & Billing Period */}
+			<PanelBody className="bPlPanelBody" title={__('Price & Period', 'bpricing')} initialOpen={false}>
+				<ColorControl
+					label={__('Price Color:', 'bpricing')}
+					value={currentStyle.priceColor}
+					onChange={val => updateStyle('priceColor', val)}
+					defaultColor={currentDefault.priceColor}
+				/>
+
+				{(theme === 'demo-1' || theme === 'demo-3') && (
+					<div style={{ marginTop: '14px' }}>
+						<ColorControl
+							label={__('Price Badge / Bar Background:', 'bpricing')}
+							value={currentStyle.priceBg}
+							onChange={val => updateStyle('priceBg', val)}
+							defaultColor={currentDefault.priceBg}
+						/>
+					</div>
+				)}
+
+				<div style={{ marginTop: '14px' }}>
+					<Typography
+						label={__('Price Typography:', 'bpricing')}
+						value={currentStyle.priceTypo}
+						onChange={val => updateStyle('priceTypo', val)}
+						defaults={currentDefault.priceTypo}
+					/>
+				</div>
+
+				<div style={{ marginTop: '14px' }}>
+					<ColorControl
+						label={__('Period / Unit Color:', 'bpricing')}
+						value={currentStyle.unitColor}
+						onChange={val => updateStyle('unitColor', val)}
+						defaultColor={currentDefault.unitColor}
+					/>
+				</div>
+
+				<div style={{ marginTop: '14px' }}>
+					<Typography
+						label={__('Period / Unit Typography:', 'bpricing')}
+						value={currentStyle.unitTypo}
+						onChange={val => updateStyle('unitTypo', val)}
+						defaults={currentDefault.unitTypo}
+					/>
+				</div>
+			</PanelBody>
+
+			{/* Features List */}
+			<PanelBody className="bPlPanelBody" title={__('Features List', 'bpricing')} initialOpen={false}>
+				<ColorControl
+					label={__('Feature Text Color:', 'bpricing')}
+					value={currentStyle.featureColor}
+					onChange={val => updateStyle('featureColor', val)}
+					defaultColor={currentDefault.featureColor}
+				/>
+
+				<div style={{ marginTop: '14px' }}>
+					<Typography
+						label={__('Feature Typography:', 'bpricing')}
+						value={currentStyle.featureTypo}
+						onChange={val => updateStyle('featureTypo', val)}
+						defaults={currentDefault.featureTypo}
+					/>
+				</div>
+			</PanelBody>
+
+			{/* Button */}
+			<PanelBody className="bPlPanelBody" title={__('Button', 'bpricing')} initialOpen={false}>
+				<ColorsControl
+					label={__('Button Colors:', 'bpricing')}
+					value={currentStyle.btnColors}
+					onChange={val => updateStyle('btnColors', val)}
+					defaults={currentDefault.btnColors}
+				/>
+
+				<div style={{ marginTop: '14px' }}>
+					<ColorsControl
+						label={__('Hover Colors:', 'bpricing')}
+						value={currentStyle.btnHoverColors}
+						onChange={val => updateStyle('btnHoverColors', val)}
+						defaults={currentDefault.btnHoverColors}
+					/>
+				</div>
+
+				<div style={{ marginTop: '14px' }}>
+					<Typography
+						label={__('Button Typography:', 'bpricing')}
+						value={currentStyle.btnTypo}
+						onChange={val => updateStyle('btnTypo', val)}
+						defaults={currentDefault.btnTypo}
+					/>
+				</div>
+
+				<div style={{ marginTop: '16px' }}>
+					<BoxControl
+						label={__('Button Padding:', 'bpricing')}
+						values={currentStyle.btnPadding}
+						onChange={val => updateStyle('btnPadding', val)}
+						resetValues={currentDefault.btnPadding}
+					/>
+				</div>
+
+				<PanelRow style={{ marginTop: '16px' }}>
+					<UnitControl
+						label={__('Button Border Radius:', 'bpricing')}
+						labelPosition="left"
+						value={currentStyle.btnRadius}
+						onChange={val => updateStyle('btnRadius', val)}
+					/>
+				</PanelRow>
+			</PanelBody>
+		</>
 	);
 };
 
