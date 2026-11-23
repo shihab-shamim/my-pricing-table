@@ -263,14 +263,40 @@
         }
       }
     }
+
+    &.red {
+      &:before,
+      &:after {
+        background: linear-gradient(to left bottom, #a10903 45%, transparent 50%);
+      }
+      .pricingTable-header {
+        background: #f53c25;
+      }
+      .pricing-content {
+        border-color: #f53c25;
+        li:before {
+          background: #f53c25;
+        }
+      }
+      .pricingTable-signup a {
+        background: #f53c25;
+        &:before,
+        &:after {
+          background: linear-gradient(to left bottom, #a10903 48%, transparent 50%);
+        }
+        &:hover {
+          background: #a10903;
+        }
+      }
+    }
   }
 
   @media only screen and (min-width: 922px) {
     .pricingTableTwo {
       margin: 0 auto 60px;
-      min-width: 270px;
-      width: calc(100% / 3 - 58px);
-      margin: 0 29px 70px 29px;
+      min-width: 0;
+      width: 100%;
+      margin: 0 0 70px 0;
     }
   }
   @media only screen and (max-width: 576px) {

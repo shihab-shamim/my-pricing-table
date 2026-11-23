@@ -244,7 +244,7 @@ export const generateThemeCSS = (selector, theme = 'demo-1', st = {}, tables = [
 					${safeShadow(st.cardShadow)}
 				}
 				${st.headerBg ? `
-					${selector} .bppt_container .pricingTableTwo:not(.pink):not(.purple):not(.sky):not(.lemon) .pricingTable-header,
+					${selector} .bppt_container .pricingTableTwo:not(.pink):not(.purple):not(.sky):not(.lemon):not(.red) .pricingTable-header,
 					${selector} .bppt_container .pricingTableTwo.default .pricingTable-header {
 						background: ${st.headerBg} !important;
 					}
@@ -265,7 +265,7 @@ export const generateThemeCSS = (selector, theme = 'demo-1', st = {}, tables = [
 					${st.btnRadius ? `border-radius: ${st.btnRadius} !important;` : ''}
 				}
 				${st.btnColors?.bg ? `
-					${selector} .bppt_container .pricingTableTwo:not(.pink):not(.purple):not(.sky):not(.lemon) .pricingTable-signup a,
+					${selector} .bppt_container .pricingTableTwo:not(.pink):not(.purple):not(.sky):not(.lemon):not(.red) .pricingTable-signup a,
 					${selector} .bppt_container .pricingTableTwo.default .pricingTable-signup a {
 						background: ${st.btnColors.bg} !important;
 					}
@@ -275,11 +275,32 @@ export const generateThemeCSS = (selector, theme = 'demo-1', st = {}, tables = [
 					${st.btnHoverColors?.color ? `color: ${st.btnHoverColors.color} !important;` : ''}
 				}
 				${st.btnHoverColors?.bg ? `
-					${selector} .bppt_container .pricingTableTwo:not(.pink):not(.purple):not(.sky):not(.lemon) .pricingTable-signup a:hover,
+					${selector} .bppt_container .pricingTableTwo:not(.pink):not(.purple):not(.sky):not(.lemon):not(.red) .pricingTable-signup a:hover,
 					${selector} .bppt_container .pricingTableTwo.default .pricingTable-signup a:hover {
 						background: ${st.btnHoverColors.bg} !important;
 					}
 				` : ''}
+				${selector} .bppt_container .pricingTableTwo.red:before,
+				${selector} .bppt_container .pricingTableTwo.red:after {
+					background: linear-gradient(to left bottom, #a10903 45%, transparent 50%) !important;
+				}
+				${selector} .bppt_container .pricingTableTwo.red .pricingTable-header {
+					background: #f53c25 !important;
+				}
+				${selector} .bppt_container .pricingTableTwo.red .pricing-content {
+					border-color: #f53c25 !important;
+				}
+				${selector} .bppt_container .pricingTableTwo.red .pricing-content li:before,
+				${selector} .bppt_container .pricingTableTwo.red .pricingTable-signup a {
+					background: #f53c25 !important;
+				}
+				${selector} .bppt_container .pricingTableTwo.red .pricingTable-signup a:before,
+				${selector} .bppt_container .pricingTableTwo.red .pricingTable-signup a:after {
+					background: linear-gradient(to left bottom, #a10903 48%, transparent 50%) !important;
+				}
+				${selector} .bppt_container .pricingTableTwo.red .pricingTable-signup a:hover {
+					background: #a10903 !important;
+				}
 			`;
 			break;
 		}

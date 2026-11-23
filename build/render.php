@@ -151,28 +151,27 @@ $theme_style   = array_replace_recursive( $theme_default, $theme_style );
 if ( ! function_exists( 'bppt_get_effective_scheme' ) ) {
 	function bppt_get_effective_scheme( $theme, $color_scheme, $index ) {
 		$theme_schemes = [
-			'demo-1' => [ 'default', 'basic', 'standard', 'ultimite' ],
-			'demo-2' => [ 'lemon', 'purple', 'pink', 'sky', 'default' ],
-			'demo-3' => [ 'default', 'purple', 'pink' ],
-			'demo-4' => [ 'default', 'purple', 'orange' ],
-			'demo-5' => [ 'default', 'green', 'blue' ],
+			'demo-1' => [ 'basic', 'standard', 'ultimite' ],
+			'demo-2' => [ 'lemon', 'purple', 'pink', 'sky', 'red' ],
+			'demo-3' => [ 'purple', 'pink' ],
+			'demo-4' => [ 'purple', 'orange' ],
+			'demo-5' => [ 'green', 'blue' ],
 		];
 		$theme_defaults = [
 			'demo-1' => [ 'default', 'standard', 'ultimite' ],
-			'demo-2' => [ 'lemon', 'purple', 'pink', 'sky', 'default' ],
+			'demo-2' => [ 'lemon', 'purple', 'pink', 'sky', 'red' ],
 			'demo-3' => [ 'default', 'purple', 'pink' ],
 			'demo-4' => [ 'default', 'purple', 'orange' ],
 			'demo-5' => [ 'default', 'green', 'blue' ],
 		];
 
-		$valid = $theme_schemes[ $theme ] ?? $theme_schemes['demo-1'];
-		if ( ! empty( $color_scheme ) && in_array( $color_scheme, $valid, true ) ) {
-			return ( 'default' === $color_scheme ) ? '' : $color_scheme;
+		$valid = $theme_schemes[ $theme ] ?? [];
+		if ( ! empty( $color_scheme ) && 'default' !== $color_scheme && in_array( $color_scheme, $valid, true ) ) {
+			return $color_scheme;
 		}
 
 		$defs = $theme_defaults[ $theme ] ?? $theme_defaults['demo-1'];
-		$chosen = $defs[ $index % count( $defs ) ];
-		return ( 'default' === $chosen ) ? '' : $chosen;
+		return $defs[ $index % count( $defs ) ];
 	}
 }
 
@@ -432,7 +431,7 @@ ob_start();
 					<?php echo $card_shadow; ?>
 				}
 				<?php if ( $header_bg ) : ?>
-				.<?php echo esc_attr( $unique_id ); ?> .bppt_container .pricingTableTwo:not(.pink):not(.purple):not(.sky):not(.lemon) .pricingTable-header,
+				.<?php echo esc_attr( $unique_id ); ?> .bppt_container .pricingTableTwo:not(.pink):not(.purple):not(.sky):not(.lemon):not(.red) .pricingTable-header,
 				.<?php echo esc_attr( $unique_id ); ?> .bppt_container .pricingTableTwo.default .pricingTable-header {
 					<?php echo $header_bg; ?>
 				}
@@ -470,7 +469,7 @@ ob_start();
 				}
 				<?php endif; ?>
 				<?php if ( $btn_bg ) : ?>
-				.<?php echo esc_attr( $unique_id ); ?> .bppt_container .pricingTableTwo:not(.pink):not(.purple):not(.sky):not(.lemon) .pricingTable-signup a,
+				.<?php echo esc_attr( $unique_id ); ?> .bppt_container .pricingTableTwo:not(.pink):not(.purple):not(.sky):not(.lemon):not(.red) .pricingTable-signup a,
 				.<?php echo esc_attr( $unique_id ); ?> .bppt_container .pricingTableTwo.default .pricingTable-signup a {
 					<?php echo $btn_bg; ?>
 				}
@@ -481,11 +480,32 @@ ob_start();
 				}
 				<?php endif; ?>
 				<?php if ( $btn_hov_bg ) : ?>
-				.<?php echo esc_attr( $unique_id ); ?> .bppt_container .pricingTableTwo:not(.pink):not(.purple):not(.sky):not(.lemon) .pricingTable-signup a:hover,
+				.<?php echo esc_attr( $unique_id ); ?> .bppt_container .pricingTableTwo:not(.pink):not(.purple):not(.sky):not(.lemon):not(.red) .pricingTable-signup a:hover,
 				.<?php echo esc_attr( $unique_id ); ?> .bppt_container .pricingTableTwo.default .pricingTable-signup a:hover {
 					<?php echo $btn_hov_bg; ?>
 				}
 				<?php endif; ?>
+				.<?php echo esc_attr( $unique_id ); ?> .bppt_container .pricingTableTwo.red:before,
+				.<?php echo esc_attr( $unique_id ); ?> .bppt_container .pricingTableTwo.red:after {
+					background: linear-gradient(to left bottom, #a10903 45%, transparent 50%) !important;
+				}
+				.<?php echo esc_attr( $unique_id ); ?> .bppt_container .pricingTableTwo.red .pricingTable-header {
+					background: #f53c25 !important;
+				}
+				.<?php echo esc_attr( $unique_id ); ?> .bppt_container .pricingTableTwo.red .pricing-content {
+					border-color: #f53c25 !important;
+				}
+				.<?php echo esc_attr( $unique_id ); ?> .bppt_container .pricingTableTwo.red .pricing-content li:before,
+				.<?php echo esc_attr( $unique_id ); ?> .bppt_container .pricingTableTwo.red .pricingTable-signup a {
+					background: #f53c25 !important;
+				}
+				.<?php echo esc_attr( $unique_id ); ?> .bppt_container .pricingTableTwo.red .pricingTable-signup a:before,
+				.<?php echo esc_attr( $unique_id ); ?> .bppt_container .pricingTableTwo.red .pricingTable-signup a:after {
+					background: linear-gradient(to left bottom, #a10903 48%, transparent 50%) !important;
+				}
+				.<?php echo esc_attr( $unique_id ); ?> .bppt_container .pricingTableTwo.red .pricingTable-signup a:hover {
+					background: #a10903 !important;
+				}
 				<?php
 				break;
 

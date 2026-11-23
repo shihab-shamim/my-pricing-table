@@ -23,24 +23,24 @@ export const THEME_OPTIONS = [
 ];
 
 export const THEME_SCHEMES = {
-	'demo-1': ['default', 'basic', 'standard', 'ultimite'],
-	'demo-2': ['lemon', 'purple', 'pink', 'sky', 'default'],
-	'demo-3': ['default', 'purple', 'pink'],
-	'demo-4': ['default', 'purple', 'orange'],
-	'demo-5': ['default', 'green', 'blue']
+	'demo-1': ['basic', 'standard', 'ultimite'],
+	'demo-2': ['lemon', 'purple', 'pink', 'sky', 'red'],
+	'demo-3': ['purple', 'pink'],
+	'demo-4': ['purple', 'orange'],
+	'demo-5': ['green', 'blue']
 };
 
 export const THEME_DEFAULT_SCHEMES = {
 	'demo-1': ['default', 'standard', 'ultimite'],
-	'demo-2': ['lemon', 'purple', 'pink', 'sky', 'default'],
+	'demo-2': ['lemon', 'purple', 'pink', 'sky', 'red'],
 	'demo-3': ['default', 'purple', 'pink'],
 	'demo-4': ['default', 'purple', 'orange'],
 	'demo-5': ['default', 'green', 'blue']
 };
 
 export const getEffectiveScheme = (theme, colorScheme, index) => {
-	const validSchemes = THEME_SCHEMES[theme] || THEME_SCHEMES['demo-1'];
-	if (colorScheme && validSchemes.includes(colorScheme)) {
+	const validSchemes = THEME_SCHEMES[theme] || [];
+	if (colorScheme && colorScheme !== 'default' && validSchemes.includes(colorScheme)) {
 		return colorScheme;
 	}
 	const defaults = THEME_DEFAULT_SCHEMES[theme] || THEME_DEFAULT_SCHEMES['demo-1'];
@@ -49,30 +49,31 @@ export const getEffectiveScheme = (theme, colorScheme, index) => {
 
 export const COLOR_SCHEMES = {
 	'demo-1': [
-		{ label: __('Default (Teal/Cyan)', 'bpricing'), value: 'default' },
+		{ label: __('Auto / Default (By Column)', 'bpricing'), value: 'default' },
 		{ label: __('Basic (Mint Green)', 'bpricing'), value: 'basic' },
 		{ label: __('Standard (Ocean Blue)', 'bpricing'), value: 'standard' },
 		{ label: __('Ultimate (Coral Pink)', 'bpricing'), value: 'ultimite' }
 	],
 	'demo-2': [
+		{ label: __('Auto / Default (By Column)', 'bpricing'), value: 'default' },
 		{ label: __('Lemon (Green)', 'bpricing'), value: 'lemon' },
 		{ label: __('Purple', 'bpricing'), value: 'purple' },
 		{ label: __('Pink', 'bpricing'), value: 'pink' },
 		{ label: __('Sky (Sky Blue)', 'bpricing'), value: 'sky' },
-		{ label: __('Default (Crimson Red)', 'bpricing'), value: 'default' }
+		{ label: __('Crimson Red', 'bpricing'), value: 'red' }
 	],
 	'demo-3': [
-		{ label: __('Default (Emerald Green)', 'bpricing'), value: 'default' },
+		{ label: __('Auto / Default (By Column)', 'bpricing'), value: 'default' },
 		{ label: __('Purple', 'bpricing'), value: 'purple' },
 		{ label: __('Pink', 'bpricing'), value: 'pink' }
 	],
 	'demo-4': [
-		{ label: __('Default (Fresh Lime)', 'bpricing'), value: 'default' },
+		{ label: __('Auto / Default (By Column)', 'bpricing'), value: 'default' },
 		{ label: __('Purple', 'bpricing'), value: 'purple' },
 		{ label: __('Orange', 'bpricing'), value: 'orange' }
 	],
 	'demo-5': [
-		{ label: __('Default (Warm Orange)', 'bpricing'), value: 'default' },
+		{ label: __('Auto / Default (By Column)', 'bpricing'), value: 'default' },
 		{ label: __('Green', 'bpricing'), value: 'green' },
 		{ label: __('Blue', 'bpricing'), value: 'blue' }
 	]
@@ -145,9 +146,10 @@ const PlanItemSettings = ({ attributes, setAttributes, arrKey = 'tables', index 
 
 			<SelectControl
 				label={__('Color Scheme', 'bpricing')}
-				value={effectiveScheme}
+				value={currentSchemes.some(s => s.value === currentPlan.colorScheme) ? currentPlan.colorScheme : 'default'}
 				options={currentSchemes}
 				onChange={val => updatePlan('colorScheme', val)}
+				help={(!currentPlan.colorScheme || currentPlan.colorScheme === 'default') ? sprintf(__('Auto palette uses: %s', 'bpricing'), effectiveScheme) : undefined}
 			/>
 
 			<div style={{ marginTop: '12px', marginBottom: '14px', padding: '10px', background: '#ffffff', border: '1px solid #e2e4e7', borderRadius: '4px' }}>
