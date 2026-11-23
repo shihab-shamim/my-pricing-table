@@ -3,9 +3,11 @@ if(!class_exists('BPPTPricingTable')) {
   class BPPTPricingTable {
     public function __construct() {
       add_action('plugins_loaded', [__CLASS__, "load_dependencies"]);
+      add_action('init', [__CLASS__, 'bppt_register_block']);
       add_action('admin_enqueue_scripts', [__CLASS__, 'admin_enqueue_scripts']);
       add_action('admin_enqueue_scripts', [__CLASS__, 'bppt_admin_style']);
       add_action('wp_enqueue_scripts', [__CLASS__, 'bppt_register_assets']);
+      add_action('enqueue_block_editor_assets', [__CLASS__, 'bppt_block_editor_assets']);
       add_shortcode('bp-table', [__CLASS__, 'bppt_bprincing_table']);
       if (is_admin()) {
         add_filter('post_row_actions', [__CLASS__, 'bppt_remove_row_actions'], 10, 2);
@@ -37,14 +39,23 @@ if(!class_exists('BPPTPricingTable')) {
     public static function  admin_enqueue_scripts($screen) {
         global $pagenow;
         if ('bppt-pricing-table_page_b-pricing-table-block' === $screen) {
-            $asset_file = include BPPT_PLUGIN_PATH . 'build/admin/dashboard.asset.php';
-            wp_enqueue_script('bppt-admin-script', BPPT_PLUGIN_DIR . 'build/admin/dashboard.js', $asset_file['dependencies'], $asset_file['version'], true);
-            wp_enqueue_style('bppt-dashboard-style', BPPT_PLUGIN_DIR . 'build/admin/dashboard.css', [], $asset_file['version']);
+            $asset_path = BPPT_PLUGIN_PATH . 'build/admin/dashboard.asset.php';
+            $asset_file = file_exists( $asset_path ) ? include $asset_path : null;
+            $deps       = ( is_array( $asset_file ) && ! empty( $asset_file['dependencies'] ) ) ? $asset_file['dependencies'] : [ 'react', 'react-dom' ];
+            $ver        = ( is_array( $asset_file ) && ! empty( $asset_file['version'] ) ) ? $asset_file['version'] : BPPT_PLUGIN_VERSION;
+
+            wp_enqueue_script('bppt-admin-script', BPPT_PLUGIN_DIR . 'build/admin/dashboard.js', $deps, $ver, true);
+            wp_enqueue_style('bppt-dashboard-style', BPPT_PLUGIN_DIR . 'build/admin/dashboard.css', [], $ver);
         }
         //!Load CSS/JS for post type list or edit page
         if ('edit.php' === $pagenow || 'post.php' === $pagenow) {
-            wp_enqueue_style('bppt-admin-post-style', BPPT_PLUGIN_DIR . 'build/admin-post.css', [], BPPT_PLUGIN_VERSION);
-            wp_enqueue_script('bppt-admin-post-script', BPPT_PLUGIN_DIR . 'build/admin-post.js', [], BPPT_PLUGIN_VERSION, true);
+            $post_asset_path = BPPT_PLUGIN_PATH . 'build/admin-post.asset.php';
+            $post_asset      = file_exists( $post_asset_path ) ? include $post_asset_path : null;
+            $post_deps       = ( is_array( $post_asset ) && ! empty( $post_asset['dependencies'] ) ) ? $post_asset['dependencies'] : [];
+            $post_ver        = ( is_array( $post_asset ) && ! empty( $post_asset['version'] ) ) ? $post_asset['version'] : BPPT_PLUGIN_VERSION;
+
+            wp_enqueue_style('bppt-admin-post-style', BPPT_PLUGIN_DIR . 'build/admin-post.css', [], $post_ver);
+            wp_enqueue_script('bppt-admin-post-script', BPPT_PLUGIN_DIR . 'build/admin-post.js', $post_deps, $post_ver, true);
         }
     }
 
@@ -60,6 +71,40 @@ if(!class_exists('BPPTPricingTable')) {
       wp_register_style('bppt_pt_style_3', BPPT_PLUGIN_DIR . 'public/css/pricing-table-3.css');
       wp_register_style('bppt_pt_style_4', BPPT_PLUGIN_DIR . 'public/css/pricing-table-4.css');
       wp_register_style('bppt_pt_style_5', BPPT_PLUGIN_DIR . 'public/css/pricing-table-5.css');
+    }
+
+    public static function bppt_register_block() {
+      if (function_exists('register_block_type') && file_exists(BPPT_PLUGIN_PATH . 'build/block.json')) {
+        register_block_type(BPPT_PLUGIN_PATH . 'build');
+      }
+    }
+
+    public static function bppt_block_editor_assets() {
+      self::bppt_register_assets();
+      wp_enqueue_style('google_font');
+      wp_enqueue_style('bppt_pt_style_1');
+      wp_enqueue_style('bppt_pt_style_2');
+      wp_enqueue_style('bppt_pt_style_3');
+      wp_enqueue_style('bppt_pt_style_4');
+      wp_enqueue_style('bppt_pt_style_5');
+
+      $posts = get_posts([
+        'post_type'   => 'bppt-pricing-table',
+        'numberposts' => -1,
+        'post_status' => 'any',
+      ]);
+      $tables = array_map(function ($p) {
+        return [
+          'id'    => $p->ID,
+          'title' => $p->post_title ? $p->post_title : sprintf(__('Table #%d', 'bpricing'), $p->ID),
+        ];
+      }, $posts);
+
+      wp_add_inline_script(
+        'bppt-pricing-table-editor-script',
+        'window.bpptTables = ' . wp_json_encode($tables) . ';',
+        'before'
+      );
     }
 
     public static function bppt_bprincing_table($atts){

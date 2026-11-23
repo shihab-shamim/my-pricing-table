@@ -42,6 +42,7 @@ if (! class_exists('BPPTAdmin')) {
                 'hierarchical'    => false,
                 'menu_position'   => 20,
                 'supports'        => ['title'],
+                'show_in_rest'    => true,
             ];
             register_post_type('bppt-pricing-table', $args);
         }

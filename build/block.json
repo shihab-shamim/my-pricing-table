@@ -1,0 +1,150 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "bppt/pricing-table",
+  "title": "Pricing Table",
+  "category": "widgets",
+  "description": "Make beautiful pricing tables with this block.",
+  "keywords": [
+    "pricing",
+    "pricing table",
+    "price table",
+    "table",
+    "bppt"
+  ],
+  "textdomain": "bpricing",
+  "attributes": {
+    "theme": {
+      "type": "string",
+      "default": "demo-1"
+    },
+    "columns": {
+      "type": "number",
+      "default": 3
+    },
+    "tables": {
+      "type": "array",
+      "default": [
+        {
+          "name": "Basic",
+          "price": "19",
+          "currency": "$",
+          "unit": "month",
+          "badge": "",
+          "isFeatured": false,
+          "colorScheme": "default",
+          "btnText": "Get Started",
+          "btnLink": "#",
+          "features": [
+            {
+              "text": "5 Projects",
+              "enabled": true
+            },
+            {
+              "text": "10 GB Storage",
+              "enabled": true
+            },
+            {
+              "text": "Basic Support",
+              "enabled": true
+            },
+            {
+              "text": "Custom Domain",
+              "enabled": false
+            },
+            {
+              "text": "24/7 Dedicated Support",
+              "enabled": false
+            }
+          ]
+        },
+        {
+          "name": "Standard",
+          "price": "49",
+          "currency": "$",
+          "unit": "month",
+          "badge": "Hot",
+          "isFeatured": true,
+          "colorScheme": "standard",
+          "btnText": "Choose Plan",
+          "btnLink": "#",
+          "features": [
+            {
+              "text": "20 Projects",
+              "enabled": true
+            },
+            {
+              "text": "50 GB Storage",
+              "enabled": true
+            },
+            {
+              "text": "Priority Support",
+              "enabled": true
+            },
+            {
+              "text": "Custom Domain",
+              "enabled": true
+            },
+            {
+              "text": "24/7 Dedicated Support",
+              "enabled": false
+            }
+          ]
+        },
+        {
+          "name": "Premium",
+          "price": "99",
+          "currency": "$",
+          "unit": "month",
+          "badge": "Popular",
+          "isFeatured": false,
+          "colorScheme": "ultimite",
+          "btnText": "Upgrade Now",
+          "btnLink": "#",
+          "features": [
+            {
+              "text": "Unlimited Projects",
+              "enabled": true
+            },
+            {
+              "text": "500 GB Storage",
+              "enabled": true
+            },
+            {
+              "text": "VIP Support",
+              "enabled": true
+            },
+            {
+              "text": "Custom Domain",
+              "enabled": true
+            },
+            {
+              "text": "24/7 Dedicated Support",
+              "enabled": true
+            }
+          ]
+        }
+      ]
+    },
+    "tableId": {
+      "type": "string",
+      "default": ""
+    },
+    "align": {
+      "type": "string",
+      "default": "wide"
+    }
+  },
+  "supports": {
+    "html": false,
+    "align": [
+      "wide",
+      "full"
+    ]
+  },
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./view.css",
+  "render": "file:./render.php",
+  "viewScript": "file:./view.js"
+}

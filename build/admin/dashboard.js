@@ -1077,337 +1077,6 @@ const VideoPlayer = ({
 
 /***/ }),
 
-/***/ "../bpl-tools/Admin/Pricing/index.js":
-/*!*******************************************!*\
-  !*** ../bpl-tools/Admin/Pricing/index.js ***!
-  \*******************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
-/* harmony export */   getFeatures: () => (/* binding */ getFeatures)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _Components_Button_Button__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../Components/Button/Button */ "../bpl-tools/Components/Button/Button.js");
-/* harmony import */ var _lib_fs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../lib/fs */ "../bpl-tools/Admin/lib/fs.js");
-/* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./style.scss */ "../bpl-tools/Admin/Pricing/style.scss");
-/* harmony import */ var _utils_icons__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../utils/icons */ "../bpl-tools/Admin/utils/icons.js");
-
-/**
-	* Pricing Component
-	*
-	* @props pricingInfo (required): {pluginId, planId, licenses, cycles?, button, featured, logo?, hero?, included?, trustBadges?, faqs?} plan config (Object). cycles: which billing cycle tabs to show, e.g. ['monthly', 'annual', 'lifetime'] (default all)
-	* @props options (required): extra options forwarded to FS.Checkout.open() (Object)
-	*/
-
-
-
-
-
-
-
-const getFeatures = (plans, planId) => {
-  const freeFeatures = plans.find(p => p.name === 'free')?.features?.map(f => f.title);
-  const proFeatures = plans.find(p => p.name === 'pro')?.features?.filter(f => !freeFeatures.includes(f.title)).map(f => f.title);
-  const features = {
-    'free': freeFeatures,
-    'pro': proFeatures
-  };
-  const planName = plans.find(p => parseInt(p.id) === parseInt(planId))?.name;
-  const planFeatures = features[planName] || plans.find(p => parseInt(p.id) === parseInt(planId))?.features?.map(f => f.title);
-  return planFeatures || [];
-};
-const cycleMeta = {
-  monthly: {
-    suffix: '/mo'
-  },
-  annual: {
-    suffix: '/yr'
-  },
-  lifetime: {
-    suffix: ''
-  }
-};
-const formatPrice = amount => {
-  const num = typeof amount === 'string' ? parseFloat(amount) : amount;
-  if (isNaN(num)) return '—';
-  return Number.isInteger(num) ? String(num) : num.toFixed(2);
-};
-const Pricing = ({
-  pricingInfo,
-  options
-}) => {
-  var _heroProp$eyebrow, _heroProp$title, _heroProp$description, _includedProp$tag, _includedProp$title, _includedProp$descrip;
-  const {
-    pluginId,
-    planId,
-    licenses,
-    cycles: enabledCycles = ['monthly', 'annual', 'lifetime'],
-    button,
-    featured,
-    logo,
-    hero: heroProp,
-    included: includedProp,
-    trustBadges: customTrustBadges,
-    faqs: customFaqs
-  } = pricingInfo;
-  const [product, setProduct] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({});
-  const [isProductLoading, setIsProductLoading] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
-  const [cycles, setCycles] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
-  const [cycle, setCycle] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('');
-  const [openFaq, setOpenFaq] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0);
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    if (!pluginId) return;
-    let mounted = true;
-    setIsProductLoading(true);
-    fetch(`https://api.bplugins.com/wp-json/bpl/v1/products/${pluginId}`).then(r => r.ok ? r.json() : Promise.reject(`${r.status} ${r.statusText}`)).then(data => {
-      if (mounted) setProduct(data);
-    }).catch(() => {
-      if (mounted) setProduct({});
-    }).finally(() => {
-      if (mounted) setIsProductLoading(false);
-    });
-    return () => {
-      mounted = false;
-    };
-  }, [pluginId]);
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    if (!product?.id || !planId) return;
-    const {
-      plans
-    } = product;
-    const plan = plans?.find(p => parseInt(p.id) === parseInt(planId)) || plans?.[0] || {};
-    const singlePrices = plan?.pricing?.[0];
-    if (singlePrices && typeof singlePrices === 'object') {
-      const all = [];
-      if (singlePrices.monthly !== undefined) all.push({
-        name: 'monthly',
-        label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Monthly')
-      });
-      if (singlePrices.annual !== undefined) all.push({
-        name: 'annual',
-        label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Yearly'),
-        isDefault: true
-      });
-      if (singlePrices.lifetime !== undefined) all.push({
-        name: 'lifetime',
-        label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Lifetime')
-      });
-      const filtered = all.filter(cc => enabledCycles.includes(cc.name));
-      const c = filtered.length ? filtered : all; // fall back to all if config filters everything out
-      setCycles(c);
-      setCycle(c.find(cc => cc.isDefault)?.name || c[0]?.name || '');
-    } else {
-      setCycles([]);
-      setCycle('');
-    }
-  }, [product, planId]);
-  if (isProductLoading) {
-    return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-      className: "bPlDashboardPricing bPlDashboardPricingLoading"
-    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-      className: "pricingLoadingSpinner"
-    }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Loading the latest pricing…')));
-  }
-  if (!product?.id) return null;
-  const {
-    plans
-  } = product;
-  const plan = plans?.find(p => parseInt(p.id) === parseInt(planId)) || plans?.[0] || {};
-  const pricing = plan?.pricing || [];
-  const visiblePricing = licenses?.length > 0 ? pricing.filter(p => {
-    var _p$licenses;
-    return licenses.includes((_p$licenses = p?.licenses) !== null && _p$licenses !== void 0 ? _p$licenses : null);
-  }) : pricing;
-  const samplePrice = visiblePricing[0];
-  let annualSavingsPct = 0;
-  if (samplePrice?.monthly && samplePrice?.annual) {
-    const fullYear = parseFloat(samplePrice.monthly) * 12;
-    const annual = parseFloat(samplePrice.annual);
-    if (fullYear > 0) annualSavingsPct = Math.round((fullYear - annual) / fullYear * 100);
-  }
-  const sharedFeatures = getFeatures(plans, planId);
-  const annualSavingsLabel = annualSavingsPct > 0 ? `Save ${annualSavingsPct}%` : '';
-  const isLifetimeOnly = cycles.length === 1 && cycles[0]?.name === 'lifetime';
-  const hero = {
-    eyebrow: (_heroProp$eyebrow = heroProp?.eyebrow) !== null && _heroProp$eyebrow !== void 0 ? _heroProp$eyebrow : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Pricing'),
-    title: (_heroProp$title = heroProp?.title) !== null && _heroProp$title !== void 0 ? _heroProp$title : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Pick the plan that fits your project'),
-    description: (_heroProp$description = heroProp?.description) !== null && _heroProp$description !== void 0 ? _heroProp$description : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Same powerful features on every plan — just choose how many sites you need. Upgrade or downgrade any time.')
-  };
-  const included = {
-    tag: (_includedProp$tag = includedProp?.tag) !== null && _includedProp$tag !== void 0 ? _includedProp$tag : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Same on every plan'),
-    title: (_includedProp$title = includedProp?.title) !== null && _includedProp$title !== void 0 ? _includedProp$title : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Everything you get, on every license'),
-    description: (_includedProp$descrip = includedProp?.description) !== null && _includedProp$descrip !== void 0 ? _includedProp$descrip : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Every feature is available on every license tier. The only difference is how many sites you can activate the plugin on.')
-  };
-  const trustBadges = customTrustBadges || [{
-    title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('14 days money back'),
-    body: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Risk-free purchase'),
-    icon: _utils_icons__WEBPACK_IMPORTED_MODULE_5__.moneyBackIcon
-  }, {
-    title: isLifetimeOnly ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Lifetime updates') : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Plugins updates'),
-    body: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('On every plan'),
-    icon: _utils_icons__WEBPACK_IMPORTED_MODULE_5__.refreshIcon
-  }, {
-    title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Priority support'),
-    body: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Get help when you need it'),
-    icon: _utils_icons__WEBPACK_IMPORTED_MODULE_5__.chatIcon
-  }, {
-    title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Secure checkout'),
-    body: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Powered by Freemius'),
-    icon: _utils_icons__WEBPACK_IMPORTED_MODULE_5__.lockIcon
-  }];
-  const faqs = customFaqs || [{
-    q: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Can I upgrade my plan later?'),
-    a: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Yes — you can upgrade any time from your account. We prorate the difference automatically.')
-  }, isLifetimeOnly ? {
-    q: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Will I receive updates if I purchase a lifetime license?'),
-    a: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Yes, a lifetime license holds lifetime updates and never expires, ensuring you always have access to the latest features and bug fixes without recurring fees.')
-  } : {
-    q: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('What happens after my license expires?'),
-    a: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('The plugin keeps working forever. You only lose access to premium features, updates and premium support unless you renew.')
-  }, {
-    q: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Do you offer refunds?'),
-    a: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Absolutely. Every plan is backed by a 14 days no-questions-asked money-back guarantee.')
-  }];
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "bPlDashboardPricing"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("header", {
-    className: "pricingHero"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
-    className: "pricingEyebrow"
-  }, hero.eyebrow), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h1", null, hero.title), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, hero.description)), cycles.length > 1 && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "pricingCycleWrap"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "pricingCycle",
-    role: "tablist"
-  }, cycles.map(c => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
-    key: c.name,
-    type: "button",
-    role: "tab",
-    "aria-selected": c.name === cycle,
-    className: c.name === cycle ? 'isActive' : '',
-    onClick: () => setCycle(c.name)
-  }, c.label, c.name === 'annual' && annualSavingsLabel && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
-    className: "pricingSave"
-  }, annualSavingsLabel))))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "pricingPlans"
-  }, visiblePricing.length ? visiblePricing.map((price, index) => {
-    const licensesCount = price?.licenses;
-    const isFeatured = featured?.selected === (licensesCount || 'null');
-    const amount = price?.[cycle];
-    const cycleInfo = cycleMeta[cycle] || {
-      suffix: ''
-    };
-    const numericAmount = parseFloat(amount);
-    const monthlyEquivalent = cycle === 'annual' && price?.annual ? parseFloat(price.annual) / 12 : null;
-    const perSite = licensesCount && !isNaN(numericAmount) ? numericAmount / licensesCount : null;
-    const planLabel = !licensesCount ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Unlimited Sites') : licensesCount === 1 ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Single Site') : `${licensesCount} ${(0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Sites')}`;
-    const planTagline = !licensesCount ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('For agencies & enterprise') : licensesCount === 1 ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('For solo creators') : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('For freelancers');
-    return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-      key: index,
-      className: `pricingPlan ${isFeatured ? 'isFeatured' : ''}`
-    }, isFeatured && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-      className: "pricingBadge"
-    }, featured?.text || (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Most Popular')), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-      className: "pricingPlanHead"
-    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h3", null, planLabel), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, planTagline)), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-      className: "pricingPriceWrap"
-    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-      className: "pricingPrice"
-    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
-      className: "pricingCurrency"
-    }, "$"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
-      className: "pricingAmount"
-    }, formatPrice(amount)), cycleInfo.suffix && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
-      className: "pricingSuffix"
-    }, cycleInfo.suffix)), perSite !== null && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", {
-      className: "pricingEquiv"
-    }, "\u2248 $", formatPrice(perSite), " ", (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('per site')), !licensesCount && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", {
-      className: "pricingEquiv"
-    }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Use on every site you build.')), monthlyEquivalent !== null && cycle === 'annual' && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", {
-      className: "pricingEquiv"
-    }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Billed yearly'), " \xB7 $", formatPrice(monthlyEquivalent), "/mo"), cycle === 'lifetime' && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", {
-      className: "pricingEquiv"
-    }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('One-time payment, pay once forever.')), cycle === 'monthly' && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", {
-      className: "pricingEquiv"
-    }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Billed monthly, cancel anytime.'))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Button_Button__WEBPACK_IMPORTED_MODULE_2__["default"], {
-      className: "pricingCta",
-      onClick: e => {
-        e.preventDefault();
-        new _lib_fs__WEBPACK_IMPORTED_MODULE_3__["default"].Checkout({
-          plugin_id: product.id,
-          plan_id: planId,
-          public_key: product.public_key
-        }).open({
-          image: logo || product.icon,
-          title: product.title,
-          licenses: licensesCount,
-          billing_cycle: cycle,
-          ...options
-        });
-      }
-    }, button.label));
-  }) : (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", {
-    className: "pricingEmpty"
-  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('No plans available right now.'))), sharedFeatures.length > 0 && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("section", {
-    className: "pricingIncluded"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("header", {
-    className: "pricingIncludedHead"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
-    className: "pricingIncludedTag"
-  }, included.tag), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h2", null, included.title), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, included.description)), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("ul", {
-    className: "pricingIncludedGrid"
-  }, sharedFeatures.map((f, i) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", {
-    key: i
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
-    className: "pricingIncludedCheck"
-  }, _utils_icons__WEBPACK_IMPORTED_MODULE_5__.checkCircleIcon), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
-    dangerouslySetInnerHTML: {
-      __html: f
-    }
-  }))))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("section", {
-    className: "pricingTrust"
-  }, trustBadges.map((b, i) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    key: i,
-    className: "pricingTrustItem"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
-    className: "pricingTrustIcon"
-  }, b.icon), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("strong", null, b.title), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", null, b.body))))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("section", {
-    className: "pricingFaq"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h2", null, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Frequently asked questions')), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "pricingFaqList"
-  }, faqs.map((f, i) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    key: i,
-    className: `pricingFaqItem ${openFaq === i ? 'isOpen' : ''}`
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
-    type: "button",
-    className: "pricingFaqQ",
-    "aria-expanded": openFaq === i,
-    onClick: () => setOpenFaq(openFaq === i ? null : i)
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", null, f.q), _utils_icons__WEBPACK_IMPORTED_MODULE_5__.chevronDownIcon), openFaq === i && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "pricingFaqA"
-  }, f.a))))));
-};
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Pricing);
-
-/***/ }),
-
-/***/ "../bpl-tools/Admin/Pricing/style.scss":
-/*!*********************************************!*\
-  !*** ../bpl-tools/Admin/Pricing/style.scss ***!
-  \*********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-// extracted by mini-css-extract-plugin
-
-
-/***/ }),
-
 /***/ "../bpl-tools/Admin/Welcome/Changelog/index.js":
 /*!*****************************************************!*\
   !*** ../bpl-tools/Admin/Welcome/Changelog/index.js ***!
@@ -2054,491 +1723,6 @@ const Welcome = props => {
 __webpack_require__.r(__webpack_exports__);
 // extracted by mini-css-extract-plugin
 
-
-/***/ }),
-
-/***/ "../bpl-tools/Admin/lib/fs.js":
-/*!************************************!*\
-  !*** ../bpl-tools/Admin/lib/fs.js ***!
-  \************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* eslint-disable no-undef */
-
-var __FSCheckoutGlobalInternal__ = function (h) {
-  "use strict";
-
-  var G = Object.defineProperty,
-    Q = Object.defineProperties;
-  var z = Object.getOwnPropertyDescriptors;
-  var S = Object.getOwnPropertySymbols;
-  var P = Object.prototype.hasOwnProperty,
-    O = Object.prototype.propertyIsEnumerable;
-  var v = (h, a, d) => a in h ? G(h, a, {
-      enumerable: !0,
-      configurable: !0,
-      writable: !0,
-      value: d
-    }) : h[a] = d,
-    I = (h, a) => {
-      for (var d in a || (a = {})) P.call(a, d) && v(h, d, a[d]);
-      if (S) for (var d of S(a)) O.call(a, d) && v(h, d, a[d]);
-      return h;
-    },
-    A = (h, a) => Q(h, z(a));
-  var D = (h, a) => {
-    var d = {};
-    for (var u in h) P.call(h, u) && a.indexOf(u) < 0 && (d[u] = h[u]);
-    if (h != null && S) for (var u of S(h)) a.indexOf(u) < 0 && O.call(h, u) && (d[u] = h[u]);
-    return d;
-  };
-  var l = (h, a, d) => v(h, typeof a != "symbol" ? a + "" : a, d);
-  const a = {
-    Log(...i) {
-      console && console.log && console.log(...i);
-    },
-    Error(...i) {
-      console && console.error && console.error(...i);
-    },
-    Warn(...i) {
-      console && console.warn && console.warn(...i);
-    },
-    Debug(...i) {
-      console && console.debug && console.debug(...i);
-    }
-  };
-  function d(i, t) {
-    const e = i.contentWindow,
-      s = i.src,
-      o = {};
-    if (!e || !s) return null;
-    const n = function (r) {
-      if (!(r && r.origin && r.origin.indexOf("js.stripe.com") > 0 || r.origin.indexOf("www.paypal.com") > 0) && r.origin === t && r && r.data && typeof r.data == "string" && r.data.charAt(0) === "{") try {
-        const c = JSON.parse(r.data);
-        typeof c == "object" && c.type && o[c.type] && o[c.type].forEach(m => {
-          m(c.data);
-        });
-      } catch (c) {
-        a.Error(c);
-      }
-    };
-    return window.addEventListener("message", n), {
-      on(r, c) {
-        o[r] || (o[r] = []), o[r].push(c);
-      },
-      one(r, c, m = !1) {
-        m && delete o[r], !o[r] && this.on(r, c);
-      },
-      destroy() {
-        window.removeEventListener("message", n);
-      },
-      post(r, c) {
-        e.postMessage(JSON.stringify({
-          type: r,
-          data: c
-        }), s.replace(/([^:]+:\/\/[^/]+).*/, "$1"));
-      }
-    };
-  }
-  const u = 2147483647;
-  function $() {
-    const i = function () {
-      return Math.floor((1 + Math.random()) * 65536).toString(16).substring(1);
-    };
-    return i() + i() + "-" + i() + "-" + i() + "-" + i() + "-" + i() + i() + i();
-  }
-  function N() {
-    let i = !1;
-    try {
-      const t = navigator.userAgent.toLowerCase();
-      /edge\/|trident\/|msie /.test(t) ? i = !0 : t.indexOf("safari") !== -1 && (t.indexOf("chrome") > -1 || (i = !0));
-    } catch (t) {}
-    return i;
-  }
-  function x(i) {
-    return typeof i == "undefined" || typeof i == "function" || typeof i == "object" && i !== null;
-  }
-  function M(i) {
-    return x(i) ? null : i === null ? "null" : i === !0 ? "1" : i === !1 ? "0" : encodeURIComponent(i).replace(/!/g, "%21").replace(/'/g, "%27").replace(/\(/g, "%28").replace(/\)/g, "%29").replace(/\*/g, "%2A").replace(/%20/g, "+");
-  }
-  function U(i) {
-    const t = [];
-    return Object.keys(i).forEach(e => {
-      const s = i[e],
-        o = M(s);
-      o !== null && t.push(`${e}=${o}`);
-    }), t.join("&");
-  }
-  function B(i) {
-    return i.pageY <= 20;
-  }
-  function y() {
-    return typeof window == "undefined";
-  }
-  function w(i, t) {
-    if (i == null) throw new Error(t);
-  }
-  class T {
-    constructor(t) {
-      l(this, "styleElement");
-      l(this, "bodyScrollDisableClassName");
-      l(this, "isFlashingBrowser");
-      l(this, "overflow", {
-        x: 0,
-        y: 0
-      });
-      l(this, "metaColorSchemeValue", null);
-      l(this, "metaColorSchemeElement", null);
-      this.guid = t, this.bodyScrollDisableClassName = `is-fs-checkout-open-${this.guid}`, this.styleElement = document.createElement("style"), this.styleElement.textContent += this.getBasicStyle(), this.isFlashingBrowser = N() || !y() && !!document.querySelector("#___gatsby"), this.metaColorSchemeElement = document.head.querySelector('meta[name="color-scheme"]');
-    }
-    addStyle(t) {
-      this.styleElement.textContent += t;
-    }
-    attach() {
-      return document.head.appendChild(this.styleElement), this;
-    }
-    remove() {
-      return document.head.removeChild(this.styleElement), this;
-    }
-    disableBodyScroll() {
-      this.backupScrollPosition(), document.body.classList.add(this.bodyScrollDisableClassName);
-    }
-    enableBodyScroll() {
-      document.body.classList.remove(this.bodyScrollDisableClassName), this.restoreScrollPosition();
-    }
-    disableMetaColorScheme() {
-      this.metaColorSchemeElement && (this.metaColorSchemeValue = this.metaColorSchemeElement.getAttribute("content"), this.metaColorSchemeElement.setAttribute("content", "light"));
-    }
-    enableMetaColorScheme() {
-      this.metaColorSchemeElement && this.metaColorSchemeValue && (this.metaColorSchemeElement.setAttribute("content", this.metaColorSchemeValue), this.metaColorSchemeValue = null);
-    }
-    getBasicStyle() {
-      return `body.${this.bodyScrollDisableClassName} { overflow: hidden !important; }`;
-    }
-    backupScrollPosition() {
-      this.overflow = {
-        x: document.documentElement.scrollTop,
-        y: document.documentElement.scrollLeft
-      };
-    }
-    restoreScrollPosition() {
-      document.documentElement.scrollTop = this.overflow.x, document.documentElement.scrollLeft = this.overflow.y;
-    }
-  }
-  class q {
-    constructor(t, e, s = "Loading Freemius Checkout") {
-      l(this, "loaderElement");
-      l(this, "isOpen", !1);
-      l(this, "loaderElementId");
-      this.style = t, this.loaderElementId = `fs-loader-${this.style.guid}`, this.loaderElement = document.createElement("div"), this.loaderElement.id = this.loaderElementId, this.loaderElement.innerHTML = `<img src="${e}" alt="${s}" />`, this.style.addStyle(this.getStyle());
-    }
-    show() {
-      return this.isOpen ? this : (this.loaderElement.classList.add("show"), document.body.appendChild(this.loaderElement), this.isOpen = !0, this);
-    }
-    hide() {
-      return this.isOpen ? (this.loaderElement.classList.remove("show"), document.body.removeChild(this.loaderElement), this.isOpen = !1, this) : this;
-    }
-    getStyle() {
-      return `#${this.loaderElementId} { display: none; position: fixed; z-index: ${u - 1}; width: 100%; height: 100%; top: 0; left: 0; right: 0; bottom: 0; text-align: left; background: rgba(0, 0, 0, 0.6); transition: opacity 200ms ease-out; will-change: opacity; opacity: 0; } #${this.loaderElementId}.show { opacity: 1; display: block; } #${this.loaderElementId} img { position: absolute; top: 40%; left: 50%; width: auto; height: auto; margin-left: -25px; background: #fff; padding: 10px; border-radius: 50%; box-shadow: 2px 2px 2px rgba(0,0,0,0.1); }`;
-    }
-  }
-  class R {
-    constructor(t, e, s, o, n) {
-      l(this, "postman", null);
-      l(this, "iFrame");
-      l(this, "loadedEventListeners", new Set());
-      l(this, "closedEventListeners", new Set());
-      this.baseUrl = t, this.visibleClass = o, this.checkoutEvents = n, this.iFrame = this.attachIFrame(t, e, s), this.addEventListeners();
-    }
-    close() {
-      var t;
-      (t = this.postman) == null || t.post("close", null);
-    }
-    onClosed(t) {
-      this.closedEventListeners.add(t);
-    }
-    onLoaded(t) {
-      this.loadedEventListeners.add(t);
-    }
-    addToExitIntent(t) {
-      t.addListener(() => {
-        var e, s, o;
-        (e = this.postman) == null || e.post("exit_intent", null), (o = (s = this.checkoutEvents).onExitIntent) == null || o.call(s);
-      });
-    }
-    attachIFrame(t, e, s) {
-      const o = `${t}/?${U(e)}#${encodeURIComponent(document.location.href)}`,
-        n = document.createElement("iframe");
-      return n.id = s, n.src = o, n.setAttribute("allowTransparency", "true"), n.setAttribute("width", "100%"), n.setAttribute("height", "100%"), n.setAttribute("style", "background: rgba(0,0,0,0.003); border: 0 none transparent;"), n.setAttribute("frameborder", "0"), n.setAttribute("data-testid", n.id), document.body.appendChild(n), n;
-    }
-    addEventListeners() {
-      var c, m, E, k, F;
-      const {
-        success: t,
-        purchaseCompleted: e,
-        cancel: s,
-        track: o,
-        afterOpen: n,
-        afterClose: r
-      } = this.checkoutEvents;
-      this.postman = d(this.iFrame, this.baseUrl), (c = this.postman) == null || c.one("upgraded", p => {
-        try {
-          t == null || t(p);
-        } catch (g) {
-          a.Error(g);
-        }
-        this.dispatchOnClosed(), this.removeIFrameAndPostman(), r == null || r();
-      }, !0), (m = this.postman) == null || m.one("purchaseCompleted", p => {
-        try {
-          e == null || e(p);
-        } catch (g) {
-          a.Error(g);
-        }
-      }, !0), (E = this.postman) == null || E.one("canceled", () => {
-        try {
-          s == null || s();
-        } catch (p) {
-          a.Error(p);
-        }
-        this.dispatchOnClosed(), this.removeIFrameAndPostman(), r == null || r();
-      }, !0), (k = this.postman) == null || k.on("track", p => {
-        try {
-          o == null || o(p.event, p);
-        } catch (g) {
-          a.Error(g);
-        }
-      }), (F = this.postman) == null || F.one("loaded", () => {
-        var p;
-        this.dispatchOnLoaded(), (p = this.iFrame) == null || p.classList.add(this.visibleClass);
-        try {
-          n == null || n();
-        } catch (g) {
-          a.Error(g);
-        }
-      }, !0);
-    }
-    removeIFrameAndPostman() {
-      var t;
-      (t = this.postman) == null || t.destroy(), this.postman = null, this.iFrame.remove(), this.closedEventListeners.clear(), this.loadedEventListeners.clear();
-    }
-    dispatchOnLoaded() {
-      this.loadedEventListeners.forEach(t => t());
-    }
-    dispatchOnClosed() {
-      this.closedEventListeners.forEach(t => t());
-    }
-  }
-  const b = class b {
-    constructor(t, e, s) {
-      l(this, "iFrameID");
-      this.style = t, this.options = e, this.baseUrl = s, this.iFrameID = `fs-checkout-page-${this.style.guid}`;
-    }
-    create(t) {
-      const e = I(I({}, this.options), t);
-      return new R(this.baseUrl, this.getQueryParams(e), this.iFrameID, b.VISIBLE_CLASS, e);
-    }
-    addStyle() {
-      this.style.addStyle(this.getStyle());
-    }
-    getQueryParams(t) {
-      const e = {
-        mode: "dialog",
-        guid: this.style.guid,
-        _fs_checkout: !0
-      };
-      Object.entries(t).forEach(([o, n]) => {
-        x(n) || (e[o] = n);
-      });
-      const {
-        sandbox: s
-      } = t;
-      return s && s.ctx && s.token && (e.s_ctx_ts = s.ctx, e.sandbox = s.token), e;
-    }
-    getStyle() {
-      return `#${this.iFrameID} { z-index: ${u - 1}; background: rgba(0,0,0,0.003); border: 0 none transparent; visibility: ${this.style.isFlashingBrowser ? "hidden" : "visible"}; margin: 0; padding: 0; position: fixed; left: 0px; top: 0px; width: 100%; height: 100%; -webkit-tap-highlight-color: transparent; overflow: hidden; } #${this.iFrameID}.${b.VISIBLE_CLASS} { visibility: visible; }`;
-    }
-  };
-  l(b, "VISIBLE_CLASS", "show");
-  let _ = b;
-  class V {
-    constructor(t, e, s, o, n) {
-      l(this, "checkoutIFrameBuilder");
-      l(this, "checkoutIFrame", null);
-      this.style = t, this.exitIntent = e, this.loader = s, this.checkoutIFrameBuilder = new _(this.style, n, o), this.checkoutIFrameBuilder.addStyle();
-    }
-    isOpen() {
-      return this.checkoutIFrame !== null;
-    }
-    open(t) {
-      return this.isOpen() ? this : (this.style.disableBodyScroll(), this.style.disableMetaColorScheme(), this.loader.show(), this.exitIntent.attach(), this.checkoutIFrame = this.checkoutIFrameBuilder.create(t), this.checkoutIFrame.onLoaded(this.onLoaded.bind(this)), this.checkoutIFrame.onClosed(this.onClosed.bind(this)), this.checkoutIFrame.addToExitIntent(this.exitIntent), this);
-    }
-    close() {
-      var t;
-      return (t = this.checkoutIFrame) == null || t.close(), this;
-    }
-    onLoaded() {
-      this.loader.hide();
-    }
-    onClosed() {
-      this.checkoutIFrame = null, this.loader.hide(), this.style.enableBodyScroll(), this.style.enableMetaColorScheme(), this.exitIntent.detach();
-    }
-  }
-  class j {
-    constructor(t) {
-      l(this, "exitIntentId");
-      l(this, "exitIntentDiv", null);
-      l(this, "clearExitIntentListener", null);
-      l(this, "listeners", []);
-      this.style = t, this.exitIntentId = `fs-exit-intent-${this.style.guid}`, this.style.addStyle(this.getStyle());
-    }
-    isAttached() {
-      return this.exitIntentDiv !== null;
-    }
-    addListener(...t) {
-      this.listeners.push(...t);
-    }
-    attach(...t) {
-      if (t && this.addListener(...t), this.isAttached()) return this;
-      this.exitIntentDiv = document.createElement("div"), this.exitIntentDiv.id = this.exitIntentId, document.body.appendChild(this.exitIntentDiv);
-      const e = document.documentElement;
-      let s = null;
-      const o = 300,
-        n = c => {
-          B(c) && (s = window.setTimeout(() => {
-            try {
-              this.fireListeners();
-            } catch (m) {
-              a.Error(m);
-            }
-          }, o));
-        },
-        r = () => {
-          s && (clearTimeout(s), s = null);
-        };
-      return e.addEventListener("mouseleave", n), e.addEventListener("mouseenter", r), this.clearExitIntentListener = () => {
-        s && (clearTimeout(s), s = null), e.removeEventListener("mouseleave", n), e.removeEventListener("mouseenter", r);
-      }, this;
-    }
-    detach() {
-      var t, e;
-      return this.isAttached() ? ((t = this.exitIntentDiv) == null || t.remove(), this.exitIntentDiv = null, (e = this.clearExitIntentListener) == null || e.call(this), this) : this;
-    }
-    fireListeners() {
-      this.listeners.forEach(t => {
-        t();
-      });
-    }
-    getStyle() {
-      return `#${this.exitIntentId} { z-index: ${u}; border: 0; background: transparent; position: fixed; padding: 0; margin: 0; height: 10px; left: 0; right: 0; width: 100%; top: 0; }`;
-    }
-  }
-  const f = class f {
-    constructor(t) {
-      l(this, "queryParams", null);
-      this.url = t, this.queryParams = this.parseQueryStringForCart();
-    }
-    hasCart() {
-      return this.queryParams !== null;
-    }
-    getPluginID() {
-      return w(this.queryParams, f.NO_CART_FOUND_MESSAGE), this.queryParams.__fs_plugin_id;
-    }
-    getPluginPublicKey() {
-      return w(this.queryParams, f.NO_CART_FOUND_MESSAGE), this.queryParams.__fs_plugin_public_key;
-    }
-    matchesPluginID(t) {
-      const e = Number.parseInt(this.getPluginID(), 10),
-        s = Number.parseInt(t.toString(), 10);
-      return Number.isFinite(e) && Number.isFinite(s) && e === s;
-    }
-    getCheckoutOptions() {
-      w(this.queryParams, f.NO_CART_FOUND_MESSAGE);
-      const t = {
-        plugin_id: "",
-        public_key: ""
-      };
-      return Object.entries(this.queryParams).forEach(([e, s]) => {
-        e === "__fs_plugin_id" ? t.plugin_id = s : e === "__fs_plugin_public_key" ? t.public_key = s : t[e] = s;
-      }), t;
-    }
-    parseQueryStringForCart() {
-      const t = "__fs_authorization",
-        e = new URLSearchParams(this.url.search);
-      if (!e.has(t)) return null;
-      const s = {};
-      return e.forEach((o, n) => {
-        n.startsWith("__fs_") && (s[n] = o);
-      }), s;
-    }
-  };
-  l(f, "NO_CART_FOUND_MESSAGE", "No cart was found");
-  let C = f;
-  class L {
-    constructor(t, e = !0, s = "https://checkout.freemius.com") {
-      l(this, "options", {
-        plugin_id: 0,
-        public_key: ""
-      });
-      l(this, "guid");
-      l(this, "style");
-      l(this, "loader");
-      l(this, "checkoutPopup");
-      l(this, "exitIntent");
-      l(this, "cart");
-      var E;
-      this.baseUrl = s;
-      const m = t,
-        {
-          plugin_id: o,
-          product_id: n,
-          public_key: r
-        } = m,
-        c = D(m, ["plugin_id", "product_id", "public_key"]);
-      if (!o && !n) throw new Error("Must provide a product_id to options.");
-      if (!r) throw new Error("Must provide the public_key to options.");
-      this.options = A(I({}, c), {
-        public_key: r,
-        plugin_id: n != null ? n : o
-      }), this.guid = $(), !y() && (this.style = new T(this.guid), this.loader = new q(this.style, (E = t.loadingImageUrl) != null ? E : `${this.baseUrl}/assets/img/spinner.svg`, t.loadingImageAlt), this.exitIntent = new j(this.style), this.checkoutPopup = new V(this.style, this.exitIntent, this.loader, this.baseUrl, this.options), this.style.attach(), this.cart = new C(new URL(window.location.href)), e && this.recoverCart());
-    }
-    open(t) {
-      var e, s;
-      if (!y()) {
-        if ((e = this.checkoutPopup) != null && e.isOpen()) {
-          a.Warn("Checkout popup already open. Please close it first before opening it again.");
-          return;
-        }
-        (s = this.checkoutPopup) == null || s.open(t);
-      }
-    }
-    close() {
-      var t;
-      y() || (t = this.checkoutPopup) == null || t.close();
-    }
-    destroy() {
-      var t;
-      y() || (this.close(), (t = this.style) == null || t.remove());
-    }
-    getGuid() {
-      return this.guid;
-    }
-    recoverCart() {
-      var t, e;
-      if ((t = this.cart) != null && t.hasCart() && (e = this.cart) != null && e.matchesPluginID(this.options.plugin_id)) {
-        const s = this.cart.getCheckoutOptions();
-        this.open(s);
-      }
-    }
-  }
-  return window.FS = window.FS || {}, window.FS.Checkout = L, window.FS.postman = d, window.FS.Logger = a, h.Checkout = L, Object.defineProperty(h, Symbol.toStringTag, {
-    value: "Module"
-  }), h;
-}({});
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (window.FS);
 
 /***/ }),
 
@@ -3235,296 +2419,6 @@ const Button = ({
 __webpack_require__.r(__webpack_exports__);
 // extracted by mini-css-extract-plugin
 
-
-/***/ }),
-
-/***/ "./inc/admin/Components/App.js":
-/*!*************************************!*\
-  !*** ./inc/admin/Components/App.js ***!
-  \*************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/development/chunk-OIYGIGL5.mjs");
-/* harmony import */ var _bpl_tools_Admin_Welcome__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../bpl-tools/Admin/Welcome */ "../bpl-tools/Admin/Welcome/index.js");
-/* harmony import */ var _bpl_tools_Admin_Demos__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../bpl-tools/Admin/Demos */ "../bpl-tools/Admin/Demos/index.js");
-/* harmony import */ var _bpl_tools_Admin_Pricing__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../bpl-tools/Admin/Pricing */ "../bpl-tools/Admin/Pricing/index.js");
-/* harmony import */ var _bpl_tools_Admin_OurPlugins__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../bpl-tools/Admin/OurPlugins */ "../bpl-tools/Admin/OurPlugins/index.js");
-/* harmony import */ var _Layout__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Layout */ "./inc/admin/Components/Layout.js");
-/* harmony import */ var _utils_data__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../utils/data */ "./inc/admin/utils/data.js");
-
-
-
-
-
-
-
-
-const App = props => {
-  const {
-    adminUrl
-  } = props;
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.HashRouter, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Routes, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Route, {
-    path: "/",
-    element: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Layout__WEBPACK_IMPORTED_MODULE_6__["default"], {
-      ...props
-    })
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Route, {
-    index: true,
-    element: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_bpl_tools_Admin_Welcome__WEBPACK_IMPORTED_MODULE_2__["default"], {
-      ...props,
-      ...(0,_utils_data__WEBPACK_IMPORTED_MODULE_7__.welcomeInfo)(adminUrl)
-    })
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Route, {
-    path: "welcome",
-    element: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_bpl_tools_Admin_Welcome__WEBPACK_IMPORTED_MODULE_2__["default"], {
-      ...props,
-      ...(0,_utils_data__WEBPACK_IMPORTED_MODULE_7__.welcomeInfo)(adminUrl)
-    })
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Route, {
-    path: "demos",
-    element: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_bpl_tools_Admin_Demos__WEBPACK_IMPORTED_MODULE_3__["default"], {
-      ...props,
-      demoInfo: _utils_data__WEBPACK_IMPORTED_MODULE_7__.demoInfo
-    })
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Route, {
-    path: "our-plugins",
-    element: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_bpl_tools_Admin_OurPlugins__WEBPACK_IMPORTED_MODULE_5__["default"], {
-      ...props
-    })
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Route, {
-    path: "*",
-    element: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Navigate, {
-      to: "/welcome",
-      replace: true
-    })
-  }))));
-};
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (App);
-
-/***/ }),
-
-/***/ "./inc/admin/Components/Layout.js":
-/*!****************************************!*\
-  !*** ./inc/admin/Components/Layout.js ***!
-  \****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/development/chunk-OIYGIGL5.mjs");
-/* harmony import */ var _bpl_tools_Admin_Header__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../bpl-tools/Admin/Header */ "../bpl-tools/Admin/Header/index.js");
-
-
-
-const navigation = [{
-  name: 'Welcome',
-  href: '/welcome'
-}, {
-  name: 'Demos',
-  href: '/demos'
-}];
-const Layout = props => {
-  const location = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_1__.useLocation)();
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "bPlDashboard"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_bpl_tools_Admin_Header__WEBPACK_IMPORTED_MODULE_2__["default"], {
-    ...props
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("nav", {
-    className: "bPlDashboardNav"
-  }, navigation?.map((item, index) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Link, {
-    key: index,
-    to: item.href,
-    className: `navLink ${location.pathname === item.href ? 'active' : ''}`
-  }, item.name)))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("main", {
-    className: "bPlDashboardMain"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Outlet, null)));
-};
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Layout);
-
-/***/ }),
-
-/***/ "./inc/admin/dashboard.scss":
-/*!**********************************!*\
-  !*** ./inc/admin/dashboard.scss ***!
-  \**********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-// extracted by mini-css-extract-plugin
-
-
-/***/ }),
-
-/***/ "./inc/admin/utils/data.js":
-/*!*********************************!*\
-  !*** ./inc/admin/utils/data.js ***!
-  \*********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   changelogs: () => (/* binding */ changelogs),
-/* harmony export */   dashboardInfo: () => (/* binding */ dashboardInfo),
-/* harmony export */   demoInfo: () => (/* binding */ demoInfo),
-/* harmony export */   pricingInfo: () => (/* binding */ pricingInfo),
-/* harmony export */   welcomeInfo: () => (/* binding */ welcomeInfo)
-/* harmony export */ });
-const slug = 'my-pricing-table';
-const dashboardInfo = info => {
-  const {
-    version,
-    hasPro,
-    adminUrl
-  } = info;
-  return {
-    name: `My Pricing Table`,
-    displayName: `My Pricing Table - Create Responsive Pricing Tables`,
-    description: 'A lightweight WordPress plugin that helps you create and embed beautiful, responsive pricing tables in minutes.',
-    slug,
-    version,
-    isPremium: true,
-    hasPro,
-    adminUrl,
-    displayOurPlugins: true,
-    media: {
-      logo: `https://ps.w.org/${slug}/assets/icon-128x128.png`,
-      banner: `https://ps.w.org/my-pricing-table/assets/icon.svg?rev=3623305`,
-      thumbnail: `https://ps.w.org/my-pricing-table/assets/icon.svg?rev=3623305`
-    },
-    logo: `https://ps.w.org/${slug}/assets/icon-128x128.png`,
-    banner: `https://ps.w.org/${slug}/assets/banner-772x250.png`,
-    pages: {
-      org: `https://wordpress.org/plugins/${slug}/`,
-      landing: `https://pricing-table.bplugins.com/`,
-      docs: `https://bplugins.com/support/`,
-      pricing: `https://bplugins.com/products/${slug}/pricing`
-    },
-    startButton: {
-      label: 'Add New Table',
-      url: `post-new.php?post_type=bppt-pricing-table`
-    },
-    freemius: {
-      product_id: 19836,
-      plan_id: 32912,
-      public_key: 'pk_a175d9d65767cc56ca88c39e031a9'
-    }
-  };
-};
-const changelogs = [{
-  version: '1.0.1',
-  type: 'update',
-  list: ['updated codestar framework']
-}, {
-  version: '1.0.0',
-  type: 'new',
-  list: ['Initial Release']
-}];
-const welcomeInfo = adminUrl => ({
-  keywords: ['5 Templates', 'Responsive', 'Color Schemes', 'Shortcode Ready'],
-  keywordsLabel: 'Features',
-  gettingStarted: {
-    tabs: [{
-      key: 'shortcode',
-      label: 'ShortCode',
-      steps: [{
-        num: 1,
-        title: 'Create a Pricing Table',
-        body: 'Go to <strong>Pricing Table › Add New</strong> to configure your pricing plans and features.',
-        link: {
-          url: `${adminUrl}post-new.php?post_type=bppt-pricing-table`,
-          label: 'Add New'
-        }
-      }, {
-        num: 2,
-        title: 'Choose Style & Colors',
-        body: 'Select from 5 responsive templates, set currency symbols, plan prices, and feature items.'
-      }, {
-        num: 3,
-        title: 'Copy Shortcode',
-        body: 'Publish the table and copy the generated shortcode: <code>[bp-table id=POST_ID]</code>.',
-        link: {
-          url: `${adminUrl}edit.php?post_type=bppt-pricing-table`,
-          label: 'View All Tables'
-        }
-      }, {
-        num: 4,
-        title: 'Paste Anywhere',
-        body: 'Paste your shortcode into any post, page, widget, or page builder (Gutenberg, Elementor, etc.).'
-      }]
-    }]
-  },
-  changelogs,
-  changelogsLimit: 5,
-  changelogsReadMoreLabel: 'View on WordPress.org',
-  proFeatures: ['5 professionally designed responsive templates', 'Multiple color schemes per template', 'Multi-currency support ($, ¥, €, ৳, ﷼)', 'Featured / Recommended badge for hot plans', 'Enable / disable feature items with checkmarks and crosses', 'Custom call-to-action button labels and links', 'Universal shortcodes compatible with all page builders', 'Priority customer support and regular updates']
-});
-const demoInfo = {
-  allInOneLabel: 'Live Demo Site',
-  allInOneLink: 'https://pricing-table.bplugins.com',
-  demos: [{
-    title: 'Default Basic Style',
-    type: 'image',
-    url: 'https://templates.bplugins.com/wp-content/uploads/2025/10/image.png',
-    category: 'Default'
-  }, {
-    title: 'Default Standard Style',
-    type: 'image',
-    url: 'https://templates.bplugins.com/wp-content/uploads/2025/09/pricing-table-standard-demo.png',
-    category: 'Default'
-  }, {
-    title: 'Default Ultimate Style',
-    type: 'image',
-    url: 'https://templates.bplugins.com/wp-content/uploads/2025/09/pricing-table-ultimate-demo.png',
-    category: 'Default'
-  }, {
-    title: 'Horizontal Style',
-    type: 'image',
-    url: 'https://templates.bplugins.com/wp-content/uploads/2025/09/horizantal.png',
-    category: 'Horizontal'
-  }, {
-    title: 'Minimal Style',
-    type: 'image',
-    url: 'https://templates.bplugins.com/wp-content/uploads/2025/09/test-%E2%80%93-test-2.png',
-    category: 'Minimal'
-  }, {
-    title: 'Dark Style',
-    type: 'image',
-    url: 'https://templates.bplugins.com/wp-content/uploads/2025/09/test-%E2%80%93-test-3.png',
-    category: 'Dark'
-  }, {
-    title: 'Switchable Style',
-    type: 'image',
-    url: 'https://templates.bplugins.com/wp-content/uploads/2025/09/test-%E2%80%93-test-4.png',
-    category: 'Switchable'
-  }, {
-    title: 'Dark Minimalist Style',
-    type: 'image',
-    url: 'https://templates.bplugins.com/wp-content/uploads/2025/09/pricing-table-darkminimakist.png',
-    category: 'Dark Minimalist'
-  }]
-};
-const pricingInfo = {
-  logo: `https://ps.w.org/${slug}/assets/icon-128x128.png`,
-  pluginId: 19836,
-  planId: 32912,
-  licenses: [1, 3, null],
-  button: {
-    label: 'Buy Now ➜'
-  },
-  featured: {
-    selected: 3
-  }
-};
 
 /***/ }),
 
@@ -13935,6 +12829,294 @@ function htmlEscape(str) {
 
 /***/ }),
 
+/***/ "./src/admin/Components/App.js":
+/*!*************************************!*\
+  !*** ./src/admin/Components/App.js ***!
+  \*************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/development/chunk-OIYGIGL5.mjs");
+/* harmony import */ var _bpl_tools_Admin_Welcome__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../bpl-tools/Admin/Welcome */ "../bpl-tools/Admin/Welcome/index.js");
+/* harmony import */ var _bpl_tools_Admin_Demos__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../bpl-tools/Admin/Demos */ "../bpl-tools/Admin/Demos/index.js");
+/* harmony import */ var _bpl_tools_Admin_OurPlugins__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../bpl-tools/Admin/OurPlugins */ "../bpl-tools/Admin/OurPlugins/index.js");
+/* harmony import */ var _Layout__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Layout */ "./src/admin/Components/Layout.js");
+/* harmony import */ var _utils_data__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../utils/data */ "./src/admin/utils/data.js");
+
+
+
+
+
+
+
+const App = props => {
+  const {
+    adminUrl
+  } = props;
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.HashRouter, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Routes, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Route, {
+    path: "/",
+    element: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Layout__WEBPACK_IMPORTED_MODULE_5__["default"], {
+      ...props
+    })
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Route, {
+    index: true,
+    element: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_bpl_tools_Admin_Welcome__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      ...props,
+      ...(0,_utils_data__WEBPACK_IMPORTED_MODULE_6__.welcomeInfo)(adminUrl)
+    })
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Route, {
+    path: "welcome",
+    element: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_bpl_tools_Admin_Welcome__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      ...props,
+      ...(0,_utils_data__WEBPACK_IMPORTED_MODULE_6__.welcomeInfo)(adminUrl)
+    })
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Route, {
+    path: "demos",
+    element: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_bpl_tools_Admin_Demos__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      ...props,
+      demoInfo: _utils_data__WEBPACK_IMPORTED_MODULE_6__.demoInfo
+    })
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Route, {
+    path: "our-plugins",
+    element: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_bpl_tools_Admin_OurPlugins__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      ...props
+    })
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Route, {
+    path: "*",
+    element: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Navigate, {
+      to: "/welcome",
+      replace: true
+    })
+  }))));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (App);
+
+/***/ }),
+
+/***/ "./src/admin/Components/Layout.js":
+/*!****************************************!*\
+  !*** ./src/admin/Components/Layout.js ***!
+  \****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/development/chunk-OIYGIGL5.mjs");
+/* harmony import */ var _bpl_tools_Admin_Header__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../bpl-tools/Admin/Header */ "../bpl-tools/Admin/Header/index.js");
+
+
+
+const navigation = [{
+  name: 'Welcome',
+  href: '/welcome'
+}, {
+  name: 'Demos',
+  href: '/demos'
+}];
+const Layout = props => {
+  const location = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_1__.useLocation)();
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "bPlDashboard"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_bpl_tools_Admin_Header__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    ...props
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("nav", {
+    className: "bPlDashboardNav"
+  }, navigation?.map((item, index) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Link, {
+    key: index,
+    to: item.href,
+    className: `navLink ${location.pathname === item.href ? 'active' : ''}`
+  }, item.name)))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("main", {
+    className: "bPlDashboardMain"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Outlet, null)));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Layout);
+
+/***/ }),
+
+/***/ "./src/admin/dashboard.scss":
+/*!**********************************!*\
+  !*** ./src/admin/dashboard.scss ***!
+  \**********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ }),
+
+/***/ "./src/admin/utils/data.js":
+/*!*********************************!*\
+  !*** ./src/admin/utils/data.js ***!
+  \*********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   changelogs: () => (/* binding */ changelogs),
+/* harmony export */   dashboardInfo: () => (/* binding */ dashboardInfo),
+/* harmony export */   demoInfo: () => (/* binding */ demoInfo),
+/* harmony export */   pricingInfo: () => (/* binding */ pricingInfo),
+/* harmony export */   welcomeInfo: () => (/* binding */ welcomeInfo)
+/* harmony export */ });
+const slug = 'my-pricing-table';
+const dashboardInfo = info => {
+  const {
+    version,
+    hasPro,
+    adminUrl
+  } = info;
+  return {
+    name: `My Pricing Table`,
+    displayName: `My Pricing Table - Create Responsive Pricing Tables`,
+    description: 'A lightweight WordPress plugin that helps you create and embed beautiful, responsive pricing tables in minutes.',
+    slug,
+    version,
+    isPremium: true,
+    hasPro,
+    adminUrl,
+    displayOurPlugins: true,
+    media: {
+      logo: `https://ps.w.org/${slug}/assets/icon-128x128.png`,
+      banner: `https://ps.w.org/my-pricing-table/assets/icon.svg?rev=3623305`,
+      thumbnail: `https://ps.w.org/my-pricing-table/assets/icon.svg?rev=3623305`
+    },
+    logo: `https://ps.w.org/${slug}/assets/icon-128x128.png`,
+    banner: `https://ps.w.org/${slug}/assets/banner-772x250.png`,
+    pages: {
+      org: `https://wordpress.org/plugins/${slug}/`,
+      landing: `https://pricing-table.bplugins.com/`,
+      docs: `https://bplugins.com/support/`,
+      pricing: `https://bplugins.com/products/${slug}/pricing`
+    },
+    startButton: {
+      label: 'Add New Table',
+      url: `post-new.php?post_type=bppt-pricing-table`
+    },
+    freemius: {
+      product_id: 19836,
+      plan_id: 32912,
+      public_key: 'pk_a175d9d65767cc56ca88c39e031a9'
+    }
+  };
+};
+const changelogs = [{
+  version: '1.0.1',
+  type: 'update',
+  list: ['updated codestar framework']
+}, {
+  version: '1.0.0',
+  type: 'new',
+  list: ['Initial Release']
+}];
+const welcomeInfo = adminUrl => ({
+  keywords: ['5 Templates', 'Responsive', 'Color Schemes', 'Shortcode Ready'],
+  keywordsLabel: 'Features',
+  gettingStarted: {
+    tabs: [{
+      key: 'shortcode',
+      label: 'ShortCode',
+      steps: [{
+        num: 1,
+        title: 'Create a Pricing Table',
+        body: 'Go to <strong>Pricing Table › Add New</strong> to configure your pricing plans and features.',
+        link: {
+          url: `${adminUrl}post-new.php?post_type=bppt-pricing-table`,
+          label: 'Add New'
+        }
+      }, {
+        num: 2,
+        title: 'Choose Style & Colors',
+        body: 'Select from 5 responsive templates, set currency symbols, plan prices, and feature items.'
+      }, {
+        num: 3,
+        title: 'Copy Shortcode',
+        body: 'Publish the table and copy the generated shortcode: <code>[bp-table id=POST_ID]</code>.',
+        link: {
+          url: `${adminUrl}edit.php?post_type=bppt-pricing-table`,
+          label: 'View All Tables'
+        }
+      }, {
+        num: 4,
+        title: 'Paste Anywhere',
+        body: 'Paste your shortcode into any post, page, widget, or page builder (Gutenberg, Elementor, etc.).'
+      }]
+    }]
+  },
+  changelogs,
+  changelogsLimit: 5,
+  changelogsReadMoreLabel: 'View on WordPress.org',
+  proFeatures: ['5 professionally designed responsive templates', 'Multiple color schemes per template', 'Multi-currency support ($, ¥, €, ৳, ﷼)', 'Featured / Recommended badge for hot plans', 'Enable / disable feature items with checkmarks and crosses', 'Custom call-to-action button labels and links', 'Universal shortcodes compatible with all page builders', 'Priority customer support and regular updates']
+});
+const demoInfo = {
+  allInOneLabel: 'Live Demo Site',
+  allInOneLink: 'https://pricing-table.bplugins.com',
+  demos: [{
+    title: 'Default Basic Style',
+    type: 'image',
+    url: 'https://templates.bplugins.com/wp-content/uploads/2025/10/image.png',
+    category: 'Default'
+  }, {
+    title: 'Default Standard Style',
+    type: 'image',
+    url: 'https://templates.bplugins.com/wp-content/uploads/2025/09/pricing-table-standard-demo.png',
+    category: 'Default'
+  }, {
+    title: 'Default Ultimate Style',
+    type: 'image',
+    url: 'https://templates.bplugins.com/wp-content/uploads/2025/09/pricing-table-ultimate-demo.png',
+    category: 'Default'
+  }, {
+    title: 'Horizontal Style',
+    type: 'image',
+    url: 'https://templates.bplugins.com/wp-content/uploads/2025/09/horizantal.png',
+    category: 'Horizontal'
+  }, {
+    title: 'Minimal Style',
+    type: 'image',
+    url: 'https://templates.bplugins.com/wp-content/uploads/2025/09/test-%E2%80%93-test-2.png',
+    category: 'Minimal'
+  }, {
+    title: 'Dark Style',
+    type: 'image',
+    url: 'https://templates.bplugins.com/wp-content/uploads/2025/09/test-%E2%80%93-test-3.png',
+    category: 'Dark'
+  }, {
+    title: 'Switchable Style',
+    type: 'image',
+    url: 'https://templates.bplugins.com/wp-content/uploads/2025/09/test-%E2%80%93-test-4.png',
+    category: 'Switchable'
+  }, {
+    title: 'Dark Minimalist Style',
+    type: 'image',
+    url: 'https://templates.bplugins.com/wp-content/uploads/2025/09/pricing-table-darkminimakist.png',
+    category: 'Dark Minimalist'
+  }]
+};
+const pricingInfo = {
+  logo: `https://ps.w.org/${slug}/assets/icon-128x128.png`,
+  pluginId: 19836,
+  planId: 32912,
+  licenses: [1, 3, null],
+  button: {
+    label: 'Buy Now ➜'
+  },
+  featured: {
+    selected: 3
+  }
+};
+
+/***/ }),
+
 /***/ "@wordpress/api-fetch":
 /*!**********************************!*\
   !*** external ["wp","apiFetch"] ***!
@@ -14057,15 +13239,15 @@ var __webpack_exports__ = {};
 // This entry needs to be wrapped in an IIFE because it needs to be isolated against other modules in the chunk.
 (() => {
 /*!********************************!*\
-  !*** ./inc/admin/dashboard.js ***!
+  !*** ./src/admin/dashboard.js ***!
   \********************************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_dom_client__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom/client */ "./node_modules/react-dom/client.js");
-/* harmony import */ var _dashboard_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./dashboard.scss */ "./inc/admin/dashboard.scss");
-/* harmony import */ var _Components_App__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Components/App */ "./inc/admin/Components/App.js");
-/* harmony import */ var _utils_data__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./utils/data */ "./inc/admin/utils/data.js");
+/* harmony import */ var _dashboard_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./dashboard.scss */ "./src/admin/dashboard.scss");
+/* harmony import */ var _Components_App__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Components/App */ "./src/admin/Components/App.js");
+/* harmony import */ var _utils_data__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./utils/data */ "./src/admin/utils/data.js");
 
 
 
