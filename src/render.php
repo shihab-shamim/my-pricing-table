@@ -22,8 +22,16 @@ $columns = ! empty( $attributes['columns'] ) && is_array( $attributes['columns']
 	'tablet'  => 2,
 	'mobile'  => 1,
 ];
-$col_gap = ! empty( $attributes['columnGap'] ) ? $attributes['columnGap'] : '20px';
-$row_gap = ! empty( $attributes['rowGap'] ) ? $attributes['rowGap'] : '30px';
+$col_gaps = ! empty( $attributes['columnGap'] ) && is_array( $attributes['columnGap'] ) ? $attributes['columnGap'] : [
+	'desktop' => ! empty( $attributes['columnGap'] ) && is_string( $attributes['columnGap'] ) ? $attributes['columnGap'] : '20px',
+	'tablet'  => '15px',
+	'mobile'  => '10px',
+];
+$row_gaps = ! empty( $attributes['rowGap'] ) && is_array( $attributes['rowGap'] ) ? $attributes['rowGap'] : [
+	'desktop' => ! empty( $attributes['rowGap'] ) && is_string( $attributes['rowGap'] ) ? $attributes['rowGap'] : '30px',
+	'tablet'  => '20px',
+	'mobile'  => '15px',
+];
 $unique_id = 'bppt-block-' . wp_unique_id();
 $cols_class = sprintf( 'columns-%d columns-tablet-%d columns-mobile-%d', $columns['desktop'] ?? 3, $columns['tablet'] ?? 2, $columns['mobile'] ?? 1 );
 
@@ -46,7 +54,7 @@ ob_start();
 		.<?php echo esc_attr( $unique_id ); ?> .priceTableGradient {
 			display: grid !important;
 			grid-template-columns: repeat(<?php echo max( 1, (int)( $columns['desktop'] ?? 3 ) ); ?>, minmax(0, 1fr)) !important;
-			gap: <?php echo esc_attr( $row_gap ); ?> <?php echo esc_attr( $col_gap ); ?> !important;
+			gap: <?php echo esc_attr( $row_gaps['desktop'] ?? '30px' ); ?> <?php echo esc_attr( $col_gaps['desktop'] ?? '20px' ); ?> !important;
 			justify-content: stretch !important;
 		}
 		.<?php echo esc_attr( $unique_id ); ?> .bppt_pricing .plan,
@@ -69,6 +77,7 @@ ob_start();
 			.<?php echo esc_attr( $unique_id ); ?> .priceTableBGBefore,
 			.<?php echo esc_attr( $unique_id ); ?> .priceTableGradient {
 				grid-template-columns: repeat(<?php echo max( 1, (int)( $columns['tablet'] ?? 2 ) ); ?>, minmax(0, 1fr)) !important;
+				gap: <?php echo esc_attr( $row_gaps['tablet'] ?? '20px' ); ?> <?php echo esc_attr( $col_gaps['tablet'] ?? '15px' ); ?> !important;
 			}
 		}
 		@media only screen and (max-width: 640px) {
@@ -78,6 +87,7 @@ ob_start();
 			.<?php echo esc_attr( $unique_id ); ?> .priceTableBGBefore,
 			.<?php echo esc_attr( $unique_id ); ?> .priceTableGradient {
 				grid-template-columns: repeat(<?php echo max( 1, (int)( $columns['mobile'] ?? 1 ) ); ?>, minmax(0, 1fr)) !important;
+				gap: <?php echo esc_attr( $row_gaps['mobile'] ?? '15px' ); ?> <?php echo esc_attr( $col_gaps['mobile'] ?? '10px' ); ?> !important;
 			}
 		}
 	</style>

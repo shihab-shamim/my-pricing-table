@@ -1,15 +1,21 @@
 import { tabBreakpoint, mobileBreakpoint } from '../../../../bpl-tools/utils/data';
 
 const Style = ({ attributes, clientId }) => {
-	const { columns, columnGap = '20px', rowGap = '30px' } = attributes;
+	const { columns, columnGap, rowGap } = attributes;
 
 	const cols = typeof columns === 'object' && columns !== null
 		? { desktop: 3, tablet: 2, mobile: 1, ...columns }
 		: { desktop: typeof columns === 'number' ? columns : 3, tablet: 2, mobile: 1 };
 
+	const colGaps = typeof columnGap === 'object' && columnGap !== null
+		? { desktop: '20px', tablet: '15px', mobile: '10px', ...columnGap }
+		: { desktop: columnGap || '20px', tablet: '15px', mobile: '10px' };
+
+	const rowGaps = typeof rowGap === 'object' && rowGap !== null
+		? { desktop: '30px', tablet: '20px', mobile: '15px', ...rowGap }
+		: { desktop: rowGap || '30px', tablet: '20px', mobile: '15px' };
+
 	const selector = clientId ? `.bppt-${clientId}` : '.bppt-pricing-table-editor-wrapper';
-	const cGap = columnGap || '20px';
-	const rGap = rowGap || '30px';
 
 	return (
 		<style dangerouslySetInnerHTML={{
@@ -21,7 +27,7 @@ const Style = ({ attributes, clientId }) => {
 				${selector} .priceTableGradient {
 					display: grid !important;
 					grid-template-columns: repeat(${cols.desktop || 3}, minmax(0, 1fr)) !important;
-					gap: ${rGap} ${cGap} !important;
+					gap: ${rowGaps.desktop || '30px'} ${colGaps.desktop || '20px'} !important;
 					justify-content: stretch !important;
 				}
 				${selector} .bppt_pricing .plan,
@@ -44,6 +50,7 @@ const Style = ({ attributes, clientId }) => {
 					${selector} .priceTableBGBefore,
 					${selector} .priceTableGradient {
 						grid-template-columns: repeat(${cols.tablet || 2}, minmax(0, 1fr)) !important;
+						gap: ${rowGaps.tablet || '20px'} ${colGaps.tablet || '15px'} !important;
 					}
 				}
 				${mobileBreakpoint} {
@@ -53,6 +60,7 @@ const Style = ({ attributes, clientId }) => {
 					${selector} .priceTableBGBefore,
 					${selector} .priceTableGradient {
 						grid-template-columns: repeat(${cols.mobile || 1}, minmax(0, 1fr)) !important;
+						gap: ${rowGaps.mobile || '15px'} ${colGaps.mobile || '10px'} !important;
 					}
 				}
 			`

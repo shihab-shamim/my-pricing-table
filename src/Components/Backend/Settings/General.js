@@ -200,7 +200,7 @@ const PlanItemSettings = ({ attributes, setAttributes, arrKey = 'tables', index 
 };
 
 const General = ({ attributes, setAttributes }) => {
-	const { theme = 'demo-1', tables = [], columns, columnGap = '20px', rowGap = '30px' } = attributes;
+	const { theme = 'demo-1', tables = [], columns, columnGap, rowGap } = attributes;
 
 	const device = useSelect(select => {
 		return select('core/editor')?.getDeviceType()?.toLowerCase() || 'desktop';
@@ -209,6 +209,14 @@ const General = ({ attributes, setAttributes }) => {
 	const columnsObj = typeof columns === 'object' && columns !== null
 		? { desktop: 3, tablet: 2, mobile: 1, ...columns }
 		: { desktop: typeof columns === 'number' ? columns : 3, tablet: 2, mobile: 1 };
+
+	const columnGapObj = typeof columnGap === 'object' && columnGap !== null
+		? { desktop: '20px', tablet: '15px', mobile: '10px', ...columnGap }
+		: { desktop: columnGap || '20px', tablet: '15px', mobile: '10px' };
+
+	const rowGapObj = typeof rowGap === 'object' && rowGap !== null
+		? { desktop: '30px', tablet: '20px', mobile: '15px', ...rowGap }
+		: { desktop: rowGap || '30px', tablet: '20px', mobile: '15px' };
 
 	return (
 		<>
@@ -240,21 +248,31 @@ const General = ({ attributes, setAttributes }) => {
 					beforeIcon="grid-view"
 				/>
 
+				<PanelRow style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '14px', marginBottom: '8px' }}>
+					<Label className="mb5">{__('Column Gap:', 'bpricing')}</Label>
+					<Device />
+				</PanelRow>
 				<UnitControl
-					style={{ marginTop: '14px' }}
-					label={__('Column Gap:', 'bpricing')}
-					labelPosition="left"
-					value={columnGap}
-					onChange={val => setAttributes({ columnGap: val })}
+					value={columnGapObj[device] || '20px'}
+					onChange={val => {
+						setAttributes({
+							columnGap: { ...columnGapObj, [device]: val }
+						});
+					}}
 					units={[pxUnit(), perUnit(), emUnit()]}
 				/>
 
+				<PanelRow style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '14px', marginBottom: '8px' }}>
+					<Label className="mb5">{__('Row Gap:', 'bpricing')}</Label>
+					<Device />
+				</PanelRow>
 				<UnitControl
-					style={{ marginTop: '14px' }}
-					label={__('Row Gap:', 'bpricing')}
-					labelPosition="left"
-					value={rowGap}
-					onChange={val => setAttributes({ rowGap: val })}
+					value={rowGapObj[device] || '30px'}
+					onChange={val => {
+						setAttributes({
+							rowGap: { ...rowGapObj, [device]: val }
+						});
+					}}
 					units={[pxUnit(), perUnit(), emUnit()]}
 				/>
 			</PanelBody>

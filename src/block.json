@@ -28,12 +28,20 @@
 			}
 		},
 		"columnGap": {
-			"type": "string",
-			"default": "20px"
+			"type": "object",
+			"default": {
+				"desktop": "20px",
+				"tablet": "15px",
+				"mobile": "10px"
+			}
 		},
 		"rowGap": {
-			"type": "string",
-			"default": "30px"
+			"type": "object",
+			"default": {
+				"desktop": "30px",
+				"tablet": "20px",
+				"mobile": "15px"
+			}
 		},
 		"tables": {
 			"type": "array",
