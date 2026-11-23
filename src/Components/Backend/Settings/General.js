@@ -11,7 +11,7 @@ import {
 	__experimentalUnitControl as UnitControl
 } from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
-import { ItemsPanel, Device, Label } from '../../../../../bpl-tools/Components';
+import { ItemsPanel, Device, Label, ColorControl } from '../../../../../bpl-tools/Components';
 import { emUnit, perUnit, pxUnit } from '../../../../../bpl-tools/utils/options';
 
 export const THEME_OPTIONS = [
@@ -22,6 +22,31 @@ export const THEME_OPTIONS = [
 	{ label: __('Theme 5 — Arrow Banner Gradient', 'bpricing'), value: 'demo-5' }
 ];
 
+export const THEME_SCHEMES = {
+	'demo-1': ['default', 'basic', 'standard', 'ultimite'],
+	'demo-2': ['lemon', 'purple', 'pink', 'sky', 'default'],
+	'demo-3': ['default', 'purple', 'pink'],
+	'demo-4': ['default', 'purple', 'orange'],
+	'demo-5': ['default', 'green', 'blue']
+};
+
+export const THEME_DEFAULT_SCHEMES = {
+	'demo-1': ['default', 'standard', 'ultimite'],
+	'demo-2': ['lemon', 'purple', 'pink', 'sky', 'default'],
+	'demo-3': ['default', 'purple', 'pink'],
+	'demo-4': ['default', 'purple', 'orange'],
+	'demo-5': ['default', 'green', 'blue']
+};
+
+export const getEffectiveScheme = (theme, colorScheme, index) => {
+	const validSchemes = THEME_SCHEMES[theme] || THEME_SCHEMES['demo-1'];
+	if (colorScheme && validSchemes.includes(colorScheme)) {
+		return colorScheme;
+	}
+	const defaults = THEME_DEFAULT_SCHEMES[theme] || THEME_DEFAULT_SCHEMES['demo-1'];
+	return defaults[index % defaults.length];
+};
+
 export const COLOR_SCHEMES = {
 	'demo-1': [
 		{ label: __('Default (Teal/Cyan)', 'bpricing'), value: 'default' },
@@ -30,11 +55,11 @@ export const COLOR_SCHEMES = {
 		{ label: __('Ultimate (Coral Pink)', 'bpricing'), value: 'ultimite' }
 	],
 	'demo-2': [
-		{ label: __('Default (Crimson Red)', 'bpricing'), value: 'default' },
-		{ label: __('Pink', 'bpricing'), value: 'pink' },
+		{ label: __('Lemon (Green)', 'bpricing'), value: 'lemon' },
 		{ label: __('Purple', 'bpricing'), value: 'purple' },
-		{ label: __('Sky', 'bpricing'), value: 'sky' },
-		{ label: __('Lemon', 'bpricing'), value: 'lemon' }
+		{ label: __('Pink', 'bpricing'), value: 'pink' },
+		{ label: __('Sky (Sky Blue)', 'bpricing'), value: 'sky' },
+		{ label: __('Default (Crimson Red)', 'bpricing'), value: 'default' }
 	],
 	'demo-3': [
 		{ label: __('Default (Emerald Green)', 'bpricing'), value: 'default' },
@@ -43,8 +68,8 @@ export const COLOR_SCHEMES = {
 	],
 	'demo-4': [
 		{ label: __('Default (Fresh Lime)', 'bpricing'), value: 'default' },
-		{ label: __('Orange', 'bpricing'), value: 'orange' },
-		{ label: __('Purple', 'bpricing'), value: 'purple' }
+		{ label: __('Purple', 'bpricing'), value: 'purple' },
+		{ label: __('Orange', 'bpricing'), value: 'orange' }
 	],
 	'demo-5': [
 		{ label: __('Default (Warm Orange)', 'bpricing'), value: 'default' },
@@ -58,6 +83,7 @@ const PlanItemSettings = ({ attributes, setAttributes, arrKey = 'tables', index 
 	const currentPlan = items[index] || {};
 	const { theme = 'demo-1' } = attributes;
 	const currentSchemes = COLOR_SCHEMES[theme] || COLOR_SCHEMES['demo-1'];
+	const effectiveScheme = getEffectiveScheme(theme, currentPlan.colorScheme, index);
 
 	const updatePlan = (key, value) => {
 		const nextTables = items.map((tbl, idx) => {
@@ -119,10 +145,42 @@ const PlanItemSettings = ({ attributes, setAttributes, arrKey = 'tables', index 
 
 			<SelectControl
 				label={__('Color Scheme', 'bpricing')}
-				value={currentPlan.colorScheme || 'default'}
+				value={effectiveScheme}
 				options={currentSchemes}
 				onChange={val => updatePlan('colorScheme', val)}
 			/>
+
+			<div style={{ marginTop: '12px', marginBottom: '14px', padding: '10px', background: '#ffffff', border: '1px solid #e2e4e7', borderRadius: '4px' }}>
+				<div style={{ fontWeight: 600, fontSize: '12px', marginBottom: '8px', color: '#1e1e1e' }}>
+					{__('Custom Column Colors (Optional Override)', 'bpricing')}
+				</div>
+				<ColorControl
+					label={__('Header / Accent Color:', 'bpricing')}
+					value={currentPlan.headerBg || ''}
+					onChange={val => updatePlan('headerBg', val)}
+				/>
+				<div style={{ marginTop: '8px' }}>
+					<ColorControl
+						label={__('Button Background Color:', 'bpricing')}
+						value={currentPlan.btnBg || ''}
+						onChange={val => updatePlan('btnBg', val)}
+					/>
+				</div>
+				<div style={{ marginTop: '8px' }}>
+					<ColorControl
+						label={__('Button Text Color:', 'bpricing')}
+						value={currentPlan.btnColor || ''}
+						onChange={val => updatePlan('btnColor', val)}
+					/>
+				</div>
+				<div style={{ marginTop: '8px' }}>
+					<ColorControl
+						label={__('Card Background Color:', 'bpricing')}
+						value={currentPlan.cardBg || ''}
+						onChange={val => updatePlan('cardBg', val)}
+					/>
+				</div>
+			</div>
 
 			<ToggleControl
 				label={__('Featured / Hot Plan', 'bpricing')}
@@ -225,7 +283,14 @@ const General = ({ attributes, setAttributes }) => {
 					label={__('Theme Design', 'bpricing')}
 					value={theme}
 					options={THEME_OPTIONS}
-					onChange={val => setAttributes({ theme: val })}
+					onChange={val => {
+						const targetDefaults = THEME_DEFAULT_SCHEMES[val] || THEME_DEFAULT_SCHEMES['demo-1'];
+						const nextTables = (tables || []).map((t, i) => ({
+							...t,
+							colorScheme: targetDefaults[i % targetDefaults.length]
+						}));
+						setAttributes({ theme: val, tables: nextTables });
+					}}
 					help={__('Choose one of the 5 built-in pricing table designs.', 'bpricing')}
 				/>
 			</PanelBody>

@@ -1,4 +1,5 @@
 import { __ } from '@wordpress/i18n';
+import { getEffectiveScheme } from './Settings/General';
 
 const Theme = ({ attributes }) => {
 	const { theme = 'demo-1', tables = [], columns } = attributes;
@@ -30,9 +31,10 @@ const Theme = ({ attributes }) => {
 			return (
 				<div className="bppt_pricing">
 					{tables.map((tbl, i) => {
-						const scheme = tbl.colorScheme && tbl.colorScheme !== 'default' ? tbl.colorScheme : '';
+						const scheme = getEffectiveScheme('demo-1', tbl.colorScheme, i);
+						const schemeClass = scheme && scheme !== 'default' ? scheme : '';
 						return (
-							<div key={i} className={`plan ${scheme}`.trim()}>
+							<div key={i} className={`plan ${schemeClass} bppt-plan-${i}`.trim()}>
 								<div className="plan-inner">
 									{tbl.isFeatured && tbl.badge && <div className="hot">{tbl.badge}</div>}
 									<div className="plan-entry-title">
@@ -61,9 +63,10 @@ const Theme = ({ attributes }) => {
 			return (
 				<div className="bppt_container">
 					{tables.map((tbl, i) => {
-						const scheme = tbl.colorScheme && tbl.colorScheme !== 'default' ? tbl.colorScheme : '';
+						const scheme = getEffectiveScheme('demo-2', tbl.colorScheme, i);
+						const schemeClass = scheme && scheme !== 'default' ? scheme : '';
 						return (
-							<div key={i} className={`pricingTableTwo ${scheme}`.trim()}>
+							<div key={i} className={`pricingTableTwo ${schemeClass} bppt-plan-${i}`.trim()}>
 								<div>
 									<div className="pricingTable-header">
 										<h3 className="title">{tbl.name}</h3>
@@ -91,9 +94,10 @@ const Theme = ({ attributes }) => {
 			return (
 				<div className="bppt_table3">
 					{tables.map((tbl, i) => {
-						const scheme = tbl.colorScheme && tbl.colorScheme !== 'default' ? tbl.colorScheme : '';
+						const scheme = getEffectiveScheme('demo-3', tbl.colorScheme, i);
+						const schemeClass = scheme && scheme !== 'default' ? scheme : '';
 						return (
-							<div key={i} className={`pricingTable ${scheme}`.trim()}>
+							<div key={i} className={`pricingTable ${schemeClass} bppt-plan-${i}`.trim()}>
 								<div className="pricingTable-header">
 									<h3 className="title">{tbl.name}</h3>
 								</div>
@@ -121,9 +125,10 @@ const Theme = ({ attributes }) => {
 			return (
 				<div className={`priceTableBGBefore ${colClasses}`}>
 					{tables.map((tbl, i) => {
-						const scheme = tbl.colorScheme && tbl.colorScheme !== 'default' ? tbl.colorScheme : '';
+						const scheme = getEffectiveScheme('demo-4', tbl.colorScheme, i);
+						const schemeClass = scheme && scheme !== 'default' ? scheme : '';
 						return (
-							<div key={i} className={`pricingTableFour ${scheme}`.trim()}>
+							<div key={i} className={`pricingTableFour ${schemeClass} bppt-plan-${i}`.trim()}>
 								<div className="pricingContent">
 									<div>
 										<div className="pricingHeader">
@@ -162,9 +167,10 @@ const Theme = ({ attributes }) => {
 			return (
 				<div className={`priceTableGradient ${colClasses}`}>
 					{tables.map((tbl, i) => {
-						const scheme = tbl.colorScheme && tbl.colorScheme !== 'default' ? tbl.colorScheme : '';
+						const scheme = getEffectiveScheme('demo-5', tbl.colorScheme, i);
+						const schemeClass = scheme && scheme !== 'default' ? scheme : '';
 						return (
-							<div key={i} className={`pricingTable ${scheme}`.trim()}>
+							<div key={i} className={`pricingTable ${schemeClass} bppt-plan-${i}`.trim()}>
 								<div>
 									<div className="pricingHeader">
 										<h3 className="title">{tbl.name}</h3>

@@ -2,7 +2,7 @@ import { tabBreakpoint, mobileBreakpoint } from '../../../../bpl-tools/utils/dat
 import { getMergedThemeStyle, generateThemeCSS } from '../../utils/themeStyles';
 
 const Style = ({ attributes, clientId }) => {
-	const { theme = 'demo-1', columns, columnGap, rowGap, styles = {} } = attributes;
+	const { theme = 'demo-1', tables = [], columns, columnGap, rowGap, styles = {} } = attributes;
 
 	const cols = typeof columns === 'object' && columns !== null
 		? { desktop: 3, tablet: 2, mobile: 1, ...columns }
@@ -18,7 +18,7 @@ const Style = ({ attributes, clientId }) => {
 
 	const selector = clientId ? `.bppt-${clientId}` : '.bppt-pricing-table-editor-wrapper';
 	const currentThemeStyle = getMergedThemeStyle(theme, styles);
-	const customThemeCSS = generateThemeCSS(selector, theme, currentThemeStyle);
+	const customThemeCSS = generateThemeCSS(selector, theme, currentThemeStyle, tables);
 
 	return (
 		<style dangerouslySetInnerHTML={{

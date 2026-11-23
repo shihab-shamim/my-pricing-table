@@ -35,6 +35,147 @@ $row_gaps = ! empty( $attributes['rowGap'] ) && is_array( $attributes['rowGap'] 
 $styles_attr = ! empty( $attributes['styles'] ) && is_array( $attributes['styles'] ) ? $attributes['styles'] : [];
 $theme_style = ! empty( $styles_attr[ $theme ] ) && is_array( $styles_attr[ $theme ] ) ? $styles_attr[ $theme ] : [];
 
+$default_theme_styles = [
+	'demo-1' => [
+		'cardBg'         => [ 'type' => 'solid', 'color' => '#ffffff' ],
+		'cardPadding'    => [ 'top' => '0px', 'right' => '0px', 'bottom' => '0px', 'left' => '0px' ],
+		'cardMargin'     => [ 'top' => '10px', 'right' => '0px', 'bottom' => '40px', 'left' => '0px' ],
+		'cardRadius'     => '0px',
+		'cardShadow'     => [],
+		'headerBg'       => '#53cfe9',
+		'titleColor'     => '#ffffff',
+		'titleTypo'      => [ 'fontFamily' => 'Lato', 'fontWeight' => '700', 'fontSize' => [ 'desktop' => 20, 'tablet' => 20, 'mobile' => 18 ] ],
+		'priceColor'     => '#ffffff',
+		'priceBg'        => '#20bada',
+		'priceTypo'      => [ 'fontFamily' => 'Lato', 'fontWeight' => '700', 'fontSize' => [ 'desktop' => 28, 'tablet' => 28, 'mobile' => 24 ] ],
+		'unitColor'      => '#ffffff',
+		'unitTypo'       => [ 'fontFamily' => 'Lato', 'fontWeight' => '400', 'fontSize' => [ 'desktop' => 12, 'tablet' => 12, 'mobile' => 12 ] ],
+		'featureColor'   => '#323232',
+		'featureTypo'    => [ 'fontFamily' => 'Lato', 'fontWeight' => '400', 'fontSize' => [ 'desktop' => 14, 'tablet' => 14, 'mobile' => 14 ] ],
+		'btnColors'      => [ 'color' => '#ffffff', 'bgType' => 'solid', 'bg' => '#323232' ],
+		'btnHoverColors' => [ 'color' => '#ffffff', 'bgType' => 'solid', 'bg' => '#000000' ],
+		'btnTypo'        => [ 'fontFamily' => 'Lato', 'fontWeight' => '700', 'fontSize' => [ 'desktop' => 14, 'tablet' => 14, 'mobile' => 14 ] ],
+		'btnPadding'     => [ 'top' => '10px', 'right' => '30px', 'bottom' => '10px', 'left' => '30px' ],
+		'btnRadius'      => '0px',
+	],
+	'demo-2' => [
+		'cardBg'         => [ 'type' => 'solid', 'color' => '#f1f1f1' ],
+		'cardPadding'    => [ 'top' => '0px', 'right' => '0px', 'bottom' => '0px', 'left' => '0px' ],
+		'cardMargin'     => [ 'top' => '0px', 'right' => '24px', 'bottom' => '60px', 'left' => '24px' ],
+		'cardRadius'     => '0px',
+		'cardShadow'     => [],
+		'headerBg'       => '#f53c25',
+		'titleColor'     => '#ffffff',
+		'titleTypo'      => [ 'fontFamily' => 'Rubik', 'fontWeight' => '500', 'fontSize' => [ 'desktop' => 28, 'tablet' => 24, 'mobile' => 20 ] ],
+		'priceColor'     => '#000000',
+		'priceTypo'      => [ 'fontFamily' => 'Rubik', 'fontWeight' => '500', 'fontSize' => [ 'desktop' => 69, 'tablet' => 50, 'mobile' => 38 ] ],
+		'unitColor'      => '#000000',
+		'unitTypo'       => [ 'fontFamily' => 'Rubik', 'fontWeight' => '400', 'fontSize' => [ 'desktop' => 18, 'tablet' => 16, 'mobile' => 14 ] ],
+		'featureColor'   => '#404040',
+		'featureTypo'    => [ 'fontFamily' => 'Rubik', 'fontWeight' => '500', 'fontSize' => [ 'desktop' => 15, 'tablet' => 14, 'mobile' => 14 ] ],
+		'btnColors'      => [ 'color' => '#ffffff', 'bgType' => 'solid', 'bg' => '#f53c25' ],
+		'btnHoverColors' => [ 'color' => '#ffffff', 'bgType' => 'solid', 'bg' => '#a10903' ],
+		'btnTypo'        => [ 'fontFamily' => 'Rubik', 'fontWeight' => '500', 'fontSize' => [ 'desktop' => 25, 'tablet' => 20, 'mobile' => 18 ] ],
+		'btnPadding'     => [ 'top' => '10px', 'right' => '24px', 'bottom' => '10px', 'left' => '24px' ],
+		'btnRadius'      => '0px',
+	],
+	'demo-3' => [
+		'cardBg'         => [ 'type' => 'solid', 'color' => '#ffffff' ],
+		'cardPadding'    => [ 'top' => '0px', 'right' => '0px', 'bottom' => '0px', 'left' => '0px' ],
+		'cardMargin'     => [ 'top' => '0px', 'right' => '20px', 'bottom' => '60px', 'left' => '20px' ],
+		'cardRadius'     => '0px',
+		'cardShadow'     => [ [ 'hOffset' => 0, 'vOffset' => 0, 'blur' => 15, 'spread' => 0, 'color' => 'rgba(0, 0, 0, 0.15)', 'inset' => false ] ],
+		'headerBg'       => '#ffffff',
+		'titleColor'     => '#34ca95',
+		'titleTypo'      => [ 'fontFamily' => 'Poppins', 'fontWeight' => '600', 'fontSize' => [ 'desktop' => 35, 'tablet' => 30, 'mobile' => 24 ] ],
+		'priceColor'     => '#ffffff',
+		'priceBg'        => '#2cc550',
+		'priceTypo'      => [ 'fontFamily' => 'Poppins', 'fontWeight' => '600', 'fontSize' => [ 'desktop' => 45, 'tablet' => 38, 'mobile' => 30 ] ],
+		'unitColor'      => '#ffffff',
+		'unitTypo'       => [ 'fontFamily' => 'Poppins', 'fontWeight' => '400', 'fontSize' => [ 'desktop' => 16, 'tablet' => 15, 'mobile' => 14 ] ],
+		'featureColor'   => '#999999',
+		'featureTypo'    => [ 'fontFamily' => 'Poppins', 'fontWeight' => '500', 'fontSize' => [ 'desktop' => 17, 'tablet' => 16, 'mobile' => 14 ] ],
+		'btnColors'      => [ 'color' => '#ffffff', 'bgType' => 'solid', 'bg' => '#2cc550' ],
+		'btnHoverColors' => [ 'color' => '#ffffff', 'bgType' => 'solid', 'bg' => '#249d40' ],
+		'btnTypo'        => [ 'fontFamily' => 'Poppins', 'fontWeight' => '400', 'fontSize' => [ 'desktop' => 22, 'tablet' => 20, 'mobile' => 18 ] ],
+		'btnPadding'     => [ 'top' => '7px', 'right' => '30px', 'bottom' => '7px', 'left' => '30px' ],
+		'btnRadius'      => '5px',
+	],
+	'demo-4' => [
+		'cardBg'         => [ 'type' => 'solid', 'color' => '#ffffff' ],
+		'cardPadding'    => [ 'top' => '0px', 'right' => '30px', 'bottom' => '30px', 'left' => '30px' ],
+		'cardMargin'     => [ 'top' => '0px', 'right' => '0px', 'bottom' => '40px', 'left' => '0px' ],
+		'cardRadius'     => '20px',
+		'cardShadow'     => [ [ 'hOffset' => 0, 'vOffset' => 0, 'blur' => 15, 'spread' => 0, 'color' => 'rgba(0, 0, 0, 0.1)', 'inset' => false ] ],
+		'headerBg'       => '',
+		'titleColor'     => '#383e4a',
+		'titleTypo'      => [ 'fontFamily' => 'Roboto', 'fontWeight' => '700', 'fontSize' => [ 'desktop' => 30, 'tablet' => 26, 'mobile' => 22 ] ],
+		'priceColor'     => '#383e4a',
+		'priceTypo'      => [ 'fontFamily' => 'Roboto', 'fontWeight' => '700', 'fontSize' => [ 'desktop' => 50, 'tablet' => 42, 'mobile' => 34 ] ],
+		'unitColor'      => '#383e4a',
+		'unitTypo'       => [ 'fontFamily' => 'Roboto', 'fontWeight' => '400', 'fontSize' => [ 'desktop' => 20, 'tablet' => 18, 'mobile' => 16 ] ],
+		'featureColor'   => '#999999',
+		'featureTypo'    => [ 'fontFamily' => 'Roboto', 'fontWeight' => '400', 'fontSize' => [ 'desktop' => 17, 'tablet' => 16, 'mobile' => 15 ] ],
+		'btnColors'      => [ 'color' => '#ffffff', 'bgType' => 'solid', 'bg' => '#9fcd37' ],
+		'btnHoverColors' => [ 'color' => '#ffffff', 'bgType' => 'solid', 'bg' => '#72bb43' ],
+		'btnTypo'        => [ 'fontFamily' => 'Roboto', 'fontWeight' => '700', 'fontSize' => [ 'desktop' => 20, 'tablet' => 18, 'mobile' => 16 ] ],
+		'btnPadding'     => [ 'top' => '14px', 'right' => '15px', 'bottom' => '14px', 'left' => '15px' ],
+		'btnRadius'      => '6px',
+	],
+	'demo-5' => [
+		'cardBg'         => [ 'type' => 'solid', 'color' => '#ffffff' ],
+		'cardPadding'    => [ 'top' => '20px', 'right' => '0px', 'bottom' => '35px', 'left' => '0px' ],
+		'cardMargin'     => [ 'top' => '0px', 'right' => '10px', 'bottom' => '30px', 'left' => '10px' ],
+		'cardRadius'     => '0px',
+		'cardShadow'     => [ [ 'hOffset' => 0, 'vOffset' => 0, 'blur' => 10, 'spread' => -3, 'color' => 'rgba(0, 0, 0, 0.3)', 'inset' => false ] ],
+		'headerBg'       => '',
+		'titleColor'     => '#ffffff',
+		'titleTypo'      => [ 'fontFamily' => 'Roboto', 'fontWeight' => '500', 'fontSize' => [ 'desktop' => 35, 'tablet' => 30, 'mobile' => 24 ] ],
+		'priceColor'     => '#000000',
+		'priceTypo'      => [ 'fontFamily' => 'Roboto', 'fontWeight' => '600', 'fontSize' => [ 'desktop' => 40, 'tablet' => 34, 'mobile' => 28 ] ],
+		'unitColor'      => '#000000',
+		'unitTypo'       => [ 'fontFamily' => 'Roboto', 'fontWeight' => '300', 'fontSize' => [ 'desktop' => 30, 'tablet' => 24, 'mobile' => 20 ] ],
+		'featureColor'   => '#777777',
+		'featureTypo'    => [ 'fontFamily' => 'Roboto', 'fontWeight' => '400', 'fontSize' => [ 'desktop' => 17, 'tablet' => 16, 'mobile' => 14 ] ],
+		'btnColors'      => [ 'color' => '#ffffff', 'bgType' => 'solid', 'bg' => '#f89923' ],
+		'btnHoverColors' => [ 'color' => '#ffffff', 'bgType' => 'solid', 'bg' => '#e07f0f' ],
+		'btnTypo'        => [ 'fontFamily' => 'Roboto', 'fontWeight' => '500', 'fontSize' => [ 'desktop' => 22, 'tablet' => 20, 'mobile' => 18 ] ],
+		'btnPadding'     => [ 'top' => '8px', 'right' => '6px', 'bottom' => '8px', 'left' => '6px' ],
+		'btnRadius'      => '10px',
+	],
+];
+
+$theme_default = $default_theme_styles[ $theme ] ?? [];
+$theme_style   = array_replace_recursive( $theme_default, $theme_style );
+
+if ( ! function_exists( 'bppt_get_effective_scheme' ) ) {
+	function bppt_get_effective_scheme( $theme, $color_scheme, $index ) {
+		$theme_schemes = [
+			'demo-1' => [ 'default', 'basic', 'standard', 'ultimite' ],
+			'demo-2' => [ 'lemon', 'purple', 'pink', 'sky', 'default' ],
+			'demo-3' => [ 'default', 'purple', 'pink' ],
+			'demo-4' => [ 'default', 'purple', 'orange' ],
+			'demo-5' => [ 'default', 'green', 'blue' ],
+		];
+		$theme_defaults = [
+			'demo-1' => [ 'default', 'standard', 'ultimite' ],
+			'demo-2' => [ 'lemon', 'purple', 'pink', 'sky', 'default' ],
+			'demo-3' => [ 'default', 'purple', 'pink' ],
+			'demo-4' => [ 'default', 'purple', 'orange' ],
+			'demo-5' => [ 'default', 'green', 'blue' ],
+		];
+
+		$valid = $theme_schemes[ $theme ] ?? $theme_schemes['demo-1'];
+		if ( ! empty( $color_scheme ) && in_array( $color_scheme, $valid, true ) ) {
+			return ( 'default' === $color_scheme ) ? '' : $color_scheme;
+		}
+
+		$defs = $theme_defaults[ $theme ] ?? $theme_defaults['demo-1'];
+		$chosen = $defs[ $index % count( $defs ) ];
+		return ( 'default' === $chosen ) ? '' : $chosen;
+	}
+}
+
 if ( ! function_exists( 'bppt_get_box_css' ) ) {
 	function bppt_get_box_css( $box ) {
 		if ( empty( $box ) || ! is_array( $box ) ) {
@@ -225,27 +366,45 @@ ob_start();
 					<?php if ( $card_radius ) : ?>border-radius: <?php echo esc_attr( $card_radius ); ?> !important;<?php endif; ?>
 					<?php echo $card_shadow; ?>
 				}
-				.<?php echo esc_attr( $unique_id ); ?> .bppt_pricing .plan-entry-title {
+				<?php if ( $header_bg ) : ?>
+				.<?php echo esc_attr( $unique_id ); ?> .bppt_pricing .plan:not(.basic):not(.standard):not(.ultimite) .plan-entry-title,
+				.<?php echo esc_attr( $unique_id ); ?> .bppt_pricing .plan.default .plan-entry-title,
+				.<?php echo esc_attr( $unique_id ); ?> .bppt_pricing .plan:not(.basic):not(.standard):not(.ultimite) .plan-entry-title > h3,
+				.<?php echo esc_attr( $unique_id ); ?> .bppt_pricing .plan.default .plan-entry-title > h3 {
 					<?php echo $header_bg; ?>
 				}
+				<?php endif; ?>
+				<?php if ( $title_color || $title_typo ) : ?>
 				.<?php echo esc_attr( $unique_id ); ?> .bppt_pricing .plan-entry-title > h3 {
 					<?php echo $title_color; ?>
-					<?php echo $header_bg; ?>
 					<?php echo $title_typo; ?>
 				}
+				<?php endif; ?>
+				<?php if ( $price_color || $price_typo ) : ?>
 				.<?php echo esc_attr( $unique_id ); ?> .bppt_pricing .plan-entry-title .price {
 					<?php echo $price_color; ?>
-					<?php echo $price_bg; ?>
 					<?php echo $price_typo; ?>
 				}
+				<?php endif; ?>
+				<?php if ( $price_bg ) : ?>
+				.<?php echo esc_attr( $unique_id ); ?> .bppt_pricing .plan:not(.basic):not(.standard):not(.ultimite) .price,
+				.<?php echo esc_attr( $unique_id ); ?> .bppt_pricing .plan.default .price {
+					<?php echo $price_bg; ?>
+				}
+				<?php endif; ?>
+				<?php if ( $unit_color || $unit_typo ) : ?>
 				.<?php echo esc_attr( $unique_id ); ?> .bppt_pricing .price span {
 					<?php echo $unit_color; ?>
 					<?php echo $unit_typo; ?>
 				}
+				<?php endif; ?>
+				<?php if ( $feat_color || $feat_typo ) : ?>
 				.<?php echo esc_attr( $unique_id ); ?> .bppt_pricing .plan-entry-content ul li {
 					<?php echo $feat_color; ?>
 					<?php echo $feat_typo; ?>
 				}
+				<?php endif; ?>
+				<?php if ( $btn_color || $btn_bg || $btn_pad || $btn_radius || $btn_typo ) : ?>
 				.<?php echo esc_attr( $unique_id ); ?> .bppt_pricing .bttn a {
 					<?php echo $btn_color; ?>
 					<?php echo $btn_bg; ?>
@@ -253,10 +412,13 @@ ob_start();
 					<?php if ( $btn_radius ) : ?>border-radius: <?php echo esc_attr( $btn_radius ); ?> !important;<?php endif; ?>
 					<?php echo $btn_typo; ?>
 				}
+				<?php endif; ?>
+				<?php if ( $btn_hov_color || $btn_hov_bg ) : ?>
 				.<?php echo esc_attr( $unique_id ); ?> .bppt_pricing .bttn a:hover {
 					<?php echo $btn_hov_color; ?>
 					<?php echo $btn_hov_bg; ?>
 				}
+				<?php endif; ?>
 				<?php
 				break;
 
@@ -269,36 +431,61 @@ ob_start();
 					<?php if ( $card_radius ) : ?>border-radius: <?php echo esc_attr( $card_radius ); ?> !important;<?php endif; ?>
 					<?php echo $card_shadow; ?>
 				}
-				.<?php echo esc_attr( $unique_id ); ?> .bppt_container .pricingTableTwo .pricingTable-header {
+				<?php if ( $header_bg ) : ?>
+				.<?php echo esc_attr( $unique_id ); ?> .bppt_container .pricingTableTwo:not(.pink):not(.purple):not(.sky):not(.lemon) .pricingTable-header,
+				.<?php echo esc_attr( $unique_id ); ?> .bppt_container .pricingTableTwo.default .pricingTable-header {
 					<?php echo $header_bg; ?>
 				}
+				<?php endif; ?>
+				<?php if ( $title_color || $title_typo ) : ?>
 				.<?php echo esc_attr( $unique_id ); ?> .bppt_container .pricingTableTwo .title {
 					<?php echo $title_color; ?>
 					<?php echo $title_typo; ?>
 				}
+				<?php endif; ?>
+				<?php if ( $price_color || $price_typo ) : ?>
 				.<?php echo esc_attr( $unique_id ); ?> .bppt_container .pricingTableTwo .price-value {
 					<?php echo $price_color; ?>
 					<?php echo $price_typo; ?>
 				}
+				<?php endif; ?>
+				<?php if ( $unit_color || $unit_typo ) : ?>
 				.<?php echo esc_attr( $unique_id ); ?> .bppt_container .pricingTableTwo .price-value > span {
 					<?php echo $unit_color; ?>
 					<?php echo $unit_typo; ?>
 				}
+				<?php endif; ?>
+				<?php if ( $feat_color || $feat_typo ) : ?>
 				.<?php echo esc_attr( $unique_id ); ?> .bppt_container .pricingTableTwo .pricing-content ul li {
 					<?php echo $feat_color; ?>
 					<?php echo $feat_typo; ?>
 				}
+				<?php endif; ?>
+				<?php if ( $btn_color || $btn_pad || $btn_radius || $btn_typo ) : ?>
 				.<?php echo esc_attr( $unique_id ); ?> .bppt_container .pricingTableTwo .pricingTable-signup a {
 					<?php echo $btn_color; ?>
-					<?php echo $btn_bg; ?>
 					<?php if ( $btn_pad ) : ?>padding: <?php echo esc_attr( $btn_pad ); ?> !important;<?php endif; ?>
 					<?php if ( $btn_radius ) : ?>border-radius: <?php echo esc_attr( $btn_radius ); ?> !important;<?php endif; ?>
 					<?php echo $btn_typo; ?>
 				}
+				<?php endif; ?>
+				<?php if ( $btn_bg ) : ?>
+				.<?php echo esc_attr( $unique_id ); ?> .bppt_container .pricingTableTwo:not(.pink):not(.purple):not(.sky):not(.lemon) .pricingTable-signup a,
+				.<?php echo esc_attr( $unique_id ); ?> .bppt_container .pricingTableTwo.default .pricingTable-signup a {
+					<?php echo $btn_bg; ?>
+				}
+				<?php endif; ?>
+				<?php if ( $btn_hov_color ) : ?>
 				.<?php echo esc_attr( $unique_id ); ?> .bppt_container .pricingTableTwo .pricingTable-signup a:hover {
 					<?php echo $btn_hov_color; ?>
+				}
+				<?php endif; ?>
+				<?php if ( $btn_hov_bg ) : ?>
+				.<?php echo esc_attr( $unique_id ); ?> .bppt_container .pricingTableTwo:not(.pink):not(.purple):not(.sky):not(.lemon) .pricingTable-signup a:hover,
+				.<?php echo esc_attr( $unique_id ); ?> .bppt_container .pricingTableTwo.default .pricingTable-signup a:hover {
 					<?php echo $btn_hov_bg; ?>
 				}
+				<?php endif; ?>
 				<?php
 				break;
 
@@ -311,39 +498,67 @@ ob_start();
 					<?php if ( $card_radius ) : ?>border-radius: <?php echo esc_attr( $card_radius ); ?> !important;<?php endif; ?>
 					<?php echo $card_shadow; ?>
 				}
+				<?php if ( $header_bg ) : ?>
 				.<?php echo esc_attr( $unique_id ); ?> .bppt_table3 .pricingTable .pricingTable-header {
 					<?php echo $header_bg; ?>
 				}
-				.<?php echo esc_attr( $unique_id ); ?> .bppt_table3 .pricingTable .title {
+				<?php endif; ?>
+				<?php if ( $title_color || $title_typo ) : ?>
+				.<?php echo esc_attr( $unique_id ); ?> .bppt_table3 .pricingTable:not(.purple):not(.pink) .title,
+				.<?php echo esc_attr( $unique_id ); ?> .bppt_table3 .pricingTable.default .title {
 					<?php echo $title_color; ?>
 					<?php echo $title_typo; ?>
 				}
-				.<?php echo esc_attr( $unique_id ); ?> .bppt_table3 .pricingTable .price-value {
+				<?php endif; ?>
+				<?php if ( $price_bg ) : ?>
+				.<?php echo esc_attr( $unique_id ); ?> .bppt_table3 .pricingTable:not(.purple):not(.pink) .price-value,
+				.<?php echo esc_attr( $unique_id ); ?> .bppt_table3 .pricingTable.default .price-value {
 					<?php echo $price_bg; ?>
 				}
+				<?php endif; ?>
+				<?php if ( $price_color || $price_typo ) : ?>
 				.<?php echo esc_attr( $unique_id ); ?> .bppt_table3 .pricingTable .price-value .amount {
 					<?php echo $price_color; ?>
 					<?php echo $price_typo; ?>
 				}
+				<?php endif; ?>
+				<?php if ( $unit_color || $unit_typo ) : ?>
 				.<?php echo esc_attr( $unique_id ); ?> .bppt_table3 .pricingTable .price-value .duration {
 					<?php echo $unit_color; ?>
 					<?php echo $unit_typo; ?>
 				}
+				<?php endif; ?>
+				<?php if ( $feat_color || $feat_typo ) : ?>
 				.<?php echo esc_attr( $unique_id ); ?> .bppt_table3 .pricingTable .pricing-content ul li {
 					<?php echo $feat_color; ?>
 					<?php echo $feat_typo; ?>
 				}
+				<?php endif; ?>
+				<?php if ( $btn_color || $btn_pad || $btn_radius || $btn_typo ) : ?>
 				.<?php echo esc_attr( $unique_id ); ?> .bppt_table3 .pricingTable .pricingTable-signup-three a {
 					<?php echo $btn_color; ?>
-					<?php echo $btn_bg; ?>
 					<?php if ( $btn_pad ) : ?>padding: <?php echo esc_attr( $btn_pad ); ?> !important;<?php endif; ?>
 					<?php if ( $btn_radius ) : ?>border-radius: <?php echo esc_attr( $btn_radius ); ?> !important;<?php endif; ?>
 					<?php echo $btn_typo; ?>
 				}
+				<?php endif; ?>
+				<?php if ( $btn_bg ) : ?>
+				.<?php echo esc_attr( $unique_id ); ?> .bppt_table3 .pricingTable:not(.purple):not(.pink) .pricingTable-signup-three a,
+				.<?php echo esc_attr( $unique_id ); ?> .bppt_table3 .pricingTable.default .pricingTable-signup-three a {
+					<?php echo $btn_bg; ?>
+				}
+				<?php endif; ?>
+				<?php if ( $btn_hov_color ) : ?>
 				.<?php echo esc_attr( $unique_id ); ?> .bppt_table3 .pricingTable .pricingTable-signup-three a:hover {
 					<?php echo $btn_hov_color; ?>
+				}
+				<?php endif; ?>
+				<?php if ( $btn_hov_bg ) : ?>
+				.<?php echo esc_attr( $unique_id ); ?> .bppt_table3 .pricingTable:not(.purple):not(.pink) .pricingTable-signup-three a:hover,
+				.<?php echo esc_attr( $unique_id ); ?> .bppt_table3 .pricingTable.default .pricingTable-signup-three a:hover {
 					<?php echo $btn_hov_bg; ?>
 				}
+				<?php endif; ?>
 				<?php
 				break;
 
@@ -358,33 +573,55 @@ ob_start();
 					<?php echo $card_bg; ?>
 					<?php if ( $card_radius ) : ?>border-radius: <?php echo esc_attr( $card_radius ); ?> !important;<?php endif; ?>
 				}
+				<?php if ( $title_color || $title_typo ) : ?>
 				.<?php echo esc_attr( $unique_id ); ?> .priceTableBGBefore .pricingTableFour .pricingHeader .title {
 					<?php echo $title_color; ?>
 					<?php echo $title_typo; ?>
 				}
+				<?php endif; ?>
+				<?php if ( $price_color || $price_typo ) : ?>
 				.<?php echo esc_attr( $unique_id ); ?> .priceTableBGBefore .pricingTableFour .pricingValue .amount {
 					<?php echo $price_color; ?>
 					<?php echo $price_typo; ?>
 				}
+				<?php endif; ?>
+				<?php if ( $unit_color || $unit_typo ) : ?>
 				.<?php echo esc_attr( $unique_id ); ?> .priceTableBGBefore .pricingTableFour .pricingValue .duration {
 					<?php echo $unit_color; ?>
 					<?php echo $unit_typo; ?>
 				}
+				<?php endif; ?>
+				<?php if ( $feat_color || $feat_typo ) : ?>
 				.<?php echo esc_attr( $unique_id ); ?> .priceTableBGBefore .pricingTableFour .pricingFeatures li {
 					<?php echo $feat_color; ?>
 					<?php echo $feat_typo; ?>
 				}
+				<?php endif; ?>
+				<?php if ( $btn_color || $btn_pad || $btn_radius || $btn_typo ) : ?>
 				.<?php echo esc_attr( $unique_id ); ?> .priceTableBGBefore .pricingTableFour .pricingSignUp a {
 					<?php echo $btn_color; ?>
-					<?php echo $btn_bg; ?>
 					<?php if ( $btn_pad ) : ?>padding: <?php echo esc_attr( $btn_pad ); ?> !important;<?php endif; ?>
 					<?php if ( $btn_radius ) : ?>border-radius: <?php echo esc_attr( $btn_radius ); ?> !important;<?php endif; ?>
 					<?php echo $btn_typo; ?>
 				}
+				<?php endif; ?>
+				<?php if ( $btn_bg ) : ?>
+				.<?php echo esc_attr( $unique_id ); ?> .priceTableBGBefore .pricingTableFour:not(.purple):not(.orange) .pricingSignUp a,
+				.<?php echo esc_attr( $unique_id ); ?> .priceTableBGBefore .pricingTableFour.default .pricingSignUp a {
+					<?php echo $btn_bg; ?>
+				}
+				<?php endif; ?>
+				<?php if ( $btn_hov_color ) : ?>
 				.<?php echo esc_attr( $unique_id ); ?> .priceTableBGBefore .pricingTableFour .pricingSignUp a:hover {
 					<?php echo $btn_hov_color; ?>
+				}
+				<?php endif; ?>
+				<?php if ( $btn_hov_bg ) : ?>
+				.<?php echo esc_attr( $unique_id ); ?> .priceTableBGBefore .pricingTableFour:not(.purple):not(.orange) .pricingSignUp a:hover,
+				.<?php echo esc_attr( $unique_id ); ?> .priceTableBGBefore .pricingTableFour.default .pricingSignUp a:hover {
 					<?php echo $btn_hov_bg; ?>
 				}
+				<?php endif; ?>
 				<?php
 				break;
 
@@ -398,35 +635,156 @@ ob_start();
 					<?php if ( $card_radius ) : ?>border-radius: <?php echo esc_attr( $card_radius ); ?> !important;<?php endif; ?>
 					<?php echo $card_shadow; ?>
 				}
+				<?php if ( $title_color || $title_typo ) : ?>
 				.<?php echo esc_attr( $unique_id ); ?> .priceTableGradient .pricingTable .pricingHeader .title {
 					<?php echo $title_color; ?>
 					<?php echo $title_typo; ?>
 				}
+				<?php endif; ?>
+				<?php if ( $price_color || $price_typo ) : ?>
 				.<?php echo esc_attr( $unique_id ); ?> .priceTableGradient .pricingTable .pricingValue .amount {
 					<?php echo $price_color; ?>
 					<?php echo $price_typo; ?>
 				}
+				<?php endif; ?>
+				<?php if ( $unit_color || $unit_typo ) : ?>
 				.<?php echo esc_attr( $unique_id ); ?> .priceTableGradient .pricingTable .pricingValue .duration {
 					<?php echo $unit_color; ?>
 					<?php echo $unit_typo; ?>
 				}
+				<?php endif; ?>
+				<?php if ( $feat_color || $feat_typo ) : ?>
 				.<?php echo esc_attr( $unique_id ); ?> .priceTableGradient .pricingTable .pricingFeatures li {
 					<?php echo $feat_color; ?>
 					<?php echo $feat_typo; ?>
 				}
+				<?php endif; ?>
+				<?php if ( $btn_color || $btn_pad || $btn_radius || $btn_typo ) : ?>
 				.<?php echo esc_attr( $unique_id ); ?> .priceTableGradient .pricingTable .pricingSignUp a {
 					<?php echo $btn_color; ?>
-					<?php echo $btn_bg; ?>
 					<?php if ( $btn_pad ) : ?>padding: <?php echo esc_attr( $btn_pad ); ?> !important;<?php endif; ?>
 					<?php if ( $btn_radius ) : ?>border-radius: <?php echo esc_attr( $btn_radius ); ?> !important;<?php endif; ?>
 					<?php echo $btn_typo; ?>
 				}
+				<?php endif; ?>
+				<?php if ( $btn_bg ) : ?>
+				.<?php echo esc_attr( $unique_id ); ?> .priceTableGradient .pricingTable:not(.green):not(.blue) .pricingSignUp a,
+				.<?php echo esc_attr( $unique_id ); ?> .priceTableGradient .pricingTable.default .pricingSignUp a {
+					<?php echo $btn_bg; ?>
+				}
+				<?php endif; ?>
+				<?php if ( $btn_hov_color ) : ?>
 				.<?php echo esc_attr( $unique_id ); ?> .priceTableGradient .pricingTable .pricingSignUp a:hover {
 					<?php echo $btn_hov_color; ?>
+				}
+				<?php endif; ?>
+				<?php if ( $btn_hov_bg ) : ?>
+				.<?php echo esc_attr( $unique_id ); ?> .priceTableGradient .pricingTable:not(.green):not(.blue) .pricingSignUp a:hover,
+				.<?php echo esc_attr( $unique_id ); ?> .priceTableGradient .pricingTable.default .pricingSignUp a:hover {
 					<?php echo $btn_hov_bg; ?>
 				}
+				<?php endif; ?>
 				<?php
 				break;
+		}
+
+		// Individual Column Custom Styles
+		foreach ( $tables as $i => $tbl ) {
+			$plan_sl = '.' . esc_attr( $unique_id ) . ' .bppt-plan-' . $i;
+			$h_bg    = ! empty( $tbl['headerBg'] ) ? esc_attr( $tbl['headerBg'] ) : '';
+			$p_bg    = ! empty( $tbl['priceBg'] ) ? esc_attr( $tbl['priceBg'] ) : '';
+			$b_bg    = ! empty( $tbl['btnBg'] ) ? esc_attr( $tbl['btnBg'] ) : '';
+			$b_col   = ! empty( $tbl['btnColor'] ) ? esc_attr( $tbl['btnColor'] ) : '';
+			$c_bg    = ! empty( $tbl['cardBg'] ) ? esc_attr( $tbl['cardBg'] ) : '';
+
+			switch ( $theme ) {
+				case 'demo-1':
+					if ( $h_bg ) {
+						echo "{$plan_sl} .plan-entry-title, {$plan_sl} .plan-entry-title > h3, {$plan_sl} .price { background: {$h_bg} !important; }\n";
+					}
+					if ( $p_bg ) {
+						echo "{$plan_sl} .price { background: {$p_bg} !important; }\n";
+					}
+					if ( $c_bg ) {
+						echo "{$plan_sl} .plan-inner { background: {$c_bg} !important; }\n";
+					}
+					if ( $b_bg ) {
+						echo "{$plan_sl} .bttn a { background: {$b_bg} !important; }\n";
+					}
+					if ( $b_col ) {
+						echo "{$plan_sl} .bttn a { color: {$b_col} !important; }\n";
+					}
+					break;
+
+				case 'demo-2':
+					if ( $h_bg ) {
+						echo "{$plan_sl} .pricingTable-header { background: {$h_bg} !important; }\n";
+						echo "{$plan_sl} .pricing-content { border-color: {$h_bg} !important; }\n";
+						echo "{$plan_sl} .pricing-content li:before { background: {$h_bg} !important; }\n";
+					}
+					if ( $b_bg ) {
+						echo "{$plan_sl} .pricingTable-signup a { background: {$b_bg} !important; }\n";
+					}
+					if ( $b_col ) {
+						echo "{$plan_sl} .pricingTable-signup a { color: {$b_col} !important; }\n";
+					}
+					if ( $c_bg ) {
+						echo "{$plan_sl} { background-color: {$c_bg} !important; }\n";
+					}
+					break;
+
+				case 'demo-3':
+					if ( $h_bg ) {
+						echo "{$plan_sl} .title { color: {$h_bg} !important; }\n";
+						echo "{$plan_sl} .price-value, {$plan_sl} .pricingTable-signup-three a { background: {$h_bg} !important; }\n";
+					}
+					if ( $p_bg ) {
+						echo "{$plan_sl} .price-value { background: {$p_bg} !important; }\n";
+					}
+					if ( $b_bg ) {
+						echo "{$plan_sl} .pricingTable-signup-three a { background: {$b_bg} !important; }\n";
+					}
+					if ( $b_col ) {
+						echo "{$plan_sl} .pricingTable-signup-three a { color: {$b_col} !important; }\n";
+					}
+					if ( $c_bg ) {
+						echo "{$plan_sl} { background-color: {$c_bg} !important; }\n";
+					}
+					break;
+
+				case 'demo-4':
+					if ( $h_bg ) {
+						echo "{$plan_sl} .pricingHeader .title { color: {$h_bg} !important; }\n";
+						echo "{$plan_sl} .pricingSignUp a { background: {$h_bg} !important; }\n";
+					}
+					if ( $b_bg ) {
+						echo "{$plan_sl} .pricingSignUp a { background: {$b_bg} !important; }\n";
+					}
+					if ( $b_col ) {
+						echo "{$plan_sl} .pricingSignUp a { color: {$b_col} !important; }\n";
+					}
+					if ( $c_bg ) {
+						echo "{$plan_sl} .pricingContent { background: {$c_bg} !important; }\n";
+					}
+					break;
+
+				case 'demo-5':
+				default:
+					if ( $h_bg ) {
+						echo "{$plan_sl} .pricingHeader .title, {$plan_sl} .pricingValue .amount { color: {$h_bg} !important; }\n";
+						echo "{$plan_sl} .pricingSignUp a { background: {$h_bg} !important; }\n";
+					}
+					if ( $b_bg ) {
+						echo "{$plan_sl} .pricingSignUp a { background: {$b_bg} !important; }\n";
+					}
+					if ( $b_col ) {
+						echo "{$plan_sl} .pricingSignUp a { color: {$b_col} !important; }\n";
+					}
+					if ( $c_bg ) {
+						echo "{$plan_sl} { background-color: {$c_bg} !important; }\n";
+					}
+					break;
+			}
 		}
 		?>
 	</style>
@@ -437,10 +795,10 @@ ob_start();
 			wp_enqueue_style( 'google_font' );
 			?>
 			<div class="bppt_pricing">
-				<?php foreach ( $tables as $tbl ) :
-					$scheme = ! empty( $tbl['colorScheme'] ) && 'default' !== $tbl['colorScheme'] ? $tbl['colorScheme'] : '';
+				<?php foreach ( $tables as $i => $tbl ) :
+					$scheme = bppt_get_effective_scheme( 'demo-1', $tbl['colorScheme'] ?? '', $i );
 				?>
-					<div class="plan <?php echo esc_attr( $scheme ); ?>">
+					<div class="plan <?php echo esc_attr( trim( $scheme . ' bppt-plan-' . $i ) ); ?>">
 						<div class="plan-inner">
 							<?php if ( ! empty( $tbl['isFeatured'] ) && ! empty( $tbl['badge'] ) ) : ?>
 								<div class="hot"><?php echo esc_html( $tbl['badge'] ); ?></div>
@@ -474,10 +832,10 @@ ob_start();
 			wp_enqueue_style( 'bppt_pt_style_2' );
 			?>
 			<div class="bppt_container">
-				<?php foreach ( $tables as $tbl ) :
-					$scheme = ! empty( $tbl['colorScheme'] ) && 'default' !== $tbl['colorScheme'] ? $tbl['colorScheme'] : '';
+				<?php foreach ( $tables as $i => $tbl ) :
+					$scheme = bppt_get_effective_scheme( 'demo-2', $tbl['colorScheme'] ?? '', $i );
 				?>
-					<div class="pricingTableTwo <?php echo esc_attr( $scheme ); ?>">
+					<div class="pricingTableTwo <?php echo esc_attr( trim( $scheme . ' bppt-plan-' . $i ) ); ?>">
 						<div>
 							<div class="pricingTable-header">
 								<h3 class="title"><?php echo esc_html( $tbl['name'] ?? '' ); ?></h3>
@@ -508,10 +866,10 @@ ob_start();
 			wp_enqueue_style( 'bppt_pt_style_3' );
 			?>
 			<div class="bppt_table3">
-				<?php foreach ( $tables as $tbl ) :
-					$scheme = ! empty( $tbl['colorScheme'] ) && 'default' !== $tbl['colorScheme'] ? $tbl['colorScheme'] : '';
+				<?php foreach ( $tables as $i => $tbl ) :
+					$scheme = bppt_get_effective_scheme( 'demo-3', $tbl['colorScheme'] ?? '', $i );
 				?>
-					<div class="pricingTable <?php echo esc_attr( $scheme ); ?>">
+					<div class="pricingTable <?php echo esc_attr( trim( $scheme . ' bppt-plan-' . $i ) ); ?>">
 						<div class="pricingTable-header">
 							<h3 class="title"><?php echo esc_html( $tbl['name'] ?? '' ); ?></h3>
 						</div>
@@ -539,14 +897,13 @@ ob_start();
 
 		case 'demo-4':
 			wp_enqueue_style( 'bppt_pt_style_4' );
-			$col_count  = count( $tables );
-			$cols_class = 'columns-' . min( 6, max( 1, $col_count ) ) . ' columns-tablet-2 columns-mobile-1';
+			$cols_class = 'columns-' . ( $columns['desktop'] ?? 3 ) . ' columns-tablet-' . ( $columns['tablet'] ?? 2 ) . ' columns-mobile-' . ( $columns['mobile'] ?? 1 );
 			?>
 			<div class="priceTableBGBefore <?php echo esc_attr( $cols_class ); ?>">
-				<?php foreach ( $tables as $tbl ) :
-					$scheme = ! empty( $tbl['colorScheme'] ) && 'default' !== $tbl['colorScheme'] ? $tbl['colorScheme'] : '';
+				<?php foreach ( $tables as $i => $tbl ) :
+					$scheme = bppt_get_effective_scheme( 'demo-4', $tbl['colorScheme'] ?? '', $i );
 				?>
-					<div class="pricingTableFour <?php echo esc_attr( $scheme ); ?>">
+					<div class="pricingTableFour <?php echo esc_attr( trim( $scheme . ' bppt-plan-' . $i ) ); ?>">
 						<div class="pricingContent">
 							<div>
 								<div class="pricingHeader">
@@ -581,14 +938,13 @@ ob_start();
 		case 'demo-5':
 		default:
 			wp_enqueue_style( 'bppt_pt_style_5' );
-			$col_count  = count( $tables );
-			$cols_class = 'columns-' . min( 6, max( 1, $col_count ) ) . ' columns-tablet-2 columns-mobile-1';
+			$cols_class = 'columns-' . ( $columns['desktop'] ?? 3 ) . ' columns-tablet-' . ( $columns['tablet'] ?? 2 ) . ' columns-mobile-' . ( $columns['mobile'] ?? 1 );
 			?>
 			<div class="priceTableGradient <?php echo esc_attr( $cols_class ); ?>">
-				<?php foreach ( $tables as $tbl ) :
-					$scheme = ! empty( $tbl['colorScheme'] ) && 'default' !== $tbl['colorScheme'] ? $tbl['colorScheme'] : '';
+				<?php foreach ( $tables as $i => $tbl ) :
+					$scheme = bppt_get_effective_scheme( 'demo-5', $tbl['colorScheme'] ?? '', $i );
 				?>
-					<div class="pricingTable <?php echo esc_attr( $scheme ); ?>">
+					<div class="pricingTable <?php echo esc_attr( trim( $scheme . ' bppt-plan-' . $i ) ); ?>">
 						<div>
 							<div class="pricingHeader">
 								<h3 class="title"><?php echo esc_html( $tbl['name'] ?? '' ); ?></h3>
