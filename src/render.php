@@ -44,31 +44,40 @@ ob_start();
 		.<?php echo esc_attr( $unique_id ); ?> .bppt_table3,
 		.<?php echo esc_attr( $unique_id ); ?> .priceTableBGBefore,
 		.<?php echo esc_attr( $unique_id ); ?> .priceTableGradient {
+			display: grid !important;
+			grid-template-columns: repeat(<?php echo max( 1, (int)( $columns['desktop'] ?? 3 ) ); ?>, minmax(0, 1fr)) !important;
 			gap: <?php echo esc_attr( $row_gap ); ?> <?php echo esc_attr( $col_gap ); ?> !important;
+			justify-content: stretch !important;
 		}
 		.<?php echo esc_attr( $unique_id ); ?> .bppt_pricing .plan,
+		.<?php echo esc_attr( $unique_id ); ?> .bppt_pricing .plan-inner,
 		.<?php echo esc_attr( $unique_id ); ?> .bppt_container .pricingTableTwo,
 		.<?php echo esc_attr( $unique_id ); ?> .bppt_table3 .pricingTable,
 		.<?php echo esc_attr( $unique_id ); ?> .priceTableBGBefore .pricingTableFour,
+		.<?php echo esc_attr( $unique_id ); ?> .priceTableBGBefore .pricingTableFour .pricingContent,
 		.<?php echo esc_attr( $unique_id ); ?> .priceTableGradient .pricingTable {
-			width: calc(<?php echo ( 100 / max( 1, (int)( $columns['desktop'] ?? 3 ) ) ); ?>% - <?php echo esc_attr( $col_gap ); ?>) !important;
+			width: 100% !important;
+			max-width: 100% !important;
+			min-width: 0 !important;
+			margin-left: 0 !important;
+			margin-right: 0 !important;
 		}
 		@media only screen and (max-width: 1024px) {
-			.<?php echo esc_attr( $unique_id ); ?> .bppt_pricing .plan,
-			.<?php echo esc_attr( $unique_id ); ?> .bppt_container .pricingTableTwo,
-			.<?php echo esc_attr( $unique_id ); ?> .bppt_table3 .pricingTable,
-			.<?php echo esc_attr( $unique_id ); ?> .priceTableBGBefore .pricingTableFour,
-			.<?php echo esc_attr( $unique_id ); ?> .priceTableGradient .pricingTable {
-				width: calc(<?php echo ( 100 / max( 1, (int)( $columns['tablet'] ?? 2 ) ) ); ?>% - <?php echo esc_attr( $col_gap ); ?>) !important;
+			.<?php echo esc_attr( $unique_id ); ?> .bppt_pricing,
+			.<?php echo esc_attr( $unique_id ); ?> .bppt_container,
+			.<?php echo esc_attr( $unique_id ); ?> .bppt_table3,
+			.<?php echo esc_attr( $unique_id ); ?> .priceTableBGBefore,
+			.<?php echo esc_attr( $unique_id ); ?> .priceTableGradient {
+				grid-template-columns: repeat(<?php echo max( 1, (int)( $columns['tablet'] ?? 2 ) ); ?>, minmax(0, 1fr)) !important;
 			}
 		}
 		@media only screen and (max-width: 640px) {
-			.<?php echo esc_attr( $unique_id ); ?> .bppt_pricing .plan,
-			.<?php echo esc_attr( $unique_id ); ?> .bppt_container .pricingTableTwo,
-			.<?php echo esc_attr( $unique_id ); ?> .bppt_table3 .pricingTable,
-			.<?php echo esc_attr( $unique_id ); ?> .priceTableBGBefore .pricingTableFour,
-			.<?php echo esc_attr( $unique_id ); ?> .priceTableGradient .pricingTable {
-				width: calc(<?php echo ( 100 / max( 1, (int)( $columns['mobile'] ?? 1 ) ) ); ?>% - <?php echo esc_attr( $col_gap ); ?>) !important;
+			.<?php echo esc_attr( $unique_id ); ?> .bppt_pricing,
+			.<?php echo esc_attr( $unique_id ); ?> .bppt_container,
+			.<?php echo esc_attr( $unique_id ); ?> .bppt_table3,
+			.<?php echo esc_attr( $unique_id ); ?> .priceTableBGBefore,
+			.<?php echo esc_attr( $unique_id ); ?> .priceTableGradient {
+				grid-template-columns: repeat(<?php echo max( 1, (int)( $columns['mobile'] ?? 1 ) ); ?>, minmax(0, 1fr)) !important;
 			}
 		}
 	</style>
