@@ -18,7 +18,7 @@ const Style = ({ attributes, clientId }) => {
 
 	const selector = clientId ? `.bppt-${clientId}` : '.bppt-pricing-table-editor-wrapper';
 	const currentThemeStyle = getMergedThemeStyle(theme, styles);
-	const customThemeCSS = generateThemeCSS(selector, theme, currentThemeStyle, tables);
+	const customThemeCSS = generateThemeCSS(selector, theme, currentThemeStyle, tables, styles?.[theme]);
 
 	return (
 		<style dangerouslySetInnerHTML={{
@@ -47,6 +47,13 @@ const Style = ({ attributes, clientId }) => {
 					min-width: 0 !important;
 					margin-left: 0 !important;
 					margin-right: 0 !important;
+				}
+				${selector} .bppt_pricing .plan-inner,
+				${selector} .bppt_container .pricingTableTwo,
+				${selector} .bppt_table3 .pricingTable,
+				${selector} .priceTableBGBefore .pricingTableFour .pricingContent,
+				${selector} .priceTableGradient .pricingTable {
+					position: relative !important;
 				}
 				${tabBreakpoint} {
 					${selector} .bppt_pricing,

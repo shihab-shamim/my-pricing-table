@@ -187,13 +187,18 @@ const PlanItemSettings = ({ attributes, setAttributes, arrKey = 'tables', index 
 			<ToggleControl
 				label={__('Featured / Hot Plan', 'bpricing')}
 				checked={Boolean(currentPlan.isFeatured)}
-				onChange={val => updatePlan('isFeatured', val)}
+				onChange={val => {
+					updatePlan('isFeatured', val);
+					if (val && !currentPlan.badge) {
+						updatePlan('badge', __('Hot', 'bpricing'));
+					}
+				}}
 			/>
 
 			{currentPlan.isFeatured && (
 				<TextControl
 					label={__('Badge Text', 'bpricing')}
-					value={currentPlan.badge || ''}
+					value={currentPlan.badge ?? 'Hot'}
 					onChange={val => updatePlan('badge', val)}
 					help={__('e.g. "Hot", "Popular", "Best Value"', 'bpricing')}
 				/>
@@ -209,6 +214,12 @@ const PlanItemSettings = ({ attributes, setAttributes, arrKey = 'tables', index 
 				label={__('Button URL', 'bpricing')}
 				value={currentPlan.btnLink || ''}
 				onChange={val => updatePlan('btnLink', val)}
+			/>
+
+			<ToggleControl
+				label={__('Open Link in New Tab', 'bpricing')}
+				checked={Boolean(currentPlan.btnNewTab)}
+				onChange={val => updatePlan('btnNewTab', val)}
 			/>
 
 			<div style={{ marginTop: '16px', borderTop: '1px solid #e0e0e0', paddingTop: '12px' }}>

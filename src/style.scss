@@ -36,6 +36,42 @@
 	color: #fff !important;
 }
 
+// Ensure all card containers have relative positioning for absolute badges
+.bppt_pricing .plan-inner,
+.bppt_container .pricingTableTwo,
+.bppt_table3 .pricingTable,
+.priceTableBGBefore .pricingTableFour .pricingContent,
+.priceTableGradient .pricingTable {
+	position: relative !important;
+}
+
+// Hot / Featured Badge for all themes
+.hot,
+.bppt_pricing .hot,
+.bppt_container .hot,
+.bppt_table3 .hot,
+.priceTableBGBefore .hot,
+.priceTableGradient .hot {
+	position: absolute !important;
+	top: -8px !important;
+	right: 12px !important;
+	background: #ff8800;
+	color: #fff;
+	text-transform: uppercase;
+	z-index: 20 !important;
+	padding: 3px 8px !important;
+	font-size: 10px !important;
+	line-height: 1.2 !important;
+	border-radius: 3px;
+	font-weight: 700 !important;
+	letter-spacing: 0.5px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+	transition: all 0.3s ease;
+	display: inline-block;
+	white-space: nowrap;
+	pointer-events: auto;
+}
+
 // Import all 5 Themes
 @import './themes/theme-1';
 @import './themes/theme-2';

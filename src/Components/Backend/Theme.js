@@ -13,16 +13,13 @@ const Theme = ({ attributes }) => {
 		return null;
 	}
 
-	const renderFeatures = (features = [], isChecklist = false) => (
+	const renderFeatures = (features = []) => (
 		<ul>
-			{features.map((feat, idx) => {
-				const isDis = isChecklist && feat.enabled === false;
-				return (
-					<li key={idx} className={isDis ? 'disable' : ''}>
-						{feat.text}
-					</li>
-				);
-			})}
+			{features.map((feat, idx) => (
+				<li key={idx} className={feat.enabled === false ? 'disable' : ''}>
+					{feat.text}
+				</li>
+			))}
 		</ul>
 	);
 
@@ -36,7 +33,7 @@ const Theme = ({ attributes }) => {
 						return (
 							<div key={i} className={`plan ${schemeClass} bppt-plan-${i}`.trim()}>
 								<div className="plan-inner">
-									{tbl.isFeatured && tbl.badge && <div className="hot">{tbl.badge}</div>}
+									{tbl.isFeatured && <div className="hot">{tbl.badge || __('Hot', 'bpricing')}</div>}
 									<div className="plan-entry-title">
 										<h3>{tbl.name}</h3>
 										<div className="price">
@@ -50,7 +47,13 @@ const Theme = ({ attributes }) => {
 										</div>
 									)}
 									<div className="bttn">
-										<a href={tbl.btnLink || '#'}>{tbl.btnText || __('Choose Plan', 'bpricing')}</a>
+										<a
+											href={tbl.btnLink || '#'}
+											target={tbl.btnNewTab ? '_blank' : undefined}
+											rel={tbl.btnNewTab ? 'noopener noreferrer' : undefined}
+										>
+											{tbl.btnText || __('Choose Plan', 'bpricing')}
+										</a>
 									</div>
 								</div>
 							</div>
@@ -67,6 +70,7 @@ const Theme = ({ attributes }) => {
 						const schemeClass = scheme && scheme !== 'default' ? scheme : '';
 						return (
 							<div key={i} className={`pricingTableTwo ${schemeClass} bppt-plan-${i}`.trim()}>
+								{tbl.isFeatured && <div className="hot">{tbl.badge || __('Hot', 'bpricing')}</div>}
 								<div>
 									<div className="pricingTable-header">
 										<h3 className="title">{tbl.name}</h3>
@@ -81,7 +85,13 @@ const Theme = ({ attributes }) => {
 										</div>
 									)}
 									<div className="pricingTable-signup">
-										<a href={tbl.btnLink || '#'}>{tbl.btnText || __('Choose Plan', 'bpricing')}</a>
+										<a
+											href={tbl.btnLink || '#'}
+											target={tbl.btnNewTab ? '_blank' : undefined}
+											rel={tbl.btnNewTab ? 'noopener noreferrer' : undefined}
+										>
+											{tbl.btnText || __('Choose Plan', 'bpricing')}
+										</a>
 									</div>
 								</div>
 							</div>
@@ -98,6 +108,7 @@ const Theme = ({ attributes }) => {
 						const schemeClass = scheme && scheme !== 'default' ? scheme : '';
 						return (
 							<div key={i} className={`pricingTable ${schemeClass} bppt-plan-${i}`.trim()}>
+								{tbl.isFeatured && <div className="hot">{tbl.badge || __('Hot', 'bpricing')}</div>}
 								<div className="pricingTable-header">
 									<h3 className="title">{tbl.name}</h3>
 								</div>
@@ -113,7 +124,13 @@ const Theme = ({ attributes }) => {
 									</div>
 								)}
 								<div className="pricingTable-signup-three">
-									<a href={tbl.btnLink || '#'}>{tbl.btnText || __('Choose Plan', 'bpricing')}</a>
+									<a
+										href={tbl.btnLink || '#'}
+										target={tbl.btnNewTab ? '_blank' : undefined}
+										rel={tbl.btnNewTab ? 'noopener noreferrer' : undefined}
+									>
+										{tbl.btnText || __('Choose Plan', 'bpricing')}
+									</a>
 								</div>
 							</div>
 						);
@@ -130,6 +147,7 @@ const Theme = ({ attributes }) => {
 						return (
 							<div key={i} className={`pricingTableFour ${schemeClass} bppt-plan-${i}`.trim()}>
 								<div className="pricingContent">
+									{tbl.isFeatured && <div className="hot">{tbl.badge || __('Hot', 'bpricing')}</div>}
 									<div>
 										<div className="pricingHeader">
 											<h3 className="title">{tbl.name}</h3>
@@ -152,7 +170,13 @@ const Theme = ({ attributes }) => {
 											<span className="duration">{tbl.unit}</span>
 										</div>
 										<div className="pricingSignUp">
-											<a href={tbl.btnLink || '#'}>{tbl.btnText || __('Choose Plan', 'bpricing')}</a>
+											<a
+												href={tbl.btnLink || '#'}
+												target={tbl.btnNewTab ? '_blank' : undefined}
+												rel={tbl.btnNewTab ? 'noopener noreferrer' : undefined}
+											>
+												{tbl.btnText || __('Choose Plan', 'bpricing')}
+											</a>
 										</div>
 									</div>
 								</div>
@@ -171,6 +195,7 @@ const Theme = ({ attributes }) => {
 						const schemeClass = scheme && scheme !== 'default' ? scheme : '';
 						return (
 							<div key={i} className={`pricingTable ${schemeClass} bppt-plan-${i}`.trim()}>
+								{tbl.isFeatured && <div className="hot">{tbl.badge || __('Hot', 'bpricing')}</div>}
 								<div>
 									<div className="pricingHeader">
 										<h3 className="title">{tbl.name}</h3>
@@ -192,7 +217,13 @@ const Theme = ({ attributes }) => {
 									)}
 								</div>
 								<div className="pricingSignUp">
-									<a href={tbl.btnLink || '#'}>{tbl.btnText || __('Choose Plan', 'bpricing')}</a>
+									<a
+										href={tbl.btnLink || '#'}
+										target={tbl.btnNewTab ? '_blank' : undefined}
+										rel={tbl.btnNewTab ? 'noopener noreferrer' : undefined}
+									>
+										{tbl.btnText || __('Choose Plan', 'bpricing')}
+									</a>
 								</div>
 							</div>
 						);

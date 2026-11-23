@@ -2,6 +2,7 @@ import { __ } from '@wordpress/i18n';
 import {
 	PanelBody,
 	PanelRow,
+	SelectControl,
 	__experimentalUnitControl as UnitControl
 } from '@wordpress/components';
 import {
@@ -12,6 +13,7 @@ import {
 	Typography,
 	ShadowControl
 } from '../../../../../bpl-tools/Components';
+import { pxUnit } from '../../../../../bpl-tools/utils/options';
 import { THEME_OPTIONS } from './General';
 import { DEFAULT_THEME_STYLES, getMergedThemeStyle } from '../../../utils/themeStyles';
 
@@ -68,6 +70,43 @@ const Style = ({ attributes, setAttributes }) => {
 					/>
 				</div>
 
+				<div style={{ marginTop: '16px' }}>
+					<SelectControl
+						label={__('Border Style:', 'bpricing')}
+						value={currentStyle.cardBorderStyle || 'none'}
+						options={[
+							{ label: __('None', 'bpricing'), value: 'none' },
+							{ label: __('Solid', 'bpricing'), value: 'solid' },
+							{ label: __('Dashed', 'bpricing'), value: 'dashed' },
+							{ label: __('Dotted', 'bpricing'), value: 'dotted' },
+							{ label: __('Double', 'bpricing'), value: 'double' }
+						]}
+						onChange={val => updateStyle('cardBorderStyle', val)}
+					/>
+				</div>
+
+				{currentStyle.cardBorderStyle && currentStyle.cardBorderStyle !== 'none' && (
+					<>
+						<PanelRow style={{ marginTop: '12px' }}>
+							<UnitControl
+								label={__('Border Width:', 'bpricing')}
+								labelPosition="left"
+								value={currentStyle.cardBorderWidth || '1px'}
+								onChange={val => updateStyle('cardBorderWidth', val)}
+								units={[pxUnit()]}
+							/>
+						</PanelRow>
+						<div style={{ marginTop: '12px' }}>
+							<ColorControl
+								label={__('Border Color:', 'bpricing')}
+								value={currentStyle.cardBorderColor || '#e0e0e0'}
+								onChange={val => updateStyle('cardBorderColor', val)}
+								defaultColor={currentDefault.cardBorderColor || '#e0e0e0'}
+							/>
+						</div>
+					</>
+				)}
+
 				<PanelRow style={{ marginTop: '16px' }}>
 					<UnitControl
 						label={__('Border Radius:', 'bpricing')}
@@ -96,16 +135,19 @@ const Style = ({ attributes, setAttributes }) => {
 					defaultColor={currentDefault.titleColor}
 				/>
 
-				{theme !== 'demo-4' && theme !== 'demo-5' && (
-					<div style={{ marginTop: '14px' }}>
-						<ColorControl
-							label={__('Header Background:', 'bpricing')}
-							value={currentStyle.headerBg}
-							onChange={val => updateStyle('headerBg', val)}
-							defaultColor={currentDefault.headerBg}
-						/>
-					</div>
-				)}
+				<div style={{ marginTop: '14px' }}>
+					<SelectControl
+						label={__('Title Alignment:', 'bpricing')}
+						value={currentStyle.titleAlign || 'default'}
+						options={[
+							{ label: __('Default', 'bpricing'), value: 'default' },
+							{ label: __('Left', 'bpricing'), value: 'left' },
+							{ label: __('Center', 'bpricing'), value: 'center' },
+							{ label: __('Right', 'bpricing'), value: 'right' }
+						]}
+						onChange={val => updateStyle('titleAlign', val)}
+					/>
+				</div>
 
 				<div style={{ marginTop: '14px' }}>
 					<Typography
@@ -175,6 +217,15 @@ const Style = ({ attributes, setAttributes }) => {
 				/>
 
 				<div style={{ marginTop: '14px' }}>
+					<ColorControl
+						label={__('Disabled Feature Color:', 'bpricing')}
+						value={currentStyle.featureDisabledColor}
+						onChange={val => updateStyle('featureDisabledColor', val)}
+						defaultColor={currentDefault.featureDisabledColor || '#aaaaaa'}
+					/>
+				</div>
+
+				<div style={{ marginTop: '14px' }}>
 					<Typography
 						label={__('Feature Typography:', 'bpricing')}
 						value={currentStyle.featureTypo}
@@ -182,6 +233,43 @@ const Style = ({ attributes, setAttributes }) => {
 						defaults={currentDefault.featureTypo}
 					/>
 				</div>
+			</PanelBody>
+
+			{/* Featured Badge */}
+			<PanelBody className="bPlPanelBody" title={__('Featured Badge', 'bpricing')} initialOpen={false}>
+				<ColorsControl
+					label={__('Badge Colors:', 'bpricing')}
+					value={currentStyle.badgeColors}
+					onChange={val => {
+						updateStyle('badgeColors', val);
+						if (val?.color) updateStyle('badgeColor', val.color);
+						if (val?.bg) updateStyle('badgeBg', val.bg);
+					}}
+					defaults={currentDefault.badgeColors}
+				/>
+
+				<div style={{ marginTop: '14px' }}>
+					<ColorsControl
+						label={__('Hover Colors:', 'bpricing')}
+						value={currentStyle.badgeHoverColors}
+						onChange={val => {
+							updateStyle('badgeHoverColors', val);
+							if (val?.color) updateStyle('badgeHoverColor', val.color);
+							if (val?.bg) updateStyle('badgeHoverBg', val.bg);
+						}}
+						defaults={currentDefault.badgeHoverColors}
+					/>
+				</div>
+
+				<PanelRow style={{ marginTop: '16px' }}>
+					<UnitControl
+						label={__('Badge Border Radius:', 'bpricing')}
+						labelPosition="left"
+						value={currentStyle.badgeRadius || '3px'}
+						onChange={val => updateStyle('badgeRadius', val)}
+						units={[pxUnit()]}
+					/>
+				</PanelRow>
 			</PanelBody>
 
 			{/* Button */}
@@ -220,6 +308,43 @@ const Style = ({ attributes, setAttributes }) => {
 					/>
 				</div>
 
+				<div style={{ marginTop: '16px' }}>
+					<SelectControl
+						label={__('Button Border Style:', 'bpricing')}
+						value={currentStyle.btnBorderStyle || 'none'}
+						options={[
+							{ label: __('None', 'bpricing'), value: 'none' },
+							{ label: __('Solid', 'bpricing'), value: 'solid' },
+							{ label: __('Dashed', 'bpricing'), value: 'dashed' },
+							{ label: __('Dotted', 'bpricing'), value: 'dotted' },
+							{ label: __('Double', 'bpricing'), value: 'double' }
+						]}
+						onChange={val => updateStyle('btnBorderStyle', val)}
+					/>
+				</div>
+
+				{currentStyle.btnBorderStyle && currentStyle.btnBorderStyle !== 'none' && (
+					<>
+						<PanelRow style={{ marginTop: '12px' }}>
+							<UnitControl
+								label={__('Button Border Width:', 'bpricing')}
+								labelPosition="left"
+								value={currentStyle.btnBorderWidth || '1px'}
+								onChange={val => updateStyle('btnBorderWidth', val)}
+								units={[pxUnit()]}
+							/>
+						</PanelRow>
+						<div style={{ marginTop: '12px' }}>
+							<ColorControl
+								label={__('Button Border Color:', 'bpricing')}
+								value={currentStyle.btnBorderColor || '#323232'}
+								onChange={val => updateStyle('btnBorderColor', val)}
+								defaultColor={currentDefault.btnBorderColor || '#323232'}
+							/>
+						</div>
+					</>
+				)}
+
 				<PanelRow style={{ marginTop: '16px' }}>
 					<UnitControl
 						label={__('Button Border Radius:', 'bpricing')}
@@ -228,6 +353,15 @@ const Style = ({ attributes, setAttributes }) => {
 						onChange={val => updateStyle('btnRadius', val)}
 					/>
 				</PanelRow>
+
+				<div style={{ marginTop: '16px' }}>
+					<ShadowControl
+						label={__('Button Shadow:', 'bpricing')}
+						value={currentStyle.btnShadow}
+						onChange={val => updateStyle('btnShadow', val)}
+						defaults={currentDefault.btnShadow || []}
+					/>
+				</div>
 			</PanelBody>
 		</>
 	);
