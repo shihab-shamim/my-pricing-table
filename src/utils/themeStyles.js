@@ -228,9 +228,13 @@ export const getMergedThemeStyle = (theme = 'demo-1', styles = {}) => {
 			bg: currentThemeStyles.badgeHoverBg || defaultForTheme.badgeHoverBg || '#e07700'
 		},
 		badgeColor: currentThemeStyles.badgeColors?.color || currentThemeStyles.badgeColor || defaultForTheme.badgeColor || '#ffffff',
-		badgeBg: currentThemeStyles.badgeColors?.bg || currentThemeStyles.badgeBg || defaultForTheme.badgeBg || '#ff8800',
+		badgeBg: (currentThemeStyles.badgeColors?.bgType === 'gradient' && currentThemeStyles.badgeColors?.gradient)
+			? currentThemeStyles.badgeColors.gradient
+			: (currentThemeStyles.badgeColors?.bg || currentThemeStyles.badgeBg || defaultForTheme.badgeBg || '#ff8800'),
 		badgeHoverColor: currentThemeStyles.badgeHoverColors?.color || currentThemeStyles.badgeHoverColor || defaultForTheme.badgeHoverColor || '#ffffff',
-		badgeHoverBg: currentThemeStyles.badgeHoverColors?.bg || currentThemeStyles.badgeHoverBg || defaultForTheme.badgeHoverBg || '#e07700',
+		badgeHoverBg: (currentThemeStyles.badgeHoverColors?.bgType === 'gradient' && currentThemeStyles.badgeHoverColors?.gradient)
+			? currentThemeStyles.badgeHoverColors.gradient
+			: (currentThemeStyles.badgeHoverColors?.bg || currentThemeStyles.badgeHoverBg || defaultForTheme.badgeHoverBg || '#e07700'),
 		badgeRadius: currentThemeStyles.badgeRadius ?? defaultForTheme.badgeRadius,
 		btnColors: { ...defaultForTheme.btnColors, ...(currentThemeStyles.btnColors || {}) },
 		btnHoverColors: { ...defaultForTheme.btnHoverColors, ...(currentThemeStyles.btnHoverColors || {}) },
@@ -296,9 +300,13 @@ export const generateThemeCSS = (selector, theme = 'demo-1', st = {}, tables = [
 
 	// Global Badge & Disabled feature styling across all themes
 	const bColor = st.badgeColors?.color || st.badgeColor;
-	const bBg = st.badgeColors?.bg || st.badgeBg;
+	const bBg = (st.badgeColors?.bgType === 'gradient' && st.badgeColors?.gradient)
+		? st.badgeColors.gradient
+		: (st.badgeColors?.bg || st.badgeBg);
 	const bHovColor = st.badgeHoverColors?.color || st.badgeHoverColor;
-	const bHovBg = st.badgeHoverColors?.bg || st.badgeHoverBg;
+	const bHovBg = (st.badgeHoverColors?.bgType === 'gradient' && st.badgeHoverColors?.gradient)
+		? st.badgeHoverColors.gradient
+		: (st.badgeHoverColors?.bg || st.badgeHoverBg);
 
 	if (bColor || bBg || st.badgeRadius) {
 		specificCSS += `
@@ -314,9 +322,14 @@ export const generateThemeCSS = (selector, theme = 'demo-1', st = {}, tables = [
 		specificCSS += `
 			${selector} .hot:hover,
 			${selector} .plan:hover .hot,
+			${selector} .bppt_pricing .plan:hover .hot,
 			${selector} .pricingTableTwo:hover .hot,
+			${selector} .bppt_container .pricingTableTwo:hover .hot,
 			${selector} .pricingTable:hover .hot,
-			${selector} .pricingTableFour:hover .hot {
+			${selector} .bppt_table3 .pricingTable:hover .hot,
+			${selector} .pricingTableFour:hover .hot,
+			${selector} .priceTableBGBefore .pricingTableFour:hover .hot,
+			${selector} .priceTableGradient .pricingTable:hover .hot {
 				${bHovColor ? `color: ${bHovColor} !important;` : ''}
 				${bHovBg ? `background: ${bHovBg} !important;` : ''}
 			}

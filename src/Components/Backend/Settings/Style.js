@@ -36,6 +36,18 @@ const Style = ({ attributes, setAttributes }) => {
 		setAttributes({ styles: nextStyles });
 	};
 
+	const updateStyles = updates => {
+		const themeStyles = styles?.[theme] || {};
+		const nextStyles = {
+			...styles,
+			[theme]: {
+				...themeStyles,
+				...updates
+			}
+		};
+		setAttributes({ styles: nextStyles });
+	};
+
 	return (
 		<>
 			<div style={{ margin: '10px 16px', padding: '10px', background: '#f0f6fc', border: '1px solid #c8d7e1', borderRadius: '4px', fontSize: '12px' }}>
@@ -241,9 +253,12 @@ const Style = ({ attributes, setAttributes }) => {
 					label={__('Badge Colors:', 'bpricing')}
 					value={currentStyle.badgeColors}
 					onChange={val => {
-						updateStyle('badgeColors', val);
-						if (val?.color) updateStyle('badgeColor', val.color);
-						if (val?.bg) updateStyle('badgeBg', val.bg);
+						const bgVal = val?.bgType === 'gradient' && val?.gradient ? val.gradient : val?.bg;
+						updateStyles({
+							badgeColors: val,
+							badgeColor: val?.color || '',
+							badgeBg: bgVal || ''
+						});
 					}}
 					defaults={currentDefault.badgeColors}
 				/>
@@ -253,9 +268,12 @@ const Style = ({ attributes, setAttributes }) => {
 						label={__('Hover Colors:', 'bpricing')}
 						value={currentStyle.badgeHoverColors}
 						onChange={val => {
-							updateStyle('badgeHoverColors', val);
-							if (val?.color) updateStyle('badgeHoverColor', val.color);
-							if (val?.bg) updateStyle('badgeHoverBg', val.bg);
+							const bgVal = val?.bgType === 'gradient' && val?.gradient ? val.gradient : val?.bg;
+							updateStyles({
+								badgeHoverColors: val,
+								badgeHoverColor: val?.color || '',
+								badgeHoverBg: bgVal || ''
+							});
 						}}
 						defaults={currentDefault.badgeHoverColors}
 					/>

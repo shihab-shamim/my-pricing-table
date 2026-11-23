@@ -57,9 +57,13 @@ $default_theme_styles = [
 		'featureColor'         => '#323232',
 		'featureDisabledColor' => '#aaaaaa',
 		'featureTypo'          => [ 'fontFamily' => 'Lato', 'fontWeight' => '400', 'fontSize' => [ 'desktop' => 14, 'tablet' => 14, 'mobile' => 14 ] ],
+		'badgeColors'          => [ 'color' => '#ffffff', 'bgType' => 'solid', 'bg' => '#ff8800' ],
+		'badgeHoverColors'     => [ 'color' => '#ffffff', 'bgType' => 'solid', 'bg' => '#e07700' ],
 		'badgeColor'           => '#ffffff',
 		'badgeBg'              => '#ff8800',
-		'badgeRadius'          => '2px',
+		'badgeHoverColor'      => '#ffffff',
+		'badgeHoverBg'         => '#e07700',
+		'badgeRadius'          => '3px',
 		'btnColors'            => [ 'color' => '#ffffff', 'bgType' => 'solid', 'bg' => '#323232' ],
 		'btnHoverColors'       => [ 'color' => '#ffffff', 'bgType' => 'solid', 'bg' => '#000000' ],
 		'btnTypo'              => [ 'fontFamily' => 'Lato', 'fontWeight' => '700', 'fontSize' => [ 'desktop' => 14, 'tablet' => 14, 'mobile' => 14 ] ],
@@ -90,8 +94,12 @@ $default_theme_styles = [
 		'featureColor'         => '#404040',
 		'featureDisabledColor' => '#aaaaaa',
 		'featureTypo'          => [ 'fontFamily' => 'Rubik', 'fontWeight' => '500', 'fontSize' => [ 'desktop' => 15, 'tablet' => 14, 'mobile' => 14 ] ],
+		'badgeColors'          => [ 'color' => '#ffffff', 'bgType' => 'solid', 'bg' => '#ff8800' ],
+		'badgeHoverColors'     => [ 'color' => '#ffffff', 'bgType' => 'solid', 'bg' => '#e07700' ],
 		'badgeColor'           => '#ffffff',
 		'badgeBg'              => '#ff8800',
+		'badgeHoverColor'      => '#ffffff',
+		'badgeHoverBg'         => '#e07700',
 		'badgeRadius'          => '3px',
 		'btnColors'            => [ 'color' => '#ffffff', 'bgType' => 'solid', 'bg' => '#f53c25' ],
 		'btnHoverColors'       => [ 'color' => '#ffffff', 'bgType' => 'solid', 'bg' => '#a10903' ],
@@ -124,8 +132,12 @@ $default_theme_styles = [
 		'featureColor'         => '#999999',
 		'featureDisabledColor' => '#cccccc',
 		'featureTypo'          => [ 'fontFamily' => 'Poppins', 'fontWeight' => '500', 'fontSize' => [ 'desktop' => 17, 'tablet' => 16, 'mobile' => 14 ] ],
+		'badgeColors'          => [ 'color' => '#ffffff', 'bgType' => 'solid', 'bg' => '#ff8800' ],
+		'badgeHoverColors'     => [ 'color' => '#ffffff', 'bgType' => 'solid', 'bg' => '#e07700' ],
 		'badgeColor'           => '#ffffff',
 		'badgeBg'              => '#ff8800',
+		'badgeHoverColor'      => '#ffffff',
+		'badgeHoverBg'         => '#e07700',
 		'badgeRadius'          => '3px',
 		'btnColors'            => [ 'color' => '#ffffff', 'bgType' => 'solid', 'bg' => '#2cc550' ],
 		'btnHoverColors'       => [ 'color' => '#ffffff', 'bgType' => 'solid', 'bg' => '#249d40' ],
@@ -157,8 +169,12 @@ $default_theme_styles = [
 		'featureColor'         => '#999999',
 		'featureDisabledColor' => '#525963',
 		'featureTypo'          => [ 'fontFamily' => 'Roboto', 'fontWeight' => '400', 'fontSize' => [ 'desktop' => 17, 'tablet' => 16, 'mobile' => 15 ] ],
+		'badgeColors'          => [ 'color' => '#ffffff', 'bgType' => 'solid', 'bg' => '#ff8800' ],
+		'badgeHoverColors'     => [ 'color' => '#ffffff', 'bgType' => 'solid', 'bg' => '#e07700' ],
 		'badgeColor'           => '#ffffff',
 		'badgeBg'              => '#ff8800',
+		'badgeHoverColor'      => '#ffffff',
+		'badgeHoverBg'         => '#e07700',
 		'badgeRadius'          => '3px',
 		'btnColors'            => [ 'color' => '#ffffff', 'bgType' => 'solid', 'bg' => '#9fcd37' ],
 		'btnHoverColors'       => [ 'color' => '#ffffff', 'bgType' => 'solid', 'bg' => '#72bb43' ],
@@ -190,8 +206,12 @@ $default_theme_styles = [
 		'featureColor'         => '#777777',
 		'featureDisabledColor' => '#aaaaaa',
 		'featureTypo'          => [ 'fontFamily' => 'Roboto', 'fontWeight' => '400', 'fontSize' => [ 'desktop' => 17, 'tablet' => 16, 'mobile' => 14 ] ],
+		'badgeColors'          => [ 'color' => '#ffffff', 'bgType' => 'solid', 'bg' => '#ff8800' ],
+		'badgeHoverColors'     => [ 'color' => '#ffffff', 'bgType' => 'solid', 'bg' => '#e07700' ],
 		'badgeColor'           => '#ffffff',
 		'badgeBg'              => '#ff8800',
+		'badgeHoverColor'      => '#ffffff',
+		'badgeHoverBg'         => '#e07700',
 		'badgeRadius'          => '3px',
 		'btnColors'            => [ 'color' => '#ffffff', 'bgType' => 'solid', 'bg' => '#f89923' ],
 		'btnHoverColors'       => [ 'color' => '#ffffff', 'bgType' => 'solid', 'bg' => '#e07f0f' ],
@@ -324,11 +344,11 @@ if ( ! function_exists( 'bppt_get_shadow_css' ) ) {
 			if ( ! is_array( $s ) ) {
 				continue;
 			}
-			$h = ! empty( $s['hOffset'] ) ? $s['hOffset'] : '0px';
-			$v = ! empty( $s['vOffset'] ) ? $s['vOffset'] : '0px';
-			$b = ! empty( $s['blur'] ) ? $s['blur'] : '0px';
-			$sp = ! empty( $s['spread'] ) ? $s['spread'] : ( ! empty( $s['spreed'] ) ? $s['spreed'] : '0px' );
-			$c = ! empty( $s['color'] ) ? $s['color'] : 'rgba(0,0,0,0.1)';
+			$h     = ! empty( $s['hOffset'] ) ? $s['hOffset'] : '0px';
+			$v     = ! empty( $s['vOffset'] ) ? $s['vOffset'] : '0px';
+			$b     = ! empty( $s['blur'] ) ? $s['blur'] : '0px';
+			$sp    = ! empty( $s['spread'] ) ? $s['spread'] : ( ! empty( $s['spreed'] ) ? $s['spreed'] : '0px' );
+			$c     = ! empty( $s['color'] ) ? $s['color'] : 'rgba(0,0,0,0.1)';
 			$inset = ! empty( $s['inset'] ) || ! empty( $s['isInset'] ) ? 'inset' : '';
 			$parts[] = trim( "{$h} {$v} {$b} {$sp} {$c} {$inset}" );
 		}
@@ -370,9 +390,15 @@ $feat_color    = ! empty( $theme_style['featureColor'] ) ? 'color: ' . esc_attr(
 $feat_dis_col  = ! empty( $theme_style['featureDisabledColor'] ) ? 'color: ' . esc_attr( $theme_style['featureDisabledColor'] ) . ' !important;' : '';
 $feat_typo     = bppt_get_typo_css( $theme_style['featureTypo'] ?? [] );
 
-$badge_color   = ! empty( $theme_style['badgeColor'] ) ? 'color: ' . esc_attr( $theme_style['badgeColor'] ) . ' !important;' : '';
-$badge_bg      = ! empty( $theme_style['badgeBg'] ) ? 'background: ' . esc_attr( $theme_style['badgeBg'] ) . ' !important;' : '';
-$badge_radius  = ! empty( $theme_style['badgeRadius'] ) ? 'border-radius: ' . esc_attr( $theme_style['badgeRadius'] ) . ' !important;' : '';
+$badge_color     = ! empty( $theme_style['badgeColors']['color'] ) ? $theme_style['badgeColors']['color'] : ( ! empty( $theme_style['badgeColor'] ) ? $theme_style['badgeColor'] : '' );
+$badge_bg        = ( ! empty( $theme_style['badgeColors']['bgType'] ) && 'gradient' === $theme_style['badgeColors']['bgType'] && ! empty( $theme_style['badgeColors']['gradient'] ) )
+	? $theme_style['badgeColors']['gradient']
+	: ( ! empty( $theme_style['badgeColors']['bg'] ) ? $theme_style['badgeColors']['bg'] : ( ! empty( $theme_style['badgeBg'] ) ? $theme_style['badgeBg'] : '' ) );
+$badge_hov_color = ! empty( $theme_style['badgeHoverColors']['color'] ) ? $theme_style['badgeHoverColors']['color'] : ( ! empty( $theme_style['badgeHoverColor'] ) ? $theme_style['badgeHoverColor'] : '' );
+$badge_hov_bg    = ( ! empty( $theme_style['badgeHoverColors']['bgType'] ) && 'gradient' === $theme_style['badgeHoverColors']['bgType'] && ! empty( $theme_style['badgeHoverColors']['gradient'] ) )
+	? $theme_style['badgeHoverColors']['gradient']
+	: ( ! empty( $theme_style['badgeHoverColors']['bg'] ) ? $theme_style['badgeHoverColors']['bg'] : ( ! empty( $theme_style['badgeHoverBg'] ) ? $theme_style['badgeHoverBg'] : '' ) );
+$badge_radius    = ! empty( $theme_style['badgeRadius'] ) ? $theme_style['badgeRadius'] : '';
 
 $btn_color     = ! empty( $theme_style['btnColors']['color'] ) ? 'color: ' . esc_attr( $theme_style['btnColors']['color'] ) . ' !important;' : '';
 $btn_bg        = ! empty( $theme_style['btnColors']['bg'] ) ? 'background: ' . esc_attr( $theme_style['btnColors']['bg'] ) . ' !important;' : '';
@@ -389,7 +415,7 @@ $has_custom_btn_hov_bg = ! empty( $user_theme_styles['btnHoverColors']['bg'] );
 $has_custom_title_col  = ! empty( $user_theme_styles['titleColor'] );
 $has_custom_price_bg   = ! empty( $user_theme_styles['priceBg'] );
 
-$unique_id = 'bppt-block-' . wp_unique_id();
+$unique_id  = 'bppt-block-' . wp_unique_id();
 $cols_class = sprintf( 'columns-%d columns-tablet-%d columns-mobile-%d', $columns['desktop'] ?? 3, $columns['tablet'] ?? 2, $columns['mobile'] ?? 1 );
 
 if ( empty( $tables ) ) {
@@ -426,6 +452,13 @@ ob_start();
 			min-width: 0 !important;
 			margin-left: 0 !important;
 			margin-right: 0 !important;
+		}
+		.<?php echo esc_attr( $unique_id ); ?> .bppt_pricing .plan-inner,
+		.<?php echo esc_attr( $unique_id ); ?> .bppt_container .pricingTableTwo,
+		.<?php echo esc_attr( $unique_id ); ?> .bppt_table3 .pricingTable,
+		.<?php echo esc_attr( $unique_id ); ?> .priceTableBGBefore .pricingTableFour .pricingContent,
+		.<?php echo esc_attr( $unique_id ); ?> .priceTableGradient .pricingTable {
+			position: relative !important;
 		}
 		@media only screen and (max-width: 1024px) {
 			.<?php echo esc_attr( $unique_id ); ?> .bppt_pricing,
@@ -494,9 +527,25 @@ ob_start();
 
 		<?php if ( $badge_color || $badge_bg || $badge_radius ) : ?>
 		.<?php echo esc_attr( $unique_id ); ?> .hot {
-			<?php echo $badge_color; ?>
-			<?php echo $badge_bg; ?>
-			<?php echo $badge_radius; ?>
+			<?php if ( $badge_color ) : ?>color: <?php echo esc_attr( $badge_color ); ?> !important;<?php endif; ?>
+			<?php if ( $badge_bg ) : ?>background: <?php echo esc_attr( $badge_bg ); ?> !important;<?php endif; ?>
+			<?php if ( $badge_radius ) : ?>border-radius: <?php echo esc_attr( $badge_radius ); ?> !important;<?php endif; ?>
+		}
+		<?php endif; ?>
+
+		<?php if ( $badge_hov_color || $badge_hov_bg ) : ?>
+		.<?php echo esc_attr( $unique_id ); ?> .hot:hover,
+		.<?php echo esc_attr( $unique_id ); ?> .plan:hover .hot,
+		.<?php echo esc_attr( $unique_id ); ?> .bppt_pricing .plan:hover .hot,
+		.<?php echo esc_attr( $unique_id ); ?> .pricingTableTwo:hover .hot,
+		.<?php echo esc_attr( $unique_id ); ?> .bppt_container .pricingTableTwo:hover .hot,
+		.<?php echo esc_attr( $unique_id ); ?> .pricingTable:hover .hot,
+		.<?php echo esc_attr( $unique_id ); ?> .bppt_table3 .pricingTable:hover .hot,
+		.<?php echo esc_attr( $unique_id ); ?> .pricingTableFour:hover .hot,
+		.<?php echo esc_attr( $unique_id ); ?> .priceTableBGBefore .pricingTableFour:hover .hot,
+		.<?php echo esc_attr( $unique_id ); ?> .priceTableGradient .pricingTable:hover .hot {
+			<?php if ( $badge_hov_color ) : ?>color: <?php echo esc_attr( $badge_hov_color ); ?> !important;<?php endif; ?>
+			<?php if ( $badge_hov_bg ) : ?>background: <?php echo esc_attr( $badge_hov_bg ); ?> !important;<?php endif; ?>
 		}
 		<?php endif; ?>
 
@@ -1050,8 +1099,8 @@ ob_start();
 				?>
 					<div class="plan <?php echo esc_attr( trim( $scheme . ' bppt-plan-' . $i ) ); ?>">
 						<div class="plan-inner">
-							<?php if ( ! empty( $tbl['isFeatured'] ) && ! empty( $tbl['badge'] ) ) : ?>
-								<div class="hot"><?php echo esc_html( $tbl['badge'] ); ?></div>
+							<?php if ( ! empty( $tbl['isFeatured'] ) ) : ?>
+								<div class="hot"><?php echo esc_html( ! empty( $tbl['badge'] ) ? $tbl['badge'] : __( 'Hot', 'bpricing' ) ); ?></div>
 							<?php endif; ?>
 							<div class="plan-entry-title">
 								<h3><?php echo esc_html( $tbl['name'] ?? '' ); ?></h3>
@@ -1089,8 +1138,8 @@ ob_start();
 					$btn_target = ! empty( $tbl['btnNewTab'] ) ? ' target="_blank" rel="noopener noreferrer"' : '';
 				?>
 					<div class="pricingTableTwo <?php echo esc_attr( trim( $scheme . ' bppt-plan-' . $i ) ); ?>">
-						<?php if ( ! empty( $tbl['isFeatured'] ) && ! empty( $tbl['badge'] ) ) : ?>
-							<div class="hot"><?php echo esc_html( $tbl['badge'] ); ?></div>
+						<?php if ( ! empty( $tbl['isFeatured'] ) ) : ?>
+							<div class="hot"><?php echo esc_html( ! empty( $tbl['badge'] ) ? $tbl['badge'] : __( 'Hot', 'bpricing' ) ); ?></div>
 						<?php endif; ?>
 						<div>
 							<div class="pricingTable-header">
@@ -1129,8 +1178,8 @@ ob_start();
 					$btn_target = ! empty( $tbl['btnNewTab'] ) ? ' target="_blank" rel="noopener noreferrer"' : '';
 				?>
 					<div class="pricingTable <?php echo esc_attr( trim( $scheme . ' bppt-plan-' . $i ) ); ?>">
-						<?php if ( ! empty( $tbl['isFeatured'] ) && ! empty( $tbl['badge'] ) ) : ?>
-							<div class="hot"><?php echo esc_html( $tbl['badge'] ); ?></div>
+						<?php if ( ! empty( $tbl['isFeatured'] ) ) : ?>
+							<div class="hot"><?php echo esc_html( ! empty( $tbl['badge'] ) ? $tbl['badge'] : __( 'Hot', 'bpricing' ) ); ?></div>
 						<?php endif; ?>
 						<div class="pricingTable-header">
 							<h3 class="title"><?php echo esc_html( $tbl['name'] ?? '' ); ?></h3>
@@ -1170,8 +1219,8 @@ ob_start();
 				?>
 					<div class="pricingTableFour <?php echo esc_attr( trim( $scheme . ' bppt-plan-' . $i ) ); ?>">
 						<div class="pricingContent">
-							<?php if ( ! empty( $tbl['isFeatured'] ) && ! empty( $tbl['badge'] ) ) : ?>
-								<div class="hot"><?php echo esc_html( $tbl['badge'] ); ?></div>
+							<?php if ( ! empty( $tbl['isFeatured'] ) ) : ?>
+								<div class="hot"><?php echo esc_html( ! empty( $tbl['badge'] ) ? $tbl['badge'] : __( 'Hot', 'bpricing' ) ); ?></div>
 							<?php endif; ?>
 							<div>
 								<div class="pricingHeader">
@@ -1214,8 +1263,8 @@ ob_start();
 					$btn_target = ! empty( $tbl['btnNewTab'] ) ? ' target="_blank" rel="noopener noreferrer"' : '';
 				?>
 					<div class="pricingTable <?php echo esc_attr( trim( $scheme . ' bppt-plan-' . $i ) ); ?>">
-						<?php if ( ! empty( $tbl['isFeatured'] ) && ! empty( $tbl['badge'] ) ) : ?>
-							<div class="hot"><?php echo esc_html( $tbl['badge'] ); ?></div>
+						<?php if ( ! empty( $tbl['isFeatured'] ) ) : ?>
+							<div class="hot"><?php echo esc_html( ! empty( $tbl['badge'] ) ? $tbl['badge'] : __( 'Hot', 'bpricing' ) ); ?></div>
 						<?php endif; ?>
 						<div>
 							<div class="pricingHeader">

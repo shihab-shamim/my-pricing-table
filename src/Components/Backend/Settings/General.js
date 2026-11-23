@@ -96,6 +96,16 @@ const PlanItemSettings = ({ attributes, setAttributes, arrKey = 'tables', index 
 		setAttributes({ [arrKey]: nextTables });
 	};
 
+	const updatePlanFields = updates => {
+		const nextTables = items.map((tbl, idx) => {
+			if (idx === index) {
+				return { ...tbl, ...updates };
+			}
+			return tbl;
+		});
+		setAttributes({ [arrKey]: nextTables });
+	};
+
 	const updateFeature = (fIndex, key, value) => {
 		const features = [...(currentPlan.features || [])];
 		features[fIndex] = { ...features[fIndex], [key]: value };
@@ -188,9 +198,10 @@ const PlanItemSettings = ({ attributes, setAttributes, arrKey = 'tables', index 
 				label={__('Featured / Hot Plan', 'bpricing')}
 				checked={Boolean(currentPlan.isFeatured)}
 				onChange={val => {
-					updatePlan('isFeatured', val);
 					if (val && !currentPlan.badge) {
-						updatePlan('badge', __('Hot', 'bpricing'));
+						updatePlanFields({ isFeatured: val, badge: __('Hot', 'bpricing') });
+					} else {
+						updatePlan('isFeatured', val);
 					}
 				}}
 			/>
