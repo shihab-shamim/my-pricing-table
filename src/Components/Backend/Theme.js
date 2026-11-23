@@ -1,7 +1,12 @@
 import { __ } from '@wordpress/i18n';
 
 const Theme = ({ attributes }) => {
-	const { theme = 'demo-1', tables = [] } = attributes;
+	const { theme = 'demo-1', tables = [], columns } = attributes;
+
+	const cols = typeof columns === 'object' && columns !== null
+		? { desktop: 3, tablet: 2, mobile: 1, ...columns }
+		: { desktop: typeof columns === 'number' ? columns : 3, tablet: 2, mobile: 1 };
+	const colClasses = `columns-${cols.desktop || 3} columns-tablet-${cols.tablet || 2} columns-mobile-${cols.mobile || 1}`;
 
 	if (!tables || !tables.length) {
 		return null;
@@ -114,7 +119,7 @@ const Theme = ({ attributes }) => {
 
 		case 'demo-4':
 			return (
-				<div className="priceTableBGBefore columns-3 columns-tablet-2 columns-mobile-1">
+				<div className={`priceTableBGBefore ${colClasses}`}>
 					{tables.map((tbl, i) => {
 						const scheme = tbl.colorScheme && tbl.colorScheme !== 'default' ? tbl.colorScheme : '';
 						return (
@@ -155,7 +160,7 @@ const Theme = ({ attributes }) => {
 		case 'demo-5':
 		default:
 			return (
-				<div className="priceTableGradient columns-3 columns-tablet-2 columns-mobile-1">
+				<div className={`priceTableGradient ${colClasses}`}>
 					{tables.map((tbl, i) => {
 						const scheme = tbl.colorScheme && tbl.colorScheme !== 'default' ? tbl.colorScheme : '';
 						return (

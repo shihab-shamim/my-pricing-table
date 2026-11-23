@@ -1,13 +1,18 @@
 import { __, sprintf } from '@wordpress/i18n';
 import {
 	PanelBody,
+	PanelRow,
 	SelectControl,
 	TextControl,
 	ToggleControl,
 	CheckboxControl,
-	Button
+	Button,
+	RangeControl,
+	__experimentalUnitControl as UnitControl
 } from '@wordpress/components';
-import { ItemsPanel } from '../../../../../bpl-tools/Components';
+import { useSelect } from '@wordpress/data';
+import { ItemsPanel, Device, Label } from '../../../../../bpl-tools/Components';
+import { emUnit, perUnit, pxUnit } from '../../../../../bpl-tools/utils/options';
 
 export const THEME_OPTIONS = [
 	{ label: __('Theme 1 — Circular Price Badge', 'bpricing'), value: 'demo-1' },
@@ -195,7 +200,15 @@ const PlanItemSettings = ({ attributes, setAttributes, arrKey = 'tables', index 
 };
 
 const General = ({ attributes, setAttributes }) => {
-	const { theme = 'demo-1', tables = [] } = attributes;
+	const { theme = 'demo-1', tables = [], columns, columnGap = '20px', rowGap = '30px' } = attributes;
+
+	const device = useSelect(select => {
+		return select('core/editor')?.getDeviceType()?.toLowerCase() || 'desktop';
+	}, []);
+
+	const columnsObj = typeof columns === 'object' && columns !== null
+		? { desktop: 3, tablet: 2, mobile: 1, ...columns }
+		: { desktop: typeof columns === 'number' ? columns : 3, tablet: 2, mobile: 1 };
 
 	return (
 		<>
@@ -209,7 +222,44 @@ const General = ({ attributes, setAttributes }) => {
 				/>
 			</PanelBody>
 
-			<PanelBody title={__('Pricing Columns / Plans', 'bpricing')} initialOpen={true}>
+			<PanelBody className="bPlPanelBody" title={__('Layout', 'bpricing')} initialOpen={true}>
+				<PanelRow style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+					<Label className="mb5">{__('Columns:', 'bpricing')}</Label>
+					<Device />
+				</PanelRow>
+				<RangeControl
+					value={columnsObj[device] || 3}
+					onChange={val => {
+						setAttributes({
+							columns: { ...columnsObj, [device]: val }
+						});
+					}}
+					min={1}
+					max={6}
+					step={1}
+					beforeIcon="grid-view"
+				/>
+
+				<UnitControl
+					style={{ marginTop: '14px' }}
+					label={__('Column Gap:', 'bpricing')}
+					labelPosition="left"
+					value={columnGap}
+					onChange={val => setAttributes({ columnGap: val })}
+					units={[pxUnit(), perUnit(), emUnit()]}
+				/>
+
+				<UnitControl
+					style={{ marginTop: '14px' }}
+					label={__('Row Gap:', 'bpricing')}
+					labelPosition="left"
+					value={rowGap}
+					onChange={val => setAttributes({ rowGap: val })}
+					units={[pxUnit(), perUnit(), emUnit()]}
+				/>
+			</PanelBody>
+
+			<PanelBody title={__('Pricing Columns / Plans', 'bpricing')} initialOpen={false}>
 				<ItemsPanel
 					{...{ attributes, setAttributes }}
 					arrKey="tables"

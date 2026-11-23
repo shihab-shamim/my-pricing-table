@@ -17,18 +17,61 @@ if ( $table_id ) {
 // 2. Render from block.json attributes
 $theme   = ! empty( $attributes['theme'] ) ? $attributes['theme'] : 'demo-1';
 $tables  = ! empty( $attributes['tables'] ) && is_array( $attributes['tables'] ) ? $attributes['tables'] : [];
+$columns = ! empty( $attributes['columns'] ) && is_array( $attributes['columns'] ) ? $attributes['columns'] : [
+	'desktop' => ! empty( $attributes['columns'] ) && is_numeric( $attributes['columns'] ) ? (int) $attributes['columns'] : 3,
+	'tablet'  => 2,
+	'mobile'  => 1,
+];
+$col_gap = ! empty( $attributes['columnGap'] ) ? $attributes['columnGap'] : '20px';
+$row_gap = ! empty( $attributes['rowGap'] ) ? $attributes['rowGap'] : '30px';
+$unique_id = 'bppt-block-' . wp_unique_id();
+$cols_class = sprintf( 'columns-%d columns-tablet-%d columns-mobile-%d', $columns['desktop'] ?? 3, $columns['tablet'] ?? 2, $columns['mobile'] ?? 1 );
 
 if ( empty( $tables ) ) {
 	return;
 }
 
 $wrapper_attributes = get_block_wrapper_attributes( [
-	'class' => 'bppt-pricing-table-block bppt-theme-' . esc_attr( $theme ),
+	'class' => 'bppt-pricing-table-block bppt-theme-' . esc_attr( $theme ) . ' ' . $unique_id,
 ] );
 
 ob_start();
 ?>
 <div <?php echo $wrapper_attributes; ?>>
+	<style>
+		.<?php echo esc_attr( $unique_id ); ?> .bppt_pricing,
+		.<?php echo esc_attr( $unique_id ); ?> .bppt_container,
+		.<?php echo esc_attr( $unique_id ); ?> .bppt_table3,
+		.<?php echo esc_attr( $unique_id ); ?> .priceTableBGBefore,
+		.<?php echo esc_attr( $unique_id ); ?> .priceTableGradient {
+			gap: <?php echo esc_attr( $row_gap ); ?> <?php echo esc_attr( $col_gap ); ?> !important;
+		}
+		.<?php echo esc_attr( $unique_id ); ?> .bppt_pricing .plan,
+		.<?php echo esc_attr( $unique_id ); ?> .bppt_container .pricingTableTwo,
+		.<?php echo esc_attr( $unique_id ); ?> .bppt_table3 .pricingTable,
+		.<?php echo esc_attr( $unique_id ); ?> .priceTableBGBefore .pricingTableFour,
+		.<?php echo esc_attr( $unique_id ); ?> .priceTableGradient .pricingTable {
+			width: calc(<?php echo ( 100 / max( 1, (int)( $columns['desktop'] ?? 3 ) ) ); ?>% - <?php echo esc_attr( $col_gap ); ?>) !important;
+		}
+		@media only screen and (max-width: 1024px) {
+			.<?php echo esc_attr( $unique_id ); ?> .bppt_pricing .plan,
+			.<?php echo esc_attr( $unique_id ); ?> .bppt_container .pricingTableTwo,
+			.<?php echo esc_attr( $unique_id ); ?> .bppt_table3 .pricingTable,
+			.<?php echo esc_attr( $unique_id ); ?> .priceTableBGBefore .pricingTableFour,
+			.<?php echo esc_attr( $unique_id ); ?> .priceTableGradient .pricingTable {
+				width: calc(<?php echo ( 100 / max( 1, (int)( $columns['tablet'] ?? 2 ) ) ); ?>% - <?php echo esc_attr( $col_gap ); ?>) !important;
+			}
+		}
+		@media only screen and (max-width: 640px) {
+			.<?php echo esc_attr( $unique_id ); ?> .bppt_pricing .plan,
+			.<?php echo esc_attr( $unique_id ); ?> .bppt_container .pricingTableTwo,
+			.<?php echo esc_attr( $unique_id ); ?> .bppt_table3 .pricingTable,
+			.<?php echo esc_attr( $unique_id ); ?> .priceTableBGBefore .pricingTableFour,
+			.<?php echo esc_attr( $unique_id ); ?> .priceTableGradient .pricingTable {
+				width: calc(<?php echo ( 100 / max( 1, (int)( $columns['mobile'] ?? 1 ) ) ); ?>% - <?php echo esc_attr( $col_gap ); ?>) !important;
+			}
+		}
+	</style>
 	<?php
 	switch ( $theme ) {
 		case 'demo-1':

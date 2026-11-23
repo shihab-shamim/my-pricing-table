@@ -11,7 +11,7 @@ const Edit = props => {
 	const { attributes, setAttributes, clientId, CPTType, currentPostId } = props;
 	const { tableId, theme = 'demo-1' } = attributes;
 	const blockProps = useBlockProps({
-		className: `bppt-pricing-table-editor-wrapper bppt-theme-${theme}`
+		className: `bppt-pricing-table-editor-wrapper bppt-theme-${theme} bppt-${clientId}`
 	});
 
 	const isEditingCPT = CPTType === 'bppt-pricing-table';

@@ -5,6 +5,7 @@
   "title": "Pricing Table",
   "category": "widgets",
   "description": "Make beautiful pricing tables with this block.",
+  "version": "1.0.1",
   "keywords": [
     "pricing",
     "pricing table",
@@ -19,8 +20,20 @@
       "default": "demo-1"
     },
     "columns": {
-      "type": "number",
-      "default": 3
+      "type": "object",
+      "default": {
+        "desktop": 3,
+        "tablet": 2,
+        "mobile": 1
+      }
+    },
+    "columnGap": {
+      "type": "string",
+      "default": "20px"
+    },
+    "rowGap": {
+      "type": "string",
+      "default": "30px"
     },
     "tables": {
       "type": "array",
@@ -143,8 +156,24 @@
     ]
   },
   "editorScript": "file:./index.js",
-  "editorStyle": "file:./index.css",
-  "style": "file:./view.css",
+  "editorStyle": [
+    "file:./index.css",
+    "google_font",
+    "bppt_pt_style_1",
+    "bppt_pt_style_2",
+    "bppt_pt_style_3",
+    "bppt_pt_style_4",
+    "bppt_pt_style_5"
+  ],
+  "style": [
+    "file:./view.css",
+    "google_font",
+    "bppt_pt_style_1",
+    "bppt_pt_style_2",
+    "bppt_pt_style_3",
+    "bppt_pt_style_4",
+    "bppt_pt_style_5"
+  ],
   "render": "file:./render.php",
   "viewScript": "file:./view.js"
 }

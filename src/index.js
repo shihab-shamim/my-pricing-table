@@ -4,8 +4,7 @@ import metadata from './block.json';
 import Edit from './Components/Backend/Edit';
 import { pricingTableIcon } from './utils/icons';
 
-registerBlockType(metadata.name, {
-	...metadata,
+registerBlockType(metadata, {
 	icon: pricingTableIcon,
 	edit: Edit,
 	save: () => null

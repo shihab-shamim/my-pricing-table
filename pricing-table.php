@@ -13,7 +13,7 @@
  */
 
 //  Initialize Plugin
-define('BPPT_PLUGIN_DIR', WP_PLUGIN_URL . '/' . plugin_basename(dirname(__FILE__)) . '/');
+define('BPPT_PLUGIN_DIR', plugin_dir_url(__FILE__));
 define('BPPT_PLUGIN_PATH', plugin_dir_path(__FILE__));
 define('BPPT_PLUGIN_VERSION', '1.0.1');
 

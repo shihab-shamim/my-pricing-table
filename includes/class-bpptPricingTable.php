@@ -3,10 +3,12 @@ if(!class_exists('BPPTPricingTable')) {
   class BPPTPricingTable {
     public function __construct() {
       add_action('plugins_loaded', [__CLASS__, "load_dependencies"]);
-      add_action('init', [__CLASS__, 'bppt_register_block']);
+      add_action('init', [__CLASS__, 'bppt_register_assets'], 9);
+      add_action('init', [__CLASS__, 'bppt_register_block'], 10);
       add_action('admin_enqueue_scripts', [__CLASS__, 'admin_enqueue_scripts']);
       add_action('admin_enqueue_scripts', [__CLASS__, 'bppt_admin_style']);
       add_action('wp_enqueue_scripts', [__CLASS__, 'bppt_register_assets']);
+      add_action('enqueue_block_assets', [__CLASS__, 'bppt_enqueue_block_assets']);
       add_action('enqueue_block_editor_assets', [__CLASS__, 'bppt_block_editor_assets']);
       add_shortcode('bp-table', [__CLASS__, 'bppt_bprincing_table']);
       if (is_admin()) {
@@ -66,17 +68,35 @@ if(!class_exists('BPPTPricingTable')) {
 
     public static function bppt_register_assets() {
       wp_register_style('google_font',     'https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Poppins:wght@400;600&family=Roboto:wght@400;500;700&family=Rubik:wght@400;500&display=swap', [], BPPT_PLUGIN_VERSION);
-      wp_register_style('bppt_pt_style_1', BPPT_PLUGIN_DIR . 'public/css/pricing-table-1.css');
-      wp_register_style('bppt_pt_style_2', BPPT_PLUGIN_DIR . 'public/css/pricing-table-2.css');
-      wp_register_style('bppt_pt_style_3', BPPT_PLUGIN_DIR . 'public/css/pricing-table-3.css');
-      wp_register_style('bppt_pt_style_4', BPPT_PLUGIN_DIR . 'public/css/pricing-table-4.css');
-      wp_register_style('bppt_pt_style_5', BPPT_PLUGIN_DIR . 'public/css/pricing-table-5.css');
+      wp_register_style('bppt_pt_style_1', BPPT_PLUGIN_DIR . 'public/css/pricing-table-1.css', [], BPPT_PLUGIN_VERSION);
+      wp_register_style('bppt_pt_style_2', BPPT_PLUGIN_DIR . 'public/css/pricing-table-2.css', [], BPPT_PLUGIN_VERSION);
+      wp_register_style('bppt_pt_style_3', BPPT_PLUGIN_DIR . 'public/css/pricing-table-3.css', [], BPPT_PLUGIN_VERSION);
+      wp_register_style('bppt_pt_style_4', BPPT_PLUGIN_DIR . 'public/css/pricing-table-4.css', [], BPPT_PLUGIN_VERSION);
+      wp_register_style('bppt_pt_style_5', BPPT_PLUGIN_DIR . 'public/css/pricing-table-5.css', [], BPPT_PLUGIN_VERSION);
     }
 
     public static function bppt_register_block() {
+      self::bppt_register_assets();
       if (function_exists('register_block_type') && file_exists(BPPT_PLUGIN_PATH . 'build/block.json')) {
         register_block_type(BPPT_PLUGIN_PATH . 'build');
       }
+      if (is_admin()) {
+        add_editor_style(BPPT_PLUGIN_DIR . 'public/css/pricing-table-1.css');
+        add_editor_style(BPPT_PLUGIN_DIR . 'public/css/pricing-table-2.css');
+        add_editor_style(BPPT_PLUGIN_DIR . 'public/css/pricing-table-3.css');
+        add_editor_style(BPPT_PLUGIN_DIR . 'public/css/pricing-table-4.css');
+        add_editor_style(BPPT_PLUGIN_DIR . 'public/css/pricing-table-5.css');
+      }
+    }
+
+    public static function bppt_enqueue_block_assets() {
+      self::bppt_register_assets();
+      wp_enqueue_style('google_font');
+      wp_enqueue_style('bppt_pt_style_1');
+      wp_enqueue_style('bppt_pt_style_2');
+      wp_enqueue_style('bppt_pt_style_3');
+      wp_enqueue_style('bppt_pt_style_4');
+      wp_enqueue_style('bppt_pt_style_5');
     }
 
     public static function bppt_block_editor_assets() {
