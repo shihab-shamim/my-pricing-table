@@ -1,26 +1,19 @@
-.wp-block-bppt-pricing-table {
-	box-sizing: border-box;
-
-	.bppt-pricing-table-placeholder {
-		padding: 30px;
-		border: 2px dashed #c3c4c7;
-		border-radius: 6px;
-		text-align: center;
-		background: #f6f7f7;
-	}
-}
-
 .bppt-pricing-table-editor-wrapper {
 	box-sizing: border-box;
 	width: 100%;
+}
 
-	.bppt-placeholder {
-		border: 1px dashed #c3c4c7;
-		border-radius: 6px;
-		padding: 24px;
-	}
+.bppt-inspector-controls {
+	.components-tab-panel__tabs {
+		display: flex;
+		border-bottom: 1px solid #e0e0e0;
+		margin-bottom: 12px;
 
-	.bppt-table-preview-badge {
-		user-select: none;
+		button {
+			flex: 1;
+			justify-content: center;
+			font-weight: 600;
+			padding: 8px 12px;
+		}
 	}
 }
