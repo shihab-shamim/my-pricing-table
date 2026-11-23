@@ -1,0 +1,243 @@
+.bppt_container {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-content: space-around;
+  justify-content: center;
+}
+.pricingTableTwo {
+  background-color: #f1f1f1;
+  font-family: "Rubik", sans-serif;
+  text-align: center;
+  width: 280px;
+  margin: 0 24px 60px 24px;
+  position: relative;
+  z-index: 1;
+}
+.pricingTableTwo:before,
+.pricingTableTwo:after {
+  content: "";
+  background: linear-gradient(to left bottom, #a10903 45%, transparent 50%);
+  height: 40px;
+  width: 15px;
+  position: absolute;
+  top: 50px;
+  left: -15px;
+  z-index: -1;
+}
+.pricingTableTwo:after {
+  transform: rotateY(180deg);
+  left: auto;
+  right: -15px;
+}
+.pricingTableTwo .pricingTable-header {
+  color: #fff;
+  background: #f53c25;
+  padding: 15px 0 25px;
+  margin: 0 -15px;
+  clip-path: polygon(0 0, 100% 0, 100% 70%, 50% 100%, 0 70%);
+}
+.pricingTableTwo .title {
+  font-size: 28px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin: 0;
+}
+.pricingTableTwo .price-value {
+  color: #000;
+  font-size: 69px;
+  font-weight: 500;
+  border-bottom: 2px solid #999;
+  display: inline-block;
+  position: relative;
+  padding-bottom: 10px;
+  width: 53%;
+}
+.pricingTableTwo .price-value > span {
+  position: absolute;
+  bottom: 3px;
+  right: 4px;
+  font-size: 18px;
+  font-weight: normal;
+  font-style: italic;
+  font-weight: 400;
+}
+.pricingTableTwo .pricing-content {
+  padding: 20px 0;
+  margin: 0 -13px;
+  border-right: 15px solid #f53c25;
+  border-left: 15px solid #f53c25;
+  margin-bottom: 50px;
+}
+.pricingTableTwo .pricing-content ul {
+  text-align: left;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: inline-block;
+}
+.pricingTableTwo .pricing-content li {
+  color: #404040;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  line-height: 40px;
+  padding-left: 15px;
+  position: relative;
+}
+.pricingTableTwo .pricing-content li:before {
+  content: "";
+  background: #f53c25;
+  width: 10px;
+  height: 10px;
+  border-radius: 20px;
+  position: absolute;
+  top: 15px;
+  left: 0;
+}
+
+.pricingTable-signup {
+  position: absolute;
+  bottom: 0;
+  margin: auto;
+  left: 0;
+  right: 0;
+}
+.pricingTableTwo .pricingTable-signup a {
+  color: #fff;
+  background: #f53c25;
+  font-size: 25px;
+  font-weight: 500;
+  text-transform: uppercase;
+  padding: 10px 24px;
+  display: inline-block;
+  position: relative;
+  bottom: -28px;
+  transition: all 0.3s;
+  text-decoration: none;
+}
+.pricingTableTwo .pricingTable-signup a:hover {
+  background: #a10903;
+  text-shadow: 0 0 5px #000;
+}
+.pricingTableTwo .pricingTable-signup a:before,
+.pricingTableTwo .pricingTable-signup a:after {
+  content: "";
+  background: linear-gradient(to left bottom, #a10903 48%, transparent 50%);
+  height: 50%;
+  width: 25%;
+  position: absolute;
+  left: -25%;
+  bottom: 0;
+  z-index: -1;
+}
+.pricingTableTwo .pricingTable-signup a:after {
+  transform: rotateY(180deg);
+  left: auto;
+  right: -25%;
+}
+.pricingTableTwo.pink:before,
+.pricingTableTwo.pink:after {
+  background: linear-gradient(to left bottom, #c51162 45%, transparent 50%);
+}
+.pricingTableTwo.pink .pricingTable-header {
+  background: #f50057;
+}
+.pricingTableTwo.pink .pricing-content {
+  border-color: #f50057;
+}
+.pricingTableTwo.pink .pricing-content li:before,
+.pricingTableTwo.pink .pricingTable-signup a {
+  background: #f50057;
+}
+.pricingTableTwo.pink .pricingTable-signup a:before,
+.pricingTableTwo.pink .pricingTable-signup a:after {
+  background: linear-gradient(to left bottom, #c51162 48%, transparent 50%);
+}
+.pricingTableTwo.pink .pricingTable-signup a:hover {
+  background: #c51162;
+}
+
+.pricingTableTwo.purple:before,
+.pricingTableTwo.purple:after {
+  background: linear-gradient(to left bottom, #512da8 45%, transparent 50%);
+}
+.pricingTableTwo.purple .pricingTable-header {
+  background: #8e44ad;
+}
+.pricingTableTwo.purple .pricing-content {
+  border-color: #8e44ad;
+}
+.pricingTableTwo.purple .pricing-content li:before,
+.pricingTableTwo.purple .pricingTable-signup a {
+  background: #8e44ad;
+}
+.pricingTableTwo.purple .pricingTable-signup a:before,
+.pricingTableTwo.purple .pricingTable-signup a:after {
+  background: linear-gradient(to left bottom, #512da8 48%, transparent 50%);
+}
+.pricingTableTwo.purple .pricingTable-signup a:hover {
+  background: #512da8;
+}
+
+/* skycolor */
+.pricingTableTwo.sky:before,
+.pricingTableTwo.sky:after {
+  background: linear-gradient(to left bottom, #2bcbba 45%, transparent 50%);
+}
+.pricingTableTwo.sky .pricingTable-header {
+  background: #2bcbba;
+}
+.pricingTableTwo.sky .pricing-content {
+  border-color: #2bcbba;
+}
+
+.pricingTableTwo.sky .pricing-content li:before,
+.pricingTableTwo.sky .pricingTable-signup a {
+  background: #2bcbba;
+}
+.pricingTableTwo.sky .pricingTable-signup a:before,
+.pricingTableTwo.sky .pricingTable-signup a:after {
+  background: linear-gradient(to left bottom, #2bcbba 48%, transparent 50%);
+}
+.pricingTableTwo.sky .pricingTable-signup a:hover {
+  background: #0fb9b1;
+}
+/* Lemon */
+.pricingTableTwo.lemon:before,
+.pricingTableTwo.lemon:after {
+  background: linear-gradient(to left bottom, #4cd137 45%, transparent 50%);
+}
+.pricingTableTwo.lemon .pricingTable-header {
+  background: #4cd137;
+}
+.pricingTableTwo.lemon .pricing-content {
+  border-color: #4cd137;
+}
+.pricingTableTwo.lemon .pricing-content li:before,
+.pricingTableTwo.lemon .pricingTable-signup a {
+  background: #4cd137;
+}
+.pricingTableTwo.lemon .pricingTable-signup a:before,
+.pricingTableTwo.lemon .pricingTable-signup a:after {
+  background: linear-gradient(to left bottom, #4cd137 48%, transparent 50%);
+}
+.pricingTableTwo.lemon .pricingTable-signup a:hover {
+  background: #44bd32;
+}
+
+@media only screen and (min-width: 922px) {
+  .pricingTableTwo {
+    margin: 0 auto 60px;
+    min-width: 270px;
+    width: calc(100% / 3 - 58px);
+    margin: 0 29px 70px 29px;
+  }
+}
+@media only screen and (max-width: 576px) {
+  .pricingTableTwo {
+    margin: 0 auto 60px;
+    width: 280px;
+  }
+}
