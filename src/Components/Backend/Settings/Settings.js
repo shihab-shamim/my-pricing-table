@@ -9,7 +9,7 @@ import {
 	Button,
 	TabPanel
 } from '@wordpress/components';
-import { useState } from 'react';
+import { ItemsPanel } from '../../../../../bpl-tools/Components';
 
 const THEME_OPTIONS = [
 	{ label: __('Theme 1 — Circular Price Badge', 'bpricing'), value: 'demo-1' },
@@ -50,78 +50,159 @@ const COLOR_SCHEMES = {
 	]
 };
 
+const PlanItemSettings = ({ attributes, setAttributes, arrKey = 'tables', index }) => {
+	const items = attributes?.[arrKey] || [];
+	const currentPlan = items[index] || {};
+	const { theme = 'demo-1' } = attributes;
+	const currentSchemes = COLOR_SCHEMES[theme] || COLOR_SCHEMES['demo-1'];
+
+	const updatePlan = (key, value) => {
+		const nextTables = items.map((tbl, idx) => {
+			if (idx === index) {
+				return { ...tbl, [key]: value };
+			}
+			return tbl;
+		});
+		setAttributes({ [arrKey]: nextTables });
+	};
+
+	const updateFeature = (fIndex, key, value) => {
+		const features = [...(currentPlan.features || [])];
+		features[fIndex] = { ...features[fIndex], [key]: value };
+		updatePlan('features', features);
+	};
+
+	const addFeature = () => {
+		const features = [...(currentPlan.features || []), { text: __('New Feature', 'bpricing'), enabled: true }];
+		updatePlan('features', features);
+	};
+
+	const removeFeature = fIndex => {
+		const features = (currentPlan.features || []).filter((_, i) => i !== fIndex);
+		updatePlan('features', features);
+	};
+
+	return (
+		<div className="bppt-plan-item-settings" style={{ padding: '6px 0' }}>
+			<TextControl
+				label={__('Plan Name', 'bpricing')}
+				value={currentPlan.name || ''}
+				onChange={val => updatePlan('name', val)}
+			/>
+
+			<div style={{ display: 'flex', gap: '8px' }}>
+				<div style={{ flex: 1 }}>
+					<TextControl
+						label={__('Currency', 'bpricing')}
+						value={currentPlan.currency || '$'}
+						onChange={val => updatePlan('currency', val)}
+					/>
+				</div>
+				<div style={{ flex: 2 }}>
+					<TextControl
+						label={__('Price', 'bpricing')}
+						value={currentPlan.price || ''}
+						onChange={val => updatePlan('price', val)}
+					/>
+				</div>
+			</div>
+
+			<TextControl
+				label={__('Billing Period / Unit', 'bpricing')}
+				value={currentPlan.unit || ''}
+				onChange={val => updatePlan('unit', val)}
+				help={__('e.g. month, year', 'bpricing')}
+			/>
+
+			<SelectControl
+				label={__('Color Scheme', 'bpricing')}
+				value={currentPlan.colorScheme || 'default'}
+				options={currentSchemes}
+				onChange={val => updatePlan('colorScheme', val)}
+			/>
+
+			<ToggleControl
+				label={__('Featured / Hot Plan', 'bpricing')}
+				checked={Boolean(currentPlan.isFeatured)}
+				onChange={val => updatePlan('isFeatured', val)}
+			/>
+
+			{currentPlan.isFeatured && (
+				<TextControl
+					label={__('Badge Text', 'bpricing')}
+					value={currentPlan.badge || ''}
+					onChange={val => updatePlan('badge', val)}
+					help={__('e.g. "Hot", "Popular", "Best Value"', 'bpricing')}
+				/>
+			)}
+
+			<TextControl
+				label={__('Button Text', 'bpricing')}
+				value={currentPlan.btnText || ''}
+				onChange={val => updatePlan('btnText', val)}
+			/>
+
+			<TextControl
+				label={__('Button URL', 'bpricing')}
+				value={currentPlan.btnLink || ''}
+				onChange={val => updatePlan('btnLink', val)}
+			/>
+
+			<div style={{ marginTop: '16px', borderTop: '1px solid #e0e0e0', paddingTop: '12px' }}>
+				<div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+					<h4 style={{ margin: 0, fontSize: '13px' }}>{__('Plan Features', 'bpricing')}</h4>
+					<Button isSmall variant="secondary" onClick={addFeature}>
+						{__('+ Add Feature', 'bpricing')}
+					</Button>
+				</div>
+
+				{(currentPlan.features || []).map((feat, fIdx) => (
+					<div
+						key={fIdx}
+						style={{
+							display: 'flex',
+							alignItems: 'center',
+							gap: '6px',
+							padding: '6px 8px',
+							background: '#fff',
+							border: '1px solid #e0e0e0',
+							borderRadius: '4px',
+							marginBottom: '6px'
+						}}
+					>
+						<CheckboxControl
+							checked={Boolean(feat.enabled !== false)}
+							onChange={val => updateFeature(fIdx, 'enabled', val)}
+							help=""
+						/>
+						<div style={{ flex: 1 }}>
+							<TextControl
+								value={feat.text || ''}
+								onChange={val => updateFeature(fIdx, 'text', val)}
+							/>
+						</div>
+						<Button
+							isDestructive
+							isSmall
+							variant="link"
+							onClick={() => removeFeature(fIdx)}
+						>
+							×
+						</Button>
+					</div>
+				))}
+			</div>
+		</div>
+	);
+};
+
 const Settings = ({ attributes, setAttributes }) => {
 	const { theme = 'demo-1', tables = [] } = attributes;
-	const [activePlan, setActivePlan] = useState(0);
 
 	const tabs = [
 		{ name: 'general', title: __('General', 'bpricing'), className: 'bppt-tab-general' },
 		{ name: 'style', title: __('Style', 'bpricing'), className: 'bppt-tab-style' }
 	];
-
-	// Update one property of the active plan
-	const updateCurrentPlan = (key, value) => {
-		const nextTables = tables.map((tbl, idx) => {
-			if (idx === activePlan) {
-				return { ...tbl, [key]: value };
-			}
-			return tbl;
-		});
-		setAttributes({ tables: nextTables });
-	};
-
-	// Add a new plan column
-	const addPlan = () => {
-		const newPlan = {
-			name: sprintf(__('Plan %d', 'bpricing'), tables.length + 1),
-			price: '29',
-			currency: '$',
-			unit: 'month',
-			badge: '',
-			isFeatured: false,
-			colorScheme: 'default',
-			btnText: __('Choose Plan', 'bpricing'),
-			btnLink: '#',
-			features: [
-				{ text: 'Feature 1', enabled: true },
-				{ text: 'Feature 2', enabled: true },
-				{ text: 'Feature 3', enabled: true }
-			]
-		};
-		setAttributes({ tables: [...tables, newPlan] });
-		setActivePlan(tables.length);
-	};
-
-	// Remove current plan
-	const removePlan = idx => {
-		if (tables.length <= 1) return;
-		const nextTables = tables.filter((_, i) => i !== idx);
-		setAttributes({ tables: nextTables });
-		setActivePlan(Math.max(0, idx - 1));
-	};
-
-	// Feature operations
-	const updateFeature = (fIndex, key, value) => {
-		const current = tables[activePlan] || {};
-		const features = [...(current.features || [])];
-		features[fIndex] = { ...features[fIndex], [key]: value };
-		updateCurrentPlan('features', features);
-	};
-
-	const addFeature = () => {
-		const current = tables[activePlan] || {};
-		const features = [...(current.features || []), { text: __('New Feature', 'bpricing'), enabled: true }];
-		updateCurrentPlan('features', features);
-	};
-
-	const removeFeature = fIndex => {
-		const current = tables[activePlan] || {};
-		const features = (current.features || []).filter((_, i) => i !== fIndex);
-		updateCurrentPlan('features', features);
-	};
-
-	const currentPlan = tables[activePlan] || tables[0] || {};
-	const currentSchemes = COLOR_SCHEMES[theme] || COLOR_SCHEMES['demo-1'];
 
 	return (
 		<InspectorControls>
@@ -142,141 +223,31 @@ const Settings = ({ attributes, setAttributes }) => {
 									</PanelBody>
 
 									<PanelBody title={__('Pricing Columns / Plans', 'bpricing')} initialOpen={true}>
-										<div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', marginBottom: '14px' }}>
-											{tables.map((t, i) => (
-												<Button
-													key={i}
-													isSmall
-													variant={activePlan === i ? 'primary' : 'secondary'}
-													onClick={() => setActivePlan(i)}
-												>
-													{t.name || sprintf(__('Column %d', 'bpricing'), i + 1)}
-												</Button>
-											))}
-											<Button isSmall variant="tertiary" onClick={addPlan}>
-												{__('+ Add Column', 'bpricing')}
-											</Button>
-										</div>
-
-										<div style={{ padding: '12px', background: '#f6f7f7', borderRadius: '4px', marginBottom: '14px' }}>
-											<div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
-												<strong>{sprintf(__('Editing: %s', 'bpricing'), currentPlan.name || '')}</strong>
-												{tables.length > 1 && (
-													<Button isDestructive isSmall variant="link" onClick={() => removePlan(activePlan)}>
-														{__('Delete Column', 'bpricing')}
-													</Button>
-												)}
-											</div>
-
-											<TextControl
-												label={__('Plan Name', 'bpricing')}
-												value={currentPlan.name || ''}
-												onChange={val => updateCurrentPlan('name', val)}
-											/>
-
-											<div style={{ display: 'flex', gap: '8px' }}>
-												<div style={{ flex: 1 }}>
-													<TextControl
-														label={__('Currency', 'bpricing')}
-														value={currentPlan.currency || '$'}
-														onChange={val => updateCurrentPlan('currency', val)}
-													/>
-												</div>
-												<div style={{ flex: 2 }}>
-													<TextControl
-														label={__('Price', 'bpricing')}
-														value={currentPlan.price || ''}
-														onChange={val => updateCurrentPlan('price', val)}
-													/>
-												</div>
-											</div>
-
-											<TextControl
-												label={__('Billing Period / Unit', 'bpricing')}
-												value={currentPlan.unit || ''}
-												onChange={val => updateCurrentPlan('unit', val)}
-												help={__('e.g. month, year', 'bpricing')}
-											/>
-
-											<SelectControl
-												label={__('Color Scheme', 'bpricing')}
-												value={currentPlan.colorScheme || 'default'}
-												options={currentSchemes}
-												onChange={val => updateCurrentPlan('colorScheme', val)}
-											/>
-
-											<ToggleControl
-												label={__('Featured / Hot Plan', 'bpricing')}
-												checked={Boolean(currentPlan.isFeatured)}
-												onChange={val => updateCurrentPlan('isFeatured', val)}
-											/>
-
-											{currentPlan.isFeatured && (
-												<TextControl
-													label={__('Badge Text', 'bpricing')}
-													value={currentPlan.badge || ''}
-													onChange={val => updateCurrentPlan('badge', val)}
-													help={__('e.g. "Hot", "Popular", "Best Value"', 'bpricing')}
-												/>
-											)}
-
-											<TextControl
-												label={__('Button Text', 'bpricing')}
-												value={currentPlan.btnText || ''}
-												onChange={val => updateCurrentPlan('btnText', val)}
-											/>
-
-											<TextControl
-												label={__('Button URL', 'bpricing')}
-												value={currentPlan.btnLink || ''}
-												onChange={val => updateCurrentPlan('btnLink', val)}
-											/>
-										</div>
-
-										<div style={{ marginTop: '16px' }}>
-											<div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-												<h4 style={{ margin: 0, fontSize: '13px' }}>{__('Plan Features', 'bpricing')}</h4>
-												<Button isSmall variant="secondary" onClick={addFeature}>
-													{__('+ Add Feature', 'bpricing')}
-												</Button>
-											</div>
-
-											{(currentPlan.features || []).map((feat, fIdx) => (
-												<div
-													key={fIdx}
-													style={{
-														display: 'flex',
-														alignItems: 'center',
-														gap: '6px',
-														padding: '6px 8px',
-														background: '#fff',
-														border: '1px solid #e0e0e0',
-														borderRadius: '4px',
-														marginBottom: '6px'
-													}}
-												>
-													<CheckboxControl
-														checked={Boolean(feat.enabled !== false)}
-														onChange={val => updateFeature(fIdx, 'enabled', val)}
-														help=""
-													/>
-													<div style={{ flex: 1 }}>
-														<TextControl
-															value={feat.text || ''}
-															onChange={val => updateFeature(fIdx, 'text', val)}
-														/>
-													</div>
-													<Button
-														isDestructive
-														isSmall
-														variant="link"
-														onClick={() => removeFeature(fIdx)}
-													>
-														×
-													</Button>
-												</div>
-											))}
-										</div>
+										<ItemsPanel
+											{...{ attributes, setAttributes }}
+											arrKey="tables"
+											newItem={{
+												name: sprintf(__('Plan %d', 'bpricing'), (tables?.length || 0) + 1),
+												price: '29',
+												currency: '$',
+												unit: 'month',
+												badge: '',
+												isFeatured: false,
+												colorScheme: 'default',
+												btnText: __('Choose Plan', 'bpricing'),
+												btnLink: '#',
+												features: [
+													{ text: __('Feature 1', 'bpricing'), enabled: true },
+													{ text: __('Feature 2', 'bpricing'), enabled: true },
+													{ text: __('Feature 3', 'bpricing'), enabled: true }
+												]
+											}}
+											ItemSettings={PlanItemSettings}
+											itemLabel={__('Plan', 'bpricing')}
+											title="name"
+											design="sortable"
+											minItem={1}
+										/>
 									</PanelBody>
 								</>
 							);
