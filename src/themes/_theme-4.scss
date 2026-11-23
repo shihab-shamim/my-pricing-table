@@ -1,0 +1,203 @@
+.priceTableBGBefore {
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  flex-wrap: wrap;
+
+  &.columns-1 .pricingTableFour { width: 100%; }
+  &.columns-2 .pricingTableFour { width: 50%; }
+  &.columns-3 .pricingTableFour { width: 33.33%; }
+  &.columns-4 .pricingTableFour { width: 25%; }
+  &.columns-5 .pricingTableFour { width: 20%; }
+  &.columns-6 .pricingTableFour { width: 16.66%; }
+
+  @media (max-width: 768px) {
+    &.columns-tablet-1 .pricingTableFour { width: 100%; }
+    &.columns-tablet-2 .pricingTableFour { width: 50%; }
+    &.columns-tablet-3 .pricingTableFour { width: 33.33%; }
+    &.columns-tablet-4 .pricingTableFour { width: 25%; }
+  }
+  @media (max-width: 576px) {
+    &.columns-mobile-1 .pricingTableFour { width: 100%; }
+    &.columns-mobile-2 .pricingTableFour { width: 50%; }
+  }
+
+  .pricingTableFour {
+    color: #383e4a;
+    font-family: Roboto, sans-serif;
+    text-align: center;
+    padding: 0 30px 30px 30px;
+    position: relative;
+    z-index: 1;
+    min-width: 300px;
+    margin-bottom: 40px;
+
+    &:before {
+      content: "";
+      width: 250px;
+      max-width: 85%;
+      height: 350px;
+      border-radius: 10px 10px 10px 20px;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      z-index: -1;
+      background: linear-gradient(to right, #9fcd37, #72bb43);
+    }
+
+    .pricingContent {
+      height: 100%;
+      max-width: 370px;
+      background-color: #fff;
+      padding: 35px 15px 30px 15px;
+      border-radius: 20px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1), 10px -10px 0 rgba(0, 0, 0, 0.05);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      ul.pricingFeatures {
+        list-style-type: none !important;
+        text-align: left;
+        padding: 0 !important;
+        margin: 0 0 30px 0 !important;
+        display: inline-block;
+
+        li {
+          color: #999;
+          font-size: 17px;
+          line-height: 25px;
+          padding: 8px 0 8px 35px;
+          border-bottom: 1px solid #ccc;
+          position: relative;
+          list-style: none !important;
+
+          &:first-child {
+            border-top: 1px solid #ccc;
+          }
+
+          &:before {
+            content: "\2714";
+            position: absolute;
+            color: #6cc13d;
+            font-size: 20px;
+            font-weight: 900;
+            top: 8px;
+            left: 0;
+          }
+
+          &.disable:before {
+            content: "\2716";
+            color: #525963;
+          }
+        }
+      }
+
+      .pricingHeader .title {
+        position: relative;
+        font-size: 30px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin: 0 0 20px 0;
+        color: #383e4a;
+      }
+
+      .pricingValue {
+        margin: 0 0 25px 0;
+
+        .amount {
+          font-size: 50px;
+          line-height: 50px;
+          display: block;
+        }
+        .duration {
+          font-size: 20px;
+          line-height: 20px;
+          font-weight: 400;
+          display: block;
+        }
+      }
+
+      .pricingSignUp a {
+        color: #fff;
+        font-size: 20px;
+        font-weight: 700;
+        text-transform: uppercase;
+        text-decoration: none;
+        letter-spacing: 1px;
+        padding: 14px 15px;
+        transition: all 0.5s ease 0s;
+        border-radius: 6px;
+        display: inline-block;
+        background: linear-gradient(to right, #9fcd37, #72bb43);
+
+        &:hover {
+          text-decoration: none;
+          text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.4);
+          color: #fff;
+        }
+      }
+    }
+
+    &.purple {
+      &:before,
+      .pricingSignUp a {
+        background: linear-gradient(to right, #c95799, #9f54ab);
+      }
+      .pricingContent ul.pricingFeatures li:before {
+        color: #c95799;
+      }
+      .pricingContent ul.pricingFeatures li.disable:before {
+        color: #525963;
+      }
+    }
+
+    &.orange {
+      &:before,
+      .pricingSignUp a {
+        background: linear-gradient(to right, #f0891f, #da382a);
+      }
+      .pricingContent ul.pricingFeatures li:before {
+        color: #f0891f;
+      }
+      .pricingContent ul.pricingFeatures li.disable:before {
+        color: #525963;
+      }
+    }
+  }
+
+  @media screen and (min-width: 769px) and (max-width: 992px),
+    (min-width: 577px) and (max-width: 700px),
+    (max-width: 300px) {
+    .pricingTableFour .pricingContent {
+      padding: 15px 10px 25px 10px;
+
+      .pricingHeader .title {
+        font-size: 25px;
+        margin: 0 0 15px 0;
+      }
+      ul.pricingFeatures {
+        margin: 0 0 20px 0 !important;
+        li {
+          font-size: 15px;
+        }
+      }
+      .pricingValue .amount {
+        font-size: 40px;
+        line-height: 40px;
+      }
+      .pricingSignUp a {
+        font-size: 16px;
+      }
+    }
+  }
+
+  @media screen and (max-width: 576px) {
+    max-width: 400px;
+    width: 100%;
+  }
+}

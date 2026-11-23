@@ -65,7 +65,7 @@ if(!class_exists('BPPTPricingTable')) {
     }
 
     public static function bppt_register_assets() {
-      wp_register_style('google_font',     BPPT_PLUGIN_DIR . 'fonts.googleapis.com/css?family=Lato:400,700');
+      wp_register_style('google_font',     'https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Poppins:wght@400;600&family=Roboto:wght@400;500;700&family=Rubik:wght@400;500&display=swap', [], BPPT_PLUGIN_VERSION);
       wp_register_style('bppt_pt_style_1', BPPT_PLUGIN_DIR . 'public/css/pricing-table-1.css');
       wp_register_style('bppt_pt_style_2', BPPT_PLUGIN_DIR . 'public/css/pricing-table-2.css');
       wp_register_style('bppt_pt_style_3', BPPT_PLUGIN_DIR . 'public/css/pricing-table-3.css');

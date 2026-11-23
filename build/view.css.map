@@ -1,1 +1,0 @@
-{"version":3,"file":"view.css","mappings":";;;AAAA;;EAEC;EACA;AACD,C","sources":["webpack://my-pricing-table/./src/style.scss"],"sourcesContent":[".wp-block-bppt-pricing-table,\n.bppt-pricing-table-block {\n\tbox-sizing: border-box;\n\twidth: 100%;\n}\n"],"names":[],"sourceRoot":""}

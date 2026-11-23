@@ -1,5 +1,44 @@
+// Google Fonts
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Poppins:wght@400;600&family=Roboto:wght@400;500;700&family=Rubik:wght@400;500&display=swap');
+
+// Base wrapper
 .wp-block-bppt-pricing-table,
-.bppt-pricing-table-block {
+.bppt-pricing-table-block,
+.bppt-pricing-table-editor-wrapper {
 	box-sizing: border-box;
 	width: 100%;
 }
+
+// Reset list styles inside all pricing tables
+.bppt_pricing ul,
+.bppt_container ul,
+.bppt_table3 ul,
+.priceTableBGBefore ul,
+.priceTableGradient ul {
+	list-style: none !important;
+	padding: 0 !important;
+	margin: 0 !important;
+}
+
+.bppt_pricing li,
+.bppt_container li,
+.bppt_table3 li,
+.priceTableBGBefore li,
+.priceTableGradient li {
+	list-style: none !important;
+}
+
+// Ensure titles in Theme 1 and Theme 2 remain white
+.bppt_pricing .plan-entry-title > h3 {
+	color: #fff !important;
+}
+.pricingTableTwo .pricingTable-header .title {
+	color: #fff !important;
+}
+
+// Import all 5 Themes
+@import './themes/theme-1';
+@import './themes/theme-2';
+@import './themes/theme-3';
+@import './themes/theme-4';
+@import './themes/theme-5';

@@ -1,0 +1,176 @@
+.bppt_pricing {
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: space-around;
+  justify-content: center;
+  background: #f2f2f2;
+  padding: 20px 0;
+
+  .plan {
+    font-family: "Lato", Arial, sans-serif;
+    display: flex;
+    align-content: space-around;
+    margin: 10px 10px 40px 10px;
+  }
+  .plan-inner {
+    background: #ffffff;
+    margin: 0 auto;
+    min-width: 280px;
+    max-width: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  }
+
+  .plan-entry-title {
+    background: #53cfe9;
+    height: 140px;
+    position: relative;
+    text-align: center;
+    color: #fff;
+    margin-bottom: 30px;
+
+    > h3 {
+      background: #20bada;
+      font-size: 20px;
+      padding: 8px 0;
+      text-transform: uppercase;
+      font-weight: 700;
+      margin: 0;
+      color: #fff;
+    }
+
+    .price {
+      position: absolute;
+      bottom: -25px;
+      background: #20bada;
+      height: 100px;
+      width: 100px;
+      margin: 0 auto;
+      left: 0;
+      right: 0;
+      overflow: hidden;
+      border-radius: 50px;
+      border: 3px solid #fff;
+      line-height: 80px;
+      font-size: 28px;
+      font-weight: 700;
+      color: #fff;
+
+      span {
+        position: absolute;
+        font-size: 12px;
+        bottom: -13px;
+        left: 18px;
+        font-weight: 400;
+      }
+    }
+  }
+
+  .plan-entry-content {
+    color: #323232;
+
+    ul {
+      margin: 0 auto !important;
+      padding: 0 !important;
+      list-style: none !important;
+      text-align: center;
+    }
+
+    li {
+      border-bottom: 1px solid #e5e5e5;
+      padding: 6px 0;
+      margin-left: 0;
+      list-style: none !important;
+
+      &:first-child {
+        padding-top: 15px;
+      }
+      &:last-child {
+        border: none;
+      }
+      &.disable {
+        color: #aaa;
+        text-decoration: line-through;
+      }
+    }
+  }
+
+  .bttn {
+    padding: 2em 0;
+    text-align: center;
+    margin-top: auto;
+
+    a {
+      background: #323232;
+      padding: 10px 30px;
+      color: #fff;
+      text-transform: uppercase;
+      font-weight: 700;
+      text-decoration: none;
+      display: inline-block;
+      transition: background 0.3s;
+
+      &:hover {
+        background: #555;
+        color: #fff;
+      }
+    }
+  }
+
+  .hot {
+    position: absolute;
+    top: -7px;
+    background: #f80;
+    color: #fff;
+    text-transform: uppercase;
+    z-index: 2;
+    padding: 2px 5px;
+    font-size: 9px;
+    border-radius: 2px;
+    right: 10px;
+    font-weight: 700;
+  }
+
+  .plan.basic,
+  .basic {
+    .plan-entry-title {
+      background: #75ddd9;
+      > h3 {
+        background: #44cbc6;
+      }
+      .price {
+        background: #44cbc6;
+      }
+    }
+  }
+
+  .plan.standard,
+  .standard {
+    .plan-entry-title {
+      background: #4484c1;
+      > h3 {
+        background: #3772aa;
+      }
+      .price {
+        background: #3772aa;
+      }
+    }
+  }
+
+  .plan.ultimite,
+  .ultimite {
+    .plan-entry-title {
+      background: #f75c70;
+      > h3 {
+        background: #dd4b5e;
+      }
+      .price {
+        background: #dd4b5e;
+      }
+    }
+  }
+}

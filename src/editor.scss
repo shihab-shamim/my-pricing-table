@@ -1,6 +1,13 @@
+@import './style.scss';
+
 .bppt-pricing-table-editor-wrapper {
 	box-sizing: border-box;
 	width: 100%;
+
+	// Disable link navigation inside block editor canvas
+	a {
+		pointer-events: none;
+	}
 }
 
 .bppt-inspector-controls {
