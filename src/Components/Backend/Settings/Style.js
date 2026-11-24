@@ -55,10 +55,10 @@ const Style = ({ attributes, setAttributes }) => {
 				<span style={{ color: '#007cba' }}>{currentThemeName}</span>
 			</div>
 
-			{/* Main Wrapper */}
-			<PanelBody className="bPlPanelBody" title={__('Main Wrapper', 'bpricing')} initialOpen={true}>
+			{/* Container */}
+			<PanelBody className="bPlPanelBody" title={__('Container', 'bpricing')} initialOpen={true}>
 				<Background
-					label={__('Wrapper Background:', 'bpricing')}
+					label={__('Container Background:', 'bpricing')}
 					value={currentStyle.wrapBg}
 					onChange={val => updateStyle('wrapBg', val)}
 					defaults={currentDefault.wrapBg}
@@ -66,7 +66,7 @@ const Style = ({ attributes, setAttributes }) => {
 
 				<div style={{ marginTop: '16px' }}>
 					<BoxControl
-						label={__('Wrapper Padding:', 'bpricing')}
+						label={__('Container Padding:', 'bpricing')}
 						values={currentStyle.wrapPadding}
 						onChange={val => updateStyle('wrapPadding', val)}
 						resetValues={currentDefault.wrapPadding}
@@ -75,7 +75,7 @@ const Style = ({ attributes, setAttributes }) => {
 
 				<div style={{ marginTop: '16px' }}>
 					<BoxControl
-						label={__('Wrapper Margin:', 'bpricing')}
+						label={__('Container Margin:', 'bpricing')}
 						values={currentStyle.wrapMargin}
 						onChange={val => updateStyle('wrapMargin', val)}
 						resetValues={currentDefault.wrapMargin}
@@ -92,8 +92,8 @@ const Style = ({ attributes, setAttributes }) => {
 				</PanelRow>
 			</PanelBody>
 
-			{/* Card / Table Container */}
-			<PanelBody className="bPlPanelBody" title={__('Card / Container', 'bpricing')} initialOpen={false}>
+			{/* Card */}
+			<PanelBody className="bPlPanelBody" title={__('Card', 'bpricing')} initialOpen={false}>
 				<Background
 					label={__('Card Background:', 'bpricing')}
 					value={currentStyle.cardBg}
