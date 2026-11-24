@@ -325,6 +325,15 @@ export const generateThemeCSS = (selector, theme = 'demo-1', st = {}, tables = [
 				${hasWrapMar ? safeBox('margin', st.wrapMargin) : ''}
 				${hasWrapRad ? `border-radius: ${st.wrapRadius} !important;` : ''}
 			}
+			${wrapBgCSS ? `
+				${selector} .bppt_pricing,
+				${selector} .bppt_container,
+				${selector} .bppt_table3,
+				${selector} .priceTableBGBefore,
+				${selector} .priceTableGradient {
+					background: transparent !important;
+				}
+			` : ''}
 		`;
 	}
 

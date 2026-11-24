@@ -467,6 +467,15 @@ ob_start();
 			<?php if ( $wrap_mar ) : ?>margin: <?php echo esc_attr( $wrap_mar ); ?> !important;<?php endif; ?>
 			<?php if ( $wrap_radius ) : ?>border-radius: <?php echo esc_attr( $wrap_radius ); ?> !important;<?php endif; ?>
 		}
+		<?php if ( $wrap_bg ) : ?>
+		.<?php echo esc_attr( $unique_id ); ?> .bppt_pricing,
+		.<?php echo esc_attr( $unique_id ); ?> .bppt_container,
+		.<?php echo esc_attr( $unique_id ); ?> .bppt_table3,
+		.<?php echo esc_attr( $unique_id ); ?> .priceTableBGBefore,
+		.<?php echo esc_attr( $unique_id ); ?> .priceTableGradient {
+			background: transparent !important;
+		}
+		<?php endif; ?>
 		<?php endif; ?>
 		.<?php echo esc_attr( $unique_id ); ?> .bppt_pricing,
 		.<?php echo esc_attr( $unique_id ); ?> .bppt_container,
