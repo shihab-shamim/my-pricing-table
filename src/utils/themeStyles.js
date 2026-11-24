@@ -740,43 +740,65 @@ export const generateThemeCSS = (selector, theme = 'demo-1', st = {}, tables = [
 	// 2. Individual Column Custom Colors from ItemsPanel (takes highest precedence)
 	tables.forEach((tbl, i) => {
 		const planSl = `${selector} .bppt-plan-${i}`;
+		const hBg = typeof tbl.headerBg === 'object' && tbl.headerBg !== null ? (tbl.headerBg.color || tbl.headerBg.bg || '') : (tbl.headerBg || '');
+		const pBg = typeof tbl.priceBg === 'object' && tbl.priceBg !== null ? (tbl.priceBg.color || tbl.priceBg.bg || '') : (tbl.priceBg || '');
+		const bBg = typeof tbl.btnBg === 'object' && tbl.btnBg !== null ? (tbl.btnBg.color || tbl.btnBg.bg || '') : (tbl.btnBg || '');
+		const bCol = typeof tbl.btnColor === 'object' && tbl.btnColor !== null ? (tbl.btnColor.color || '') : (tbl.btnColor || '');
+		const cBg = typeof tbl.cardBg === 'object' && tbl.cardBg !== null ? (tbl.cardBg.color || tbl.cardBg.bg || '') : (tbl.cardBg || '');
 
 		switch (theme) {
 			case 'demo-1': {
-				if (tbl.headerBg) {
+				const cardSl = `${selector} .bppt_pricing .plan.bppt-plan-${i}`;
+				if (hBg) {
 					specificCSS += `
+						${cardSl} .plan-entry-title,
+						${cardSl} .plan-entry-title > h3,
+						${cardSl} .price,
 						${planSl} .plan-entry-title,
 						${planSl} .plan-entry-title > h3,
 						${planSl} .price {
-							background: ${tbl.headerBg} !important;
+							background: ${hBg} !important;
+						}
+						${cardSl} .bttn a,
+						${planSl} .bttn a {
+							background: ${hBg} !important;
 						}
 					`;
 				}
-				if (tbl.priceBg) {
+				if (pBg) {
 					specificCSS += `
+						${cardSl} .price,
 						${planSl} .price {
-							background: ${tbl.priceBg} !important;
+							background: ${pBg} !important;
 						}
 					`;
 				}
-				if (tbl.cardBg) {
+				if (bBg) {
 					specificCSS += `
+						${cardSl} .bttn a,
+						${planSl} .bttn a {
+							background: ${bBg} !important;
+						}
+					`;
+				}
+				if (bCol) {
+					specificCSS += `
+						${cardSl} .bttn a,
+						${cardSl} .bttn a:hover,
+						${planSl} .bttn a,
+						${planSl} .bttn a:hover {
+							color: ${bCol} !important;
+						}
+					`;
+				}
+				if (cBg) {
+					specificCSS += `
+						${cardSl},
+						${cardSl} .plan-inner,
+						${planSl},
 						${planSl} .plan-inner {
-							background: ${tbl.cardBg} !important;
-						}
-					`;
-				}
-				if (tbl.btnBg) {
-					specificCSS += `
-						${planSl} .bttn a {
-							background: ${tbl.btnBg} !important;
-						}
-					`;
-				}
-				if (tbl.btnColor) {
-					specificCSS += `
-						${planSl} .bttn a {
-							color: ${tbl.btnColor} !important;
+							background: ${cBg} !important;
+							background-color: ${cBg} !important;
 						}
 					`;
 				}
@@ -784,48 +806,69 @@ export const generateThemeCSS = (selector, theme = 'demo-1', st = {}, tables = [
 			}
 
 			case 'demo-2': {
-				if (tbl.headerBg) {
+				const cardSl = `${selector} .bppt_container .pricingTableTwo.bppt-plan-${i}`;
+				if (hBg) {
 					specificCSS += `
+						${cardSl} .pricingTable-header,
 						${planSl} .pricingTable-header {
-							background: ${tbl.headerBg} !important;
+							background: ${hBg} !important;
 						}
+						${cardSl} .pricing-content,
 						${planSl} .pricing-content {
-							border-color: ${tbl.headerBg} !important;
+							border-color: ${hBg} !important;
 						}
+						${cardSl} .pricing-content li:before,
 						${planSl} .pricing-content li:before {
-							background: ${tbl.headerBg} !important;
+							background: ${hBg} !important;
 						}
+						${cardSl} .pricingTable-signup a,
 						${planSl} .pricingTable-signup a {
-							background: ${tbl.headerBg} !important;
+							background: ${hBg} !important;
 						}
+						${cardSl}:before,
+						${cardSl}:after,
 						${planSl}:before,
 						${planSl}:after {
-							background: linear-gradient(to left bottom, ${tbl.headerBg} 45%, transparent 50%) !important;
+							background: linear-gradient(to left bottom, ${hBg} 45%, transparent 50%) !important;
 						}
+						${cardSl} .pricingTable-signup a:before,
+						${cardSl} .pricingTable-signup a:after,
 						${planSl} .pricingTable-signup a:before,
 						${planSl} .pricingTable-signup a:after {
-							background: linear-gradient(to left bottom, ${tbl.headerBg} 48%, transparent 50%) !important;
+							background: linear-gradient(to left bottom, ${hBg} 48%, transparent 50%) !important;
 						}
 					`;
 				}
-				if (tbl.btnBg) {
+				if (bBg) {
 					specificCSS += `
+						${cardSl} .pricingTable-signup a,
 						${planSl} .pricingTable-signup a {
-							background: ${tbl.btnBg} !important;
+							background: ${bBg} !important;
+						}
+						${cardSl} .pricingTable-signup a:before,
+						${cardSl} .pricingTable-signup a:after,
+						${planSl} .pricingTable-signup a:before,
+						${planSl} .pricingTable-signup a:after {
+							background: linear-gradient(to left bottom, ${bBg} 48%, transparent 50%) !important;
 						}
 					`;
 				}
-				if (tbl.btnColor) {
+				if (bCol) {
 					specificCSS += `
-						${planSl} .pricingTable-signup a {
-							color: ${tbl.btnColor} !important;
+						${cardSl} .pricingTable-signup a,
+						${cardSl} .pricingTable-signup a:hover,
+						${planSl} .pricingTable-signup a,
+						${planSl} .pricingTable-signup a:hover {
+							color: ${bCol} !important;
 						}
 					`;
 				}
-				if (tbl.cardBg) {
+				if (cBg) {
 					specificCSS += `
+						${cardSl},
 						${planSl} {
-							background-color: ${tbl.cardBg} !important;
+							background: ${cBg} !important;
+							background-color: ${cBg} !important;
 						}
 					`;
 				}
@@ -833,44 +876,57 @@ export const generateThemeCSS = (selector, theme = 'demo-1', st = {}, tables = [
 			}
 
 			case 'demo-3': {
-				if (tbl.headerBg) {
+				const cardSl = `${selector} .bppt_table3 .pricingTable.bppt-plan-${i}`;
+				if (hBg) {
 					specificCSS += `
+						${cardSl} .title,
 						${planSl} .title {
-							color: ${tbl.headerBg} !important;
+							color: ${hBg} !important;
 						}
+						${cardSl} .price-value,
+						${cardSl} .pricingTable-signup-three a,
 						${planSl} .price-value,
 						${planSl} .pricingTable-signup-three a {
-							background: ${tbl.headerBg} !important;
+							background: ${hBg} !important;
 						}
 					`;
 				}
-				if (tbl.priceBg) {
+				if (pBg) {
 					specificCSS += `
+						${cardSl} .price-value,
 						${planSl} .price-value {
-							background: ${tbl.priceBg} !important;
+							background: ${pBg} !important;
 						}
 					`;
 				}
-				if (tbl.btnBg) {
+				if (bBg) {
 					specificCSS += `
+						${cardSl} .pricingTable-signup-three a,
 						${planSl} .pricingTable-signup-three a {
-							background: ${tbl.btnBg} !important;
+							background: ${bBg} !important;
 						}
 					`;
 				}
-				if (tbl.btnColor) {
+				if (bCol) {
 					specificCSS += `
-						${planSl} .pricingTable-signup-three a {
-							color: ${tbl.btnColor} !important;
+						${cardSl} .pricingTable-signup-three a,
+						${cardSl} .pricingTable-signup-three a:hover,
+						${planSl} .pricingTable-signup-three a,
+						${planSl} .pricingTable-signup-three a:hover {
+							color: ${bCol} !important;
 						}
 					`;
 				}
-				if (tbl.cardBg) {
+				if (cBg) {
 					specificCSS += `
+						${cardSl},
+						${cardSl} .pricingTable-header,
+						${cardSl} .pricing-content,
 						${planSl},
 						${planSl} .pricingTable-header,
 						${planSl} .pricing-content {
-							background-color: ${tbl.cardBg} !important;
+							background: ${cBg} !important;
+							background-color: ${cBg} !important;
 						}
 					`;
 				}
@@ -878,40 +934,51 @@ export const generateThemeCSS = (selector, theme = 'demo-1', st = {}, tables = [
 			}
 
 			case 'demo-4': {
-				if (tbl.headerBg) {
+				const cardSl = `${selector} .priceTableBGBefore .pricingTableFour.bppt-plan-${i}`;
+				if (hBg) {
 					specificCSS += `
+						${cardSl}:before,
 						${planSl}:before {
-							background: ${tbl.headerBg} !important;
+							background: ${hBg} !important;
 						}
+						${cardSl} .pricingHeader .title,
 						${planSl} .pricingHeader .title {
-							color: ${tbl.headerBg} !important;
+							color: ${hBg} !important;
 						}
+						${cardSl} .pricingFeatures li:before,
 						${planSl} .pricingFeatures li:before {
-							color: ${tbl.headerBg} !important;
+							color: ${hBg} !important;
 						}
+						${cardSl} .pricingSignUp a,
 						${planSl} .pricingSignUp a {
-							background: ${tbl.headerBg} !important;
+							background: ${hBg} !important;
 						}
 					`;
 				}
-				if (tbl.btnBg) {
+				if (bBg) {
 					specificCSS += `
+						${cardSl} .pricingSignUp a,
 						${planSl} .pricingSignUp a {
-							background: ${tbl.btnBg} !important;
+							background: ${bBg} !important;
 						}
 					`;
 				}
-				if (tbl.btnColor) {
+				if (bCol) {
 					specificCSS += `
-						${planSl} .pricingSignUp a {
-							color: ${tbl.btnColor} !important;
+						${cardSl} .pricingSignUp a,
+						${cardSl} .pricingSignUp a:hover,
+						${planSl} .pricingSignUp a,
+						${planSl} .pricingSignUp a:hover {
+							color: ${bCol} !important;
 						}
 					`;
 				}
-				if (tbl.cardBg) {
+				if (cBg) {
 					specificCSS += `
+						${cardSl} .pricingContent,
 						${planSl} .pricingContent {
-							background: ${tbl.cardBg} !important;
+							background: ${cBg} !important;
+							background-color: ${cBg} !important;
 						}
 					`;
 				}
@@ -920,37 +987,47 @@ export const generateThemeCSS = (selector, theme = 'demo-1', st = {}, tables = [
 
 			case 'demo-5':
 			default: {
-				if (tbl.headerBg) {
+				const cardSl = `${selector} .priceTableGradient .pricingTable.bppt-plan-${i}`;
+				if (hBg) {
 					specificCSS += `
+						${cardSl} .pricingHeader,
 						${planSl} .pricingHeader {
-							background: ${tbl.headerBg} !important;
+							background: ${hBg} !important;
 						}
+						${cardSl} .pricingFeatures li:before,
 						${planSl} .pricingFeatures li:before {
-							color: ${tbl.headerBg} !important;
+							background: ${hBg} !important;
 						}
+						${cardSl} .pricingSignUp a,
 						${planSl} .pricingSignUp a {
-							background: ${tbl.headerBg} !important;
+							background: ${hBg} !important;
 						}
 					`;
 				}
-				if (tbl.btnBg) {
+				if (bBg) {
 					specificCSS += `
+						${cardSl} .pricingSignUp a,
 						${planSl} .pricingSignUp a {
-							background: ${tbl.btnBg} !important;
+							background: ${bBg} !important;
 						}
 					`;
 				}
-				if (tbl.btnColor) {
+				if (bCol) {
 					specificCSS += `
-						${planSl} .pricingSignUp a {
-							color: ${tbl.btnColor} !important;
+						${cardSl} .pricingSignUp a,
+						${cardSl} .pricingSignUp a:hover,
+						${planSl} .pricingSignUp a,
+						${planSl} .pricingSignUp a:hover {
+							color: ${bCol} !important;
 						}
 					`;
 				}
-				if (tbl.cardBg) {
+				if (cBg) {
 					specificCSS += `
+						${cardSl},
 						${planSl} {
-							background-color: ${tbl.cardBg} !important;
+							background: ${cBg} !important;
+							background-color: ${cBg} !important;
 						}
 					`;
 				}
