@@ -113,29 +113,44 @@ export const demoInfo = {
 			title: 'Pricing Templates',
 			children: [
 				{
-					title: 'Theme 1 - Classic Style',
+					title: 'Default Basic Style',
 					type: 'image',
-					url: `https://ps.w.org/${slug}/assets/screenshot-3.png`
+					url: 'https://templates.bplugins.com/wp-content/uploads/2025/10/image.png'
 				},
 				{
-					title: 'Theme 2 - Ribbon Style',
+					title: 'Default Standard Style',
 					type: 'image',
-					url: `https://ps.w.org/${slug}/assets/screenshot-4.png`
+					url: 'https://templates.bplugins.com/wp-content/uploads/2025/09/pricing-table-standard-demo.png'
 				},
 				{
-					title: 'Theme 3 - Clean Flat Style',
+					title: 'Default Ultimate Style',
 					type: 'image',
-					url: `https://ps.w.org/${slug}/assets/screenshot-5.png`
+					url: 'https://templates.bplugins.com/wp-content/uploads/2025/09/pricing-table-ultimate-demo.png'
 				},
 				{
-					title: 'Theme 4 - Accent Card Style',
+					title: 'Horizontal Style',
 					type: 'image',
-					url: `https://ps.w.org/${slug}/assets/screenshot-6.png`
+					url: 'https://templates.bplugins.com/wp-content/uploads/2025/09/horizantal.png'
 				},
 				{
-					title: 'Theme 5 - Gradient Arrow Style',
+					title: 'Minimal Style',
 					type: 'image',
-					url: `https://ps.w.org/${slug}/assets/screenshot-7.png`
+					url: 'https://templates.bplugins.com/wp-content/uploads/2025/09/test-%E2%80%93-test-2.png'
+				},
+				{
+					title: 'Dark Style',
+					type: 'image',
+					url: 'https://templates.bplugins.com/wp-content/uploads/2025/09/test-%E2%80%93-test-3.png'
+				},
+				{
+					title: 'Switchable Style',
+					type: 'image',
+					url: 'https://templates.bplugins.com/wp-content/uploads/2025/09/test-%E2%80%93-test-4.png'
+				},
+				{
+					title: 'Dark Minimalist Style',
+					type: 'image',
+					url: 'https://templates.bplugins.com/wp-content/uploads/2025/09/pricing-table-darkminimakist.png'
 				}
 			]
 		},
