@@ -40,6 +40,18 @@ export const dashboardInfo = (info) => {
 
 export const changelogs = [
 	{
+		version: '2.0.0',
+		type: 'update',
+		list: [
+			'Major update: Added powerful Gutenberg Block for Pricing Tables',
+			'5 professionally designed responsive themes (Circular Badge, Ribbon Banner, Gradient Bar, Modern Card, Arrow Banner)',
+			'Added container background, padding, margin, and border-radius controls',
+			'Custom color overrides for headers, cards, buttons, and badges',
+			'Responsive column controls for desktop, tablet, and mobile',
+			'Modern React admin dashboard with live demo preview'
+		]
+	},
+	{
 		version: '1.0.1',
 		type: 'update',
 		list: [

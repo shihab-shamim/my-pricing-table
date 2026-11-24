@@ -4,7 +4,7 @@
  * Plugin Name:       My Pricing Table
  * Plugin URI:        https://wordpress.org/plugins/my-pricing-table
  * Description:       Make beautiful Pricing table with this plugin.
- * Version:           1.0.1
+ * Version:           2.0.0
  * Requires at least: 5.2
  * Requires PHP:      7.2
  * Author:            bPlugins
@@ -15,7 +15,7 @@
 //  Initialize Plugin
 define('BPPT_PLUGIN_DIR', plugin_dir_url(__FILE__));
 define('BPPT_PLUGIN_PATH', plugin_dir_path(__FILE__));
-define('BPPT_PLUGIN_VERSION', '1.0.1');
+define('BPPT_PLUGIN_VERSION', '2.0.0');
 
 // Option panel
 require_once 'inc/csf/csf-config.php';

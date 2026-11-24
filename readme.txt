@@ -1,150 +1,79 @@
-
 === My Pricing Table – Create Responsive Pricing Tables ===
-Contributors: bplugins,shehabulislam
+Contributors: bplugins,shihabshamim
 Tags: pricing table, comparison table, table, pricing, block
-Requires at least: 4.3
-Tested up to: 6.8
-Stable tag: 1.0.1
+Requires at least: 6.5
+Tested up to: 7.1
+Stable tag: 2.0.0
 Requires PHP: 7.1
 Donate link: https://www.buymeacoffee.com/abuhayat
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 
-A lite weight Plugin that helps you create and embed beautiful pricing tables in a minute.
+A lightweight plugin that helps you create and embed beautiful, responsive pricing tables in minutes.
 
 == Description ==
-
 
 **[Live Demo](https://pricing-table.bplugins.com "Demo")**
 
 = Features =
-- Easy to use
-- 5 Built in template
-- Use your preferred color
-- Use custom currency symbol
-- Color scheme
-- Custom Call to action text and link.
-
-
+* **Powerful Gutenberg Block**: Create and customize pricing tables visually inside the block editor with instant live preview.
+* **5 Professionally Designed Themes**: Includes Circular Price Badge, Ribbon & Banner, Gradient Bar, Modern Card, and Arrow Banner Gradient styles.
+* **Fully Responsive**: Dedicated responsive column controls for desktop, tablet, and mobile displays.
+* **Container & Wrapper Styling**: Full control over background color, gradients, padding, margin, border, and border radius.
+* **Color Customization**: Built-in preset color schemes plus custom overrides for headers, cards, buttons, and badges.
+* **Featured & Recommended Badge**: Highlight popular plans with custom badge text, background color, text color, and hover effects.
+* **Typography Controls**: Customizable font size, weight, line-height, text transform, and Google Fonts support.
+* **Custom Currency Symbols**: Multi-currency support ($, ¥, €, ৳, ﷼, etc.) with flexible unit positioning.
+* **Feature List with Status**: Toggle individual plan features on or off with checkmark and cross indicators.
+* **Action Buttons**: Custom button labels, links, target window attributes, colors, hover states, and border radius.
+* **Universal Shortcodes**: Classic CPT shortcode generator `[bp-table id=...]` compatible with all popular page builders (Elementor, Divi, Beaver Builder, etc.).
+* **Lightweight & Fast**: Clean code and minimal footprint without bloat.
 
 = ShortCode =
 
-Follow the steps below to generate a shortCode.
+Follow the steps below to generate a shortcode:
 
-1. Go to -> Pricing Table from Dashboard menu -> Add New Pricing Table
-2. Configure the Pricing table from Pricing table Settings with your preference.
-3. Copy Generated ShortCode and paste it where you like to embed the Panorama Viewer.
-4. Enjoy 360 Degree Views!
-
+1. Go to **Pricing Table › Add New** from the WordPress admin menu.
+2. Configure the pricing plans, features, and styling according to your preference.
+3. Publish the table and copy the generated shortcode: `[bp-table id=POST_ID]`.
+4. Paste the shortcode into any page, post, widget, or page builder!
 
 = Feedback = 
-Liked this plugin? Hate it? Want a new feature? Just let us know  [Send your feedback](https://bplugins.com/support/)  
+Liked this plugin? Hate it? Want a new feature? Just let us know: [Send your feedback](https://bplugins.com/support/)  
 
-= ⭐ Checkout our other WordPress Plugins- = 
+= ⭐ Checkout our other WordPress Plugins = 
 
 🔥 **[Html5 Audio Player](https://audioplayerwp.com/)** – Best audio player plugin for WordPress.
 
 🔥 **[Html5 Video Player](https://wpvideoplayer.com/)** – Best video player plugin for WordPress.
 
-🔥 **[PDF Poster](http://pdfposter.com/)** – A fully-featured PDF Viewer Plugin for WordPresss.
+🔥 **[PDF Poster](http://pdfposter.com/)** – A fully-featured PDF Viewer Plugin for WordPress.
 
-🔥 **[StreamCast](https://wordpress.org/plugins/streamcast)** – A fully-featured Radio Player Plugin for WordPresss.
+🔥 **[StreamCast](https://wordpress.org/plugins/streamcast)** – A fully-featured Radio Player Plugin for WordPress.
 
-🔥 **[3D Viewer](https://3d-viewer.bplugins.com/)** – Display interactive 3D models on the webs.
-
-== Installation ==
-
-This section describes how to install the plugin and get it working.
-
-e.g.
-
-1. Upload `plugin-directory` to the `/wp-content/plugins/` directory
-2. Activate the plugin through the 'Plugins' menu in WordPress
-3. Use shortcode in page, post or in widgets.
-4. If you want to show panorama in your theme php, Place `<?php echo do_shortcode('YOUR_SHORTCODE'); ?>` in your templates
-
-== Changelog ==
-
-= 1.0.1 =
-* updated codestar framework
-
-= 1.0.0 =
-* Initial Release
-
-||||||| .r0
-=======
-=== My Pricing Table - Pricing table plugin for WP ===
-Contributors: bplugins,shehabulislam, abuhayat, charlescormier
-Tags: pricing table, comparison table, table, pricing, block
-Requires at least: 4.0
-Tested up to: 6.5.5
-Stable tag: 1.0.1
-Requires PHP: 7.1
-Donate link: https://www.buymeacoffee.com/abuhayat
-License: GPLv2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
-
-
-A lite weight Plugin that helps you create and embed beautiful pricing tables in a minute.
-
-== Description ==
-
-A lite weight Plugin that helps you create and embed beautiful pricing tables in a minute.
-
-**[Live Demo](https://pricing-table.bplugins.com "Demo")**
-
-= Features =
-- Easy to use
-- 5 Built in template
-- Use your preferred color
-- Use custom currency symbol
-- Color scheme
-- Custom Call to action text and link.
-
-
-
-= ShortCode =
-
-Follow the steps below to generate a shortCode.
-
-1. Go to -> Pricing Table from Dashboard menu -> Add New Pricing Table
-2. Configure the Pricing table from Pricing table Settings with your preference.
-3. Copy Generated ShortCode and paste it where you like to embed the Panorama Viewer.
-4. Enjoy 360 Degree Views!
-
-
-= Feedback = 
-Liked this plugin? Hate it? Want a new feature? Just let us know  [Send your feedback](https://bplugins.com/support/)  
-
-= ⭐ Checkout our other WordPress Plugins- = 
-
-🔥 **[Html5 Audio Player](https://audioplayerwp.com/)** – Best audio player plugin for WordPress.
-
-🔥 **[Html5 Video Player](https://wpvideoplayer.com/)** – Best video player plugin for WordPress.
-
-🔥 **[PDF Poster](http://pdfposter.com/)** – A fully-featured PDF Viewer Plugin for WordPresss.
-
-🔥 **[StreamCast](https://wordpress.org/plugins/streamcast)** – A fully-featured Radio Player Plugin for WordPresss.
-
-🔥 **[3D Viewer](https://3d-viewer.bplugins.com/)** – Display interactive 3D models on the webs.
+🔥 **[3D Viewer](https://3d-viewer.bplugins.com/)** – Display interactive 3D models on the web.
 
 == Installation ==
 
-This section describes how to install the plugin and get it working.
-
-e.g.
-
-1. Upload `plugin-directory` to the `/wp-content/plugins/` directory
-2. Activate the plugin through the 'Plugins' menu in WordPress
-3. Use shortcode in page, post or in widgets.
-4. If you want to show panorama in your theme php, Place `<?php echo do_shortcode('YOUR_SHORTCODE'); ?>` in your templates
+1. Upload the `my-pricing-table` folder to your `/wp-content/plugins/` directory.
+2. Activate the plugin through the 'Plugins' menu in WordPress.
+3. Use the **Pricing Table** Gutenberg block in the editor, or use the generated shortcode `[bp-table id="..."]` anywhere on your site.
+4. To embed via PHP in your theme template, use: `<?php echo do_shortcode('[bp-table id="YOUR_ID"]'); ?>`
 
 == Changelog ==
 
+= 2.0.0 =
+* Major release: Introduced Gutenberg Block with live visual editor.
+* Added 5 responsive built-in theme styles (Circular Badge, Ribbon Banner, Gradient Bar, Modern Card, Arrow Banner).
+* Added container styling controls for background, padding, margin, and border radius.
+* Added custom color override controls for card background, header, button, and badge.
+* Added responsive column layout controls for desktop, tablet, and mobile devices.
+* Added modern React admin dashboard with live demo preview and guide.
+* Performance optimizations and style enhancements.
+
 = 1.0.1 =
-* updated codestar framework
+* Updated Codestar Framework.
 
 = 1.0.0 =
-* Initial Release
-
+* Initial Release.
