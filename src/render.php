@@ -37,6 +37,10 @@ $user_theme_styles = ! empty( $styles_attr[ $theme ] ) && is_array( $styles_attr
 
 $default_theme_styles = [
 	'demo-1' => [
+		'wrapBg'               => [ 'type' => 'solid', 'color' => '' ],
+		'wrapPadding'          => [ 'top' => '', 'right' => '', 'bottom' => '', 'left' => '' ],
+		'wrapMargin'           => [ 'top' => '', 'right' => '', 'bottom' => '', 'left' => '' ],
+		'wrapRadius'           => '',
 		'cardBg'               => [ 'type' => 'solid', 'color' => '#ffffff' ],
 		'cardPadding'          => [ 'top' => '0px', 'right' => '0px', 'bottom' => '0px', 'left' => '0px' ],
 		'cardMargin'           => [ 'top' => '10px', 'right' => '0px', 'bottom' => '40px', 'left' => '0px' ],
@@ -75,6 +79,10 @@ $default_theme_styles = [
 		'btnShadow'            => [],
 	],
 	'demo-2' => [
+		'wrapBg'               => [ 'type' => 'solid', 'color' => '' ],
+		'wrapPadding'          => [ 'top' => '', 'right' => '', 'bottom' => '', 'left' => '' ],
+		'wrapMargin'           => [ 'top' => '', 'right' => '', 'bottom' => '', 'left' => '' ],
+		'wrapRadius'           => '',
 		'cardBg'               => [ 'type' => 'solid', 'color' => '#f1f1f1' ],
 		'cardPadding'          => [ 'top' => '0px', 'right' => '0px', 'bottom' => '0px', 'left' => '0px' ],
 		'cardMargin'           => [ 'top' => '0px', 'right' => '24px', 'bottom' => '60px', 'left' => '24px' ],
@@ -112,6 +120,10 @@ $default_theme_styles = [
 		'btnShadow'            => [],
 	],
 	'demo-3' => [
+		'wrapBg'               => [ 'type' => 'solid', 'color' => '' ],
+		'wrapPadding'          => [ 'top' => '', 'right' => '', 'bottom' => '', 'left' => '' ],
+		'wrapMargin'           => [ 'top' => '', 'right' => '', 'bottom' => '', 'left' => '' ],
+		'wrapRadius'           => '',
 		'cardBg'               => [ 'type' => 'solid', 'color' => '#ffffff' ],
 		'cardPadding'          => [ 'top' => '0px', 'right' => '0px', 'bottom' => '0px', 'left' => '0px' ],
 		'cardMargin'           => [ 'top' => '0px', 'right' => '20px', 'bottom' => '60px', 'left' => '20px' ],
@@ -150,6 +162,10 @@ $default_theme_styles = [
 		'btnShadow'            => [],
 	],
 	'demo-4' => [
+		'wrapBg'               => [ 'type' => 'solid', 'color' => '' ],
+		'wrapPadding'          => [ 'top' => '', 'right' => '', 'bottom' => '', 'left' => '' ],
+		'wrapMargin'           => [ 'top' => '', 'right' => '', 'bottom' => '', 'left' => '' ],
+		'wrapRadius'           => '',
 		'cardBg'               => [ 'type' => 'solid', 'color' => '#ffffff' ],
 		'cardPadding'          => [ 'top' => '0px', 'right' => '30px', 'bottom' => '30px', 'left' => '30px' ],
 		'cardMargin'           => [ 'top' => '0px', 'right' => '0px', 'bottom' => '40px', 'left' => '0px' ],
@@ -187,6 +203,10 @@ $default_theme_styles = [
 		'btnShadow'            => [],
 	],
 	'demo-5' => [
+		'wrapBg'               => [ 'type' => 'solid', 'color' => '' ],
+		'wrapPadding'          => [ 'top' => '', 'right' => '', 'bottom' => '', 'left' => '' ],
+		'wrapMargin'           => [ 'top' => '', 'right' => '', 'bottom' => '', 'left' => '' ],
+		'wrapRadius'           => '',
 		'cardBg'               => [ 'type' => 'solid', 'color' => '#ffffff' ],
 		'cardPadding'          => [ 'top' => '20px', 'right' => '0px', 'bottom' => '35px', 'left' => '0px' ],
 		'cardMargin'           => [ 'top' => '0px', 'right' => '10px', 'bottom' => '30px', 'left' => '10px' ],
@@ -265,6 +285,9 @@ if ( ! function_exists( 'bppt_get_bg_css' ) ) {
 		}
 		if ( is_array( $bg ) && ! empty( $bg['color'] ) ) {
 			return 'background: ' . esc_attr( $bg['color'] ) . ' !important;';
+		}
+		if ( is_array( $bg ) && ! empty( $bg['type'] ) && 'gradient' === $bg['type'] && ! empty( $bg['gradient'] ) ) {
+			return 'background: ' . esc_attr( $bg['gradient'] ) . ' !important;';
 		}
 		return '';
 	}
@@ -367,6 +390,13 @@ if ( ! function_exists( 'bppt_get_border_css' ) ) {
 	}
 }
 
+$has_wrap_pad = ! empty( $theme_style['wrapPadding'] ) && is_array( $theme_style['wrapPadding'] ) && count( array_filter( $theme_style['wrapPadding'], function( $v ) { return '' !== $v && null !== $v; } ) ) > 0;
+$has_wrap_mar = ! empty( $theme_style['wrapMargin'] ) && is_array( $theme_style['wrapMargin'] ) && count( array_filter( $theme_style['wrapMargin'], function( $v ) { return '' !== $v && null !== $v; } ) ) > 0;
+$wrap_pad     = $has_wrap_pad ? bppt_get_box_css( $theme_style['wrapPadding'] ) : '';
+$wrap_mar     = $has_wrap_mar ? bppt_get_box_css( $theme_style['wrapMargin'] ) : '';
+$wrap_radius  = ! empty( $theme_style['wrapRadius'] ) && '0px' !== $theme_style['wrapRadius'] && '0' !== $theme_style['wrapRadius'] ? $theme_style['wrapRadius'] : '';
+$wrap_bg      = bppt_get_bg_css( $theme_style['wrapBg'] ?? '' );
+
 $card_bg       = bppt_get_bg_css( $theme_style['cardBg'] ?? '' );
 $card_pad      = bppt_get_box_css( $theme_style['cardPadding'] ?? [] );
 $card_mar      = bppt_get_box_css( $theme_style['cardMargin'] ?? [] );
@@ -430,6 +460,14 @@ ob_start();
 ?>
 <div <?php echo $wrapper_attributes; ?>>
 	<style>
+		<?php if ( $wrap_bg || $wrap_pad || $wrap_mar || $wrap_radius ) : ?>
+		.<?php echo esc_attr( $unique_id ); ?> {
+			<?php echo $wrap_bg; ?>
+			<?php if ( $wrap_pad ) : ?>padding: <?php echo esc_attr( $wrap_pad ); ?> !important;<?php endif; ?>
+			<?php if ( $wrap_mar ) : ?>margin: <?php echo esc_attr( $wrap_mar ); ?> !important;<?php endif; ?>
+			<?php if ( $wrap_radius ) : ?>border-radius: <?php echo esc_attr( $wrap_radius ); ?> !important;<?php endif; ?>
+		}
+		<?php endif; ?>
 		.<?php echo esc_attr( $unique_id ); ?> .bppt_pricing,
 		.<?php echo esc_attr( $unique_id ); ?> .bppt_container,
 		.<?php echo esc_attr( $unique_id ); ?> .bppt_table3,

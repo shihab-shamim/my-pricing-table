@@ -2,6 +2,10 @@ import { getBackgroundCSS, getBoxCSS, getMultiShadowCSS, getTypoCSS } from '../.
 
 export const DEFAULT_THEME_STYLES = {
 	'demo-1': {
+		wrapBg: { type: 'solid', color: '' },
+		wrapPadding: { top: '', right: '', bottom: '', left: '' },
+		wrapMargin: { top: '', right: '', bottom: '', left: '' },
+		wrapRadius: '',
 		cardBg: { type: 'solid', color: '#ffffff' },
 		cardPadding: { top: '0px', right: '0px', bottom: '0px', left: '0px' },
 		cardMargin: { top: '10px', right: '0px', bottom: '40px', left: '0px' },
@@ -40,6 +44,10 @@ export const DEFAULT_THEME_STYLES = {
 		btnShadow: []
 	},
 	'demo-2': {
+		wrapBg: { type: 'solid', color: '' },
+		wrapPadding: { top: '', right: '', bottom: '', left: '' },
+		wrapMargin: { top: '', right: '', bottom: '', left: '' },
+		wrapRadius: '',
 		cardBg: { type: 'solid', color: '#f1f1f1' },
 		cardPadding: { top: '0px', right: '0px', bottom: '0px', left: '0px' },
 		cardMargin: { top: '0px', right: '24px', bottom: '60px', left: '24px' },
@@ -77,6 +85,10 @@ export const DEFAULT_THEME_STYLES = {
 		btnShadow: []
 	},
 	'demo-3': {
+		wrapBg: { type: 'solid', color: '' },
+		wrapPadding: { top: '', right: '', bottom: '', left: '' },
+		wrapMargin: { top: '', right: '', bottom: '', left: '' },
+		wrapRadius: '',
 		cardBg: { type: 'solid', color: '#ffffff' },
 		cardPadding: { top: '0px', right: '0px', bottom: '0px', left: '0px' },
 		cardMargin: { top: '0px', right: '20px', bottom: '60px', left: '20px' },
@@ -115,6 +127,10 @@ export const DEFAULT_THEME_STYLES = {
 		btnShadow: []
 	},
 	'demo-4': {
+		wrapBg: { type: 'solid', color: '' },
+		wrapPadding: { top: '', right: '', bottom: '', left: '' },
+		wrapMargin: { top: '', right: '', bottom: '', left: '' },
+		wrapRadius: '',
 		cardBg: { type: 'solid', color: '#ffffff' },
 		cardPadding: { top: '0px', right: '30px', bottom: '30px', left: '30px' },
 		cardMargin: { top: '0px', right: '0px', bottom: '40px', left: '0px' },
@@ -152,6 +168,10 @@ export const DEFAULT_THEME_STYLES = {
 		btnShadow: []
 	},
 	'demo-5': {
+		wrapBg: { type: 'solid', color: '' },
+		wrapPadding: { top: '', right: '', bottom: '', left: '' },
+		wrapMargin: { top: '', right: '', bottom: '', left: '' },
+		wrapRadius: '',
 		cardBg: { type: 'solid', color: '#ffffff' },
 		cardPadding: { top: '20px', right: '0px', bottom: '35px', left: '0px' },
 		cardMargin: { top: '0px', right: '10px', bottom: '30px', left: '10px' },
@@ -197,6 +217,10 @@ export const getMergedThemeStyle = (theme = 'demo-1', styles = {}) => {
 	return {
 		...defaultForTheme,
 		...currentThemeStyles,
+		wrapBg: currentThemeStyles.wrapBg || defaultForTheme.wrapBg,
+		wrapPadding: { ...defaultForTheme.wrapPadding, ...(currentThemeStyles.wrapPadding || {}) },
+		wrapMargin: { ...defaultForTheme.wrapMargin, ...(currentThemeStyles.wrapMargin || {}) },
+		wrapRadius: currentThemeStyles.wrapRadius ?? defaultForTheme.wrapRadius,
 		cardBg: currentThemeStyles.cardBg || defaultForTheme.cardBg,
 		cardPadding: { ...defaultForTheme.cardPadding, ...(currentThemeStyles.cardPadding || {}) },
 		cardMargin: { ...defaultForTheme.cardMargin, ...(currentThemeStyles.cardMargin || {}) },
@@ -286,6 +310,23 @@ export const generateThemeCSS = (selector, theme = 'demo-1', st = {}, tables = [
 	});
 
 	let specificCSS = '';
+
+	// Main Wrapper Styles
+	const hasWrapPad = st.wrapPadding && Object.values(st.wrapPadding).some(v => v !== '' && v !== undefined && v !== null);
+	const hasWrapMar = st.wrapMargin && Object.values(st.wrapMargin).some(v => v !== '' && v !== undefined && v !== null);
+	const hasWrapRad = st.wrapRadius && st.wrapRadius !== '0px' && st.wrapRadius !== '0';
+	const wrapBgCSS = safeBg(st.wrapBg);
+
+	if (wrapBgCSS || hasWrapPad || hasWrapMar || hasWrapRad) {
+		specificCSS += `
+			${selector} {
+				${wrapBgCSS}
+				${hasWrapPad ? safeBox('padding', st.wrapPadding) : ''}
+				${hasWrapMar ? safeBox('margin', st.wrapMargin) : ''}
+				${hasWrapRad ? `border-radius: ${st.wrapRadius} !important;` : ''}
+			}
+		`;
+	}
 
 	// Ensure all card containers have relative positioning for absolute badges
 	specificCSS += `

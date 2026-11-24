@@ -55,8 +55,45 @@ const Style = ({ attributes, setAttributes }) => {
 				<span style={{ color: '#007cba' }}>{currentThemeName}</span>
 			</div>
 
+			{/* Main Wrapper */}
+			<PanelBody className="bPlPanelBody" title={__('Main Wrapper', 'bpricing')} initialOpen={true}>
+				<Background
+					label={__('Wrapper Background:', 'bpricing')}
+					value={currentStyle.wrapBg}
+					onChange={val => updateStyle('wrapBg', val)}
+					defaults={currentDefault.wrapBg}
+				/>
+
+				<div style={{ marginTop: '16px' }}>
+					<BoxControl
+						label={__('Wrapper Padding:', 'bpricing')}
+						values={currentStyle.wrapPadding}
+						onChange={val => updateStyle('wrapPadding', val)}
+						resetValues={currentDefault.wrapPadding}
+					/>
+				</div>
+
+				<div style={{ marginTop: '16px' }}>
+					<BoxControl
+						label={__('Wrapper Margin:', 'bpricing')}
+						values={currentStyle.wrapMargin}
+						onChange={val => updateStyle('wrapMargin', val)}
+						resetValues={currentDefault.wrapMargin}
+					/>
+				</div>
+
+				<PanelRow style={{ marginTop: '16px' }}>
+					<UnitControl
+						label={__('Border Radius:', 'bpricing')}
+						labelPosition="left"
+						value={currentStyle.wrapRadius}
+						onChange={val => updateStyle('wrapRadius', val)}
+					/>
+				</PanelRow>
+			</PanelBody>
+
 			{/* Card / Table Container */}
-			<PanelBody className="bPlPanelBody" title={__('Card / Container', 'bpricing')} initialOpen={true}>
+			<PanelBody className="bPlPanelBody" title={__('Card / Container', 'bpricing')} initialOpen={false}>
 				<Background
 					label={__('Card Background:', 'bpricing')}
 					value={currentStyle.cardBg}
