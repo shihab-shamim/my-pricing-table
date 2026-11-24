@@ -188,7 +188,7 @@ Styles the shortcode copy button/tooltip:
 
 | Screen | Assets Loaded |
 |---|---|
-| `bppt-pricing-table_page_b-pricing-table-block` | `dashboard.js` (deps: react, react-dom, wp-components) + `dashboard.css` |
+| `bppt-pricing-table_page_my-pricing-table` | `dashboard.js` (deps: react, react-dom, wp-components) + `dashboard.css` |
 | `edit.php` or `post.php` | `admin-post.js` + `admin-post.css` |
 | All admin pages | `custom-style.css` (shortcode generator styles) |
 

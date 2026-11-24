@@ -65,7 +65,7 @@
 2. **On Next Admin Load** (`admin_init`): Checks for the option
 3. If found and not network admin/multi-activate:
    - Deletes the option
-   - Redirects to: `edit.php?post_type=bppt-pricing-table&page=b-pricing-table-block#/welcome`
+   - Redirects to: `edit.php?post_type=bppt-pricing-table&page=my-pricing-table#/welcome`
 4. This takes the user directly to the React dashboard welcome page
 
 ### Legacy Plugin Deactivation

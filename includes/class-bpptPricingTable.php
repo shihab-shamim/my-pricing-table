@@ -40,7 +40,7 @@ if(!class_exists('BPPTPricingTable')) {
 
     public static function  admin_enqueue_scripts($screen) {
         global $pagenow;
-        if ('bppt-pricing-table_page_b-pricing-table-block' === $screen) {
+        if ('bppt-pricing-table_page_my-pricing-table' === $screen) {
             $asset_path = BPPT_PLUGIN_PATH . 'build/admin/dashboard.asset.php';
             $asset_file = file_exists( $asset_path ) ? include $asset_path : null;
             $deps       = ( is_array( $asset_file ) && ! empty( $asset_file['dependencies'] ) ) ? $asset_file['dependencies'] : [ 'react', 'react-dom' ];
@@ -472,7 +472,7 @@ if(!class_exists('BPPTPricingTable')) {
       if (get_option('bppt_do_activation_redirect')) {
           delete_option('bppt_do_activation_redirect');
           if (!is_network_admin() &&!isset($_GET['activate-multi'])) {
-              wp_safe_redirect(admin_url('edit.php?post_type=bppt-pricing-table&page=b-pricing-table-block#/welcome'));
+              wp_safe_redirect(admin_url('edit.php?post_type=bppt-pricing-table&page=my-pricing-table#/welcome'));
             exit;
           }
       }

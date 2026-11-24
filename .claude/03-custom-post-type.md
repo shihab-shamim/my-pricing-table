@@ -48,7 +48,7 @@ Adds a submenu page under the CPT:
 | **Page Title** | Help - bPlugins |
 | **Menu Title** | Help And Demo |
 | **Capability** | `manage_options` |
-| **Menu Slug** | `b-pricing-table-block` |
+| **Menu Slug** | `my-pricing-table` |
 | **Callback** | `bppt_render_dashboard_page()` |
 
 ### Dashboard Page Render

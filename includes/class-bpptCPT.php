@@ -53,7 +53,7 @@ if (! class_exists('BPPTAdmin')) {
                 __('Help - bPlugins', 'bpricing'),
                 __('Help And Demo', 'bpricing'),
                 'manage_options',
-                'b-pricing-table-block',
+                'my-pricing-table',
                 [__CLASS__, 'bppt_render_dashboard_page']
             );
         }

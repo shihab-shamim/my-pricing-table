@@ -113,44 +113,24 @@ export const demoInfo = {
 			title: 'Pricing Templates',
 			children: [
 				{
-					title: 'Default Basic Style',
+					title: 'Pricing Table Preview Style 1',
 					type: 'image',
-					url: 'https://templates.bplugins.com/wp-content/uploads/2025/10/image.png'
+					url: 'https://pricing-table.bplugins.com/wp-content/uploads/2021/06/style-1.png'
 				},
 				{
-					title: 'Default Standard Style',
+					title: 'Pricing Table Preview Style 3',
 					type: 'image',
-					url: 'https://templates.bplugins.com/wp-content/uploads/2025/09/pricing-table-standard-demo.png'
+					url: 'https://pricing-table.bplugins.com/wp-content/uploads/2021/06/style-3.png'
 				},
 				{
-					title: 'Default Ultimate Style',
+					title: 'Pricing Table Preview Style 4',
 					type: 'image',
-					url: 'https://templates.bplugins.com/wp-content/uploads/2025/09/pricing-table-ultimate-demo.png'
+					url: 'https://pricing-table.bplugins.com/wp-content/uploads/2021/06/style-4.png'
 				},
 				{
-					title: 'Horizontal Style',
+					title: 'Pricing Table Preview Style 5',
 					type: 'image',
-					url: 'https://templates.bplugins.com/wp-content/uploads/2025/09/horizantal.png'
-				},
-				{
-					title: 'Minimal Style',
-					type: 'image',
-					url: 'https://templates.bplugins.com/wp-content/uploads/2025/09/test-%E2%80%93-test-2.png'
-				},
-				{
-					title: 'Dark Style',
-					type: 'image',
-					url: 'https://templates.bplugins.com/wp-content/uploads/2025/09/test-%E2%80%93-test-3.png'
-				},
-				{
-					title: 'Switchable Style',
-					type: 'image',
-					url: 'https://templates.bplugins.com/wp-content/uploads/2025/09/test-%E2%80%93-test-4.png'
-				},
-				{
-					title: 'Dark Minimalist Style',
-					type: 'image',
-					url: 'https://templates.bplugins.com/wp-content/uploads/2025/09/pricing-table-darkminimakist.png'
+					url: 'https://pricing-table.bplugins.com/wp-content/uploads/2021/06/style-5.png'
 				}
 			]
 		},
@@ -158,14 +138,14 @@ export const demoInfo = {
 			title: 'Admin Settings',
 			children: [
 				{
-					title: 'Style Selection Dashboard',
+					title: 'Add New Pricing Table',
 					type: 'image',
-					url: `https://ps.w.org/${slug}/assets/screenshot-1.png`
+					url: 'https://pricing-table.bplugins.com/wp-content/uploads/2021/06/pricing-dashboard.png'
 				},
 				{
-					title: 'Table Configuration Panel',
+					title: 'Pricing Table Settings',
 					type: 'image',
-					url: `https://ps.w.org/${slug}/assets/screenshot-2.png`
+					url: 'https://pricing-table.bplugins.com/wp-content/uploads/2021/06/pricing-settings.png'
 				}
 			]
 		}
