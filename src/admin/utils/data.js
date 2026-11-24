@@ -110,52 +110,49 @@ export const demoInfo = {
 	allInOneLink: 'https://pricing-table.bplugins.com',
 	demos: [
 		{
-			title: 'Default Basic Style',
-			type: 'image',
-			url: 'https://templates.bplugins.com/wp-content/uploads/2025/10/image.png',
-			category: 'Default'
+			title: 'Pricing Templates',
+			children: [
+				{
+					title: 'Theme 1 - Classic Style',
+					type: 'image',
+					url: `https://ps.w.org/${slug}/assets/screenshot-3.png`
+				},
+				{
+					title: 'Theme 2 - Ribbon Style',
+					type: 'image',
+					url: `https://ps.w.org/${slug}/assets/screenshot-4.png`
+				},
+				{
+					title: 'Theme 3 - Clean Flat Style',
+					type: 'image',
+					url: `https://ps.w.org/${slug}/assets/screenshot-5.png`
+				},
+				{
+					title: 'Theme 4 - Accent Card Style',
+					type: 'image',
+					url: `https://ps.w.org/${slug}/assets/screenshot-6.png`
+				},
+				{
+					title: 'Theme 5 - Gradient Arrow Style',
+					type: 'image',
+					url: `https://ps.w.org/${slug}/assets/screenshot-7.png`
+				}
+			]
 		},
 		{
-			title: 'Default Standard Style',
-			type: 'image',
-			url: 'https://templates.bplugins.com/wp-content/uploads/2025/09/pricing-table-standard-demo.png',
-			category: 'Default'
-		},
-		{
-			title: 'Default Ultimate Style',
-			type: 'image',
-			url: 'https://templates.bplugins.com/wp-content/uploads/2025/09/pricing-table-ultimate-demo.png',
-			category: 'Default'
-		},
-		{
-			title: 'Horizontal Style',
-			type: 'image',
-			url: 'https://templates.bplugins.com/wp-content/uploads/2025/09/horizantal.png',
-			category: 'Horizontal'
-		},
-		{
-			title: 'Minimal Style',
-			type: 'image',
-			url: 'https://templates.bplugins.com/wp-content/uploads/2025/09/test-%E2%80%93-test-2.png',
-			category: 'Minimal'
-		},
-		{
-			title: 'Dark Style',
-			type: 'image',
-			url: 'https://templates.bplugins.com/wp-content/uploads/2025/09/test-%E2%80%93-test-3.png',
-			category: 'Dark'
-		},
-		{
-			title: 'Switchable Style',
-			type: 'image',
-			url: 'https://templates.bplugins.com/wp-content/uploads/2025/09/test-%E2%80%93-test-4.png',
-			category: 'Switchable'
-		},
-		{
-			title: 'Dark Minimalist Style',
-			type: 'image',
-			url: 'https://templates.bplugins.com/wp-content/uploads/2025/09/pricing-table-darkminimakist.png',
-			category: 'Dark Minimalist'
+			title: 'Admin Settings',
+			children: [
+				{
+					title: 'Style Selection Dashboard',
+					type: 'image',
+					url: `https://ps.w.org/${slug}/assets/screenshot-1.png`
+				},
+				{
+					title: 'Table Configuration Panel',
+					type: 'image',
+					url: `https://ps.w.org/${slug}/assets/screenshot-2.png`
+				}
+			]
 		}
 	]
 };
