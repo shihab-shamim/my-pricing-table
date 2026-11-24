@@ -61,6 +61,28 @@ Liked this plugin? Hate it? Want a new feature? Just let us know: [Send your fee
 3. Use the **Pricing Table** Gutenberg block in the editor, or use the generated shortcode `[bp-table id="..."]` anywhere on your site.
 4. To embed via PHP in your theme template, use: `<?php echo do_shortcode('[bp-table id="YOUR_ID"]'); ?>`
 
+== Frequently Asked Questions ==
+
+= Is My Pricing Table free? =
+
+Yes, My Pricing Table is a free plugin.
+
+= How do I display a pricing table on a page? =
+
+Create a table under **Pricing Table → Add New Pricing Table**, copy the generated shortcode, and paste it into any page, post, or widget.
+
+= Can I change the currency symbol? =
+
+Yes, you can set a custom currency symbol for your prices.
+
+= Can I customize the button text and link? =
+
+Yes, each table supports a custom call-to-action text and link.
+
+= Can I use my own colors? =
+
+Yes. You can use your preferred colors and pick a color scheme to match your website.
+
 == Changelog ==
 
 = 2.0.0 =
