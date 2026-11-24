@@ -684,10 +684,10 @@ ob_start();
 				.<?php echo esc_attr( $unique_id ); ?> .bppt_container .pricingTableTwo .pricingTable-signup a {
 					<?php echo $btn_bg; ?>
 				}
-				<?php elseif ( $btn_bg ) : ?>
+				<?php elseif ( ! empty( $theme_style['btnColors']['bg'] ) ) : ?>
 				.<?php echo esc_attr( $unique_id ); ?> .bppt_container .pricingTableTwo:not(.pink):not(.purple):not(.sky):not(.lemon):not(.red) .pricingTable-signup a,
 				.<?php echo esc_attr( $unique_id ); ?> .bppt_container .pricingTableTwo.default .pricingTable-signup a {
-					<?php echo $btn_bg; ?>
+					background: <?php echo esc_attr( $theme_style['btnColors']['bg'] ); ?>;
 				}
 				<?php endif; ?>
 				<?php if ( $btn_hov_color ) : ?>
@@ -806,10 +806,10 @@ ob_start();
 				.<?php echo esc_attr( $unique_id ); ?> .bppt_table3 .pricingTable .pricingTable-signup-three a {
 					<?php echo $btn_bg; ?>
 				}
-				<?php elseif ( $btn_bg ) : ?>
+				<?php elseif ( ! empty( $theme_style['btnColors']['bg'] ) ) : ?>
 				.<?php echo esc_attr( $unique_id ); ?> .bppt_table3 .pricingTable:not(.purple):not(.pink) .pricingTable-signup-three a,
 				.<?php echo esc_attr( $unique_id ); ?> .bppt_table3 .pricingTable.default .pricingTable-signup-three a {
-					<?php echo $btn_bg; ?>
+					background: <?php echo esc_attr( $theme_style['btnColors']['bg'] ); ?>;
 				}
 				<?php endif; ?>
 				<?php if ( $btn_hov_color ) : ?>
@@ -881,10 +881,10 @@ ob_start();
 				.<?php echo esc_attr( $unique_id ); ?> .priceTableBGBefore .pricingTableFour .pricingSignUp a {
 					<?php echo $btn_bg; ?>
 				}
-				<?php elseif ( $btn_bg ) : ?>
+				<?php elseif ( ! empty( $theme_style['btnColors']['bg'] ) ) : ?>
 				.<?php echo esc_attr( $unique_id ); ?> .priceTableBGBefore .pricingTableFour:not(.purple):not(.orange) .pricingSignUp a,
 				.<?php echo esc_attr( $unique_id ); ?> .priceTableBGBefore .pricingTableFour.default .pricingSignUp a {
-					<?php echo $btn_bg; ?>
+					background: <?php echo esc_attr( $theme_style['btnColors']['bg'] ); ?>;
 				}
 				<?php endif; ?>
 				<?php if ( $btn_hov_color ) : ?>
@@ -955,10 +955,10 @@ ob_start();
 				.<?php echo esc_attr( $unique_id ); ?> .priceTableGradient .pricingTable .pricingSignUp a {
 					<?php echo $btn_bg; ?>
 				}
-				<?php elseif ( $btn_bg ) : ?>
+				<?php elseif ( ! empty( $theme_style['btnColors']['bg'] ) ) : ?>
 				.<?php echo esc_attr( $unique_id ); ?> .priceTableGradient .pricingTable:not(.green):not(.blue) .pricingSignUp a,
 				.<?php echo esc_attr( $unique_id ); ?> .priceTableGradient .pricingTable.default .pricingSignUp a {
-					<?php echo $btn_bg; ?>
+					background: <?php echo esc_attr( $theme_style['btnColors']['bg'] ); ?>;
 				}
 				<?php endif; ?>
 				<?php if ( $btn_hov_color ) : ?>
@@ -982,7 +982,7 @@ ob_start();
 
 		// Individual Column Custom Styles
 		foreach ( $tables as $i => $tbl ) {
-			$plan_sl = '.' . esc_attr( $unique_id ) . ' .bppt-plan-' . $i;
+			$plan_sl = '.' . esc_attr( $unique_id ) . ' .bppt-plan-' . $i . ':not(#_)';
 			$h_bg    = ! empty( $tbl['headerBg'] ) ? esc_attr( is_array( $tbl['headerBg'] ) ? ( $tbl['headerBg']['color'] ?? ( $tbl['headerBg']['bg'] ?? '' ) ) : $tbl['headerBg'] ) : '';
 			$p_bg    = ! empty( $tbl['priceBg'] ) ? esc_attr( is_array( $tbl['priceBg'] ) ? ( $tbl['priceBg']['color'] ?? ( $tbl['priceBg']['bg'] ?? '' ) ) : $tbl['priceBg'] ) : '';
 			$b_bg    = ! empty( $tbl['btnBg'] ) ? esc_attr( is_array( $tbl['btnBg'] ) ? ( $tbl['btnBg']['color'] ?? ( $tbl['btnBg']['bg'] ?? '' ) ) : $tbl['btnBg'] ) : '';
@@ -991,7 +991,7 @@ ob_start();
 
 			switch ( $theme ) {
 				case 'demo-1':
-					$card_sl = '.' . esc_attr( $unique_id ) . ' .bppt_pricing .plan.bppt-plan-' . $i;
+					$card_sl = '.' . esc_attr( $unique_id ) . ' .bppt_pricing .plan.bppt-plan-' . $i . ':not(#_)';
 					if ( $h_bg ) {
 						echo "{$card_sl} .plan-entry-title, {$card_sl} .plan-entry-title > h3, {$card_sl} .price, {$plan_sl} .plan-entry-title, {$plan_sl} .plan-entry-title > h3, {$plan_sl} .price { background: {$h_bg} !important; }\n";
 						echo "{$card_sl} .bttn a, {$plan_sl} .bttn a { background: {$h_bg} !important; }\n";
@@ -1011,7 +1011,7 @@ ob_start();
 					break;
 
 				case 'demo-2':
-					$card_sl = '.' . esc_attr( $unique_id ) . ' .bppt_container .pricingTableTwo.bppt-plan-' . $i;
+					$card_sl = '.' . esc_attr( $unique_id ) . ' .bppt_container .pricingTableTwo.bppt-plan-' . $i . ':not(#_)';
 					if ( $h_bg ) {
 						echo "{$card_sl} .pricingTable-header, {$plan_sl} .pricingTable-header { background: {$h_bg} !important; }\n";
 						echo "{$card_sl} .pricing-content, {$plan_sl} .pricing-content { border-color: {$h_bg} !important; }\n";
@@ -1033,7 +1033,7 @@ ob_start();
 					break;
 
 				case 'demo-3':
-					$card_sl = '.' . esc_attr( $unique_id ) . ' .bppt_table3 .pricingTable.bppt-plan-' . $i;
+					$card_sl = '.' . esc_attr( $unique_id ) . ' .bppt_table3 .pricingTable.bppt-plan-' . $i . ':not(#_)';
 					if ( $h_bg ) {
 						echo "{$card_sl} .title, {$plan_sl} .title { color: {$h_bg} !important; }\n";
 						echo "{$card_sl} .price-value, {$card_sl} .pricingTable-signup-three a, {$plan_sl} .price-value, {$plan_sl} .pricingTable-signup-three a { background: {$h_bg} !important; }\n";
@@ -1053,7 +1053,7 @@ ob_start();
 					break;
 
 				case 'demo-4':
-					$card_sl = '.' . esc_attr( $unique_id ) . ' .priceTableBGBefore .pricingTableFour.bppt-plan-' . $i;
+					$card_sl = '.' . esc_attr( $unique_id ) . ' .priceTableBGBefore .pricingTableFour.bppt-plan-' . $i . ':not(#_)';
 					if ( $h_bg ) {
 						echo "{$card_sl}:before, {$plan_sl}:before { background: {$h_bg} !important; }\n";
 						echo "{$card_sl} .pricingHeader .title, {$plan_sl} .pricingHeader .title { color: {$h_bg} !important; }\n";
@@ -1073,7 +1073,7 @@ ob_start();
 
 				case 'demo-5':
 				default:
-					$card_sl = '.' . esc_attr( $unique_id ) . ' .priceTableGradient .pricingTable.bppt-plan-' . $i;
+					$card_sl = '.' . esc_attr( $unique_id ) . ' .priceTableGradient .pricingTable.bppt-plan-' . $i . ':not(#_)';
 					if ( $h_bg ) {
 						echo "{$card_sl} .pricingHeader, {$plan_sl} .pricingHeader { background: {$h_bg} !important; }\n";
 						echo "{$card_sl} .pricingFeatures li:before, {$plan_sl} .pricingFeatures li:before { background: {$h_bg} !important; }\n";

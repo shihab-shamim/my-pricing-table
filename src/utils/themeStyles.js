@@ -463,7 +463,7 @@ export const generateThemeCSS = (selector, theme = 'demo-1', st = {}, tables = [
 				` : (st.btnColors?.bg ? `
 					${selector} .bppt_container .pricingTableTwo:not(.pink):not(.purple):not(.sky):not(.lemon):not(.red) .pricingTable-signup a,
 					${selector} .bppt_container .pricingTableTwo.default .pricingTable-signup a {
-						background: ${st.btnColors.bg} !important;
+						background: ${st.btnColors.bg};
 					}
 				` : '')}
 				${st.btnTypo?.fontFamily ? getTypoCSS(btn, st.btnTypo)?.styles || '' : ''}
@@ -577,7 +577,7 @@ export const generateThemeCSS = (selector, theme = 'demo-1', st = {}, tables = [
 				` : (st.btnColors?.bg ? `
 					${selector} .bppt_table3 .pricingTable:not(.purple):not(.pink) .pricingTable-signup-three a,
 					${selector} .bppt_table3 .pricingTable.default .pricingTable-signup-three a {
-						background: ${st.btnColors.bg} !important;
+						background: ${st.btnColors.bg};
 					}
 				` : '')}
 				${st.btnTypo?.fontFamily ? getTypoCSS(btn, st.btnTypo)?.styles || '' : ''}
@@ -647,7 +647,7 @@ export const generateThemeCSS = (selector, theme = 'demo-1', st = {}, tables = [
 				` : (st.btnColors?.bg ? `
 					${selector} .priceTableBGBefore .pricingTableFour:not(.purple):not(.orange) .pricingSignUp a,
 					${selector} .priceTableBGBefore .pricingTableFour.default .pricingSignUp a {
-						background: ${st.btnColors.bg} !important;
+						background: ${st.btnColors.bg};
 					}
 				` : '')}
 				${st.btnTypo?.fontFamily ? getTypoCSS(btn, st.btnTypo)?.styles || '' : ''}
@@ -715,7 +715,7 @@ export const generateThemeCSS = (selector, theme = 'demo-1', st = {}, tables = [
 				` : (st.btnColors?.bg ? `
 					${selector} .priceTableGradient .pricingTable:not(.green):not(.blue) .pricingSignUp a,
 					${selector} .priceTableGradient .pricingTable.default .pricingSignUp a {
-						background: ${st.btnColors.bg} !important;
+						background: ${st.btnColors.bg};
 					}
 				` : '')}
 				${st.btnTypo?.fontFamily ? getTypoCSS(btn, st.btnTypo)?.styles || '' : ''}
@@ -739,7 +739,7 @@ export const generateThemeCSS = (selector, theme = 'demo-1', st = {}, tables = [
 
 	// 2. Individual Column Custom Colors from ItemsPanel (takes highest precedence)
 	tables.forEach((tbl, i) => {
-		const planSl = `${selector} .bppt-plan-${i}`;
+		const planSl = `${selector} .bppt-plan-${i}:not(#_)`;
 		const hBg = typeof tbl.headerBg === 'object' && tbl.headerBg !== null ? (tbl.headerBg.color || tbl.headerBg.bg || '') : (tbl.headerBg || '');
 		const pBg = typeof tbl.priceBg === 'object' && tbl.priceBg !== null ? (tbl.priceBg.color || tbl.priceBg.bg || '') : (tbl.priceBg || '');
 		const bBg = typeof tbl.btnBg === 'object' && tbl.btnBg !== null ? (tbl.btnBg.color || tbl.btnBg.bg || '') : (tbl.btnBg || '');
@@ -748,7 +748,7 @@ export const generateThemeCSS = (selector, theme = 'demo-1', st = {}, tables = [
 
 		switch (theme) {
 			case 'demo-1': {
-				const cardSl = `${selector} .bppt_pricing .plan.bppt-plan-${i}`;
+				const cardSl = `${selector} .bppt_pricing .plan.bppt-plan-${i}:not(#_)`;
 				if (hBg) {
 					specificCSS += `
 						${cardSl} .plan-entry-title,
@@ -806,7 +806,7 @@ export const generateThemeCSS = (selector, theme = 'demo-1', st = {}, tables = [
 			}
 
 			case 'demo-2': {
-				const cardSl = `${selector} .bppt_container .pricingTableTwo.bppt-plan-${i}`;
+				const cardSl = `${selector} .bppt_container .pricingTableTwo.bppt-plan-${i}:not(#_)`;
 				if (hBg) {
 					specificCSS += `
 						${cardSl} .pricingTable-header,
@@ -876,7 +876,7 @@ export const generateThemeCSS = (selector, theme = 'demo-1', st = {}, tables = [
 			}
 
 			case 'demo-3': {
-				const cardSl = `${selector} .bppt_table3 .pricingTable.bppt-plan-${i}`;
+				const cardSl = `${selector} .bppt_table3 .pricingTable.bppt-plan-${i}:not(#_)`;
 				if (hBg) {
 					specificCSS += `
 						${cardSl} .title,
@@ -934,7 +934,7 @@ export const generateThemeCSS = (selector, theme = 'demo-1', st = {}, tables = [
 			}
 
 			case 'demo-4': {
-				const cardSl = `${selector} .priceTableBGBefore .pricingTableFour.bppt-plan-${i}`;
+				const cardSl = `${selector} .priceTableBGBefore .pricingTableFour.bppt-plan-${i}:not(#_)`;
 				if (hBg) {
 					specificCSS += `
 						${cardSl}:before,
@@ -987,7 +987,7 @@ export const generateThemeCSS = (selector, theme = 'demo-1', st = {}, tables = [
 
 			case 'demo-5':
 			default: {
-				const cardSl = `${selector} .priceTableGradient .pricingTable.bppt-plan-${i}`;
+				const cardSl = `${selector} .priceTableGradient .pricingTable.bppt-plan-${i}:not(#_)`;
 				if (hBg) {
 					specificCSS += `
 						${cardSl} .pricingHeader,
