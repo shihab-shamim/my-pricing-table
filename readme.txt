@@ -10,7 +10,7 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 
-A lightweight plugin that helps you create and embed beautiful, responsive pricing tables in minutes.
+A lightweight plugin that helps you create and embed beautiful, responsive pricing tables in minutes(development).
 
 == Description ==
 
